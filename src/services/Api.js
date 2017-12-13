@@ -10,13 +10,11 @@ const API = {
 		return fetch(marketDataURL).then(res => res.json());
 	},
 
-	fetchCoinList: () => {
-		console.log("inside API, fetch coin list");
+	fetchAllCoins: () => {
+		console.log("inside API, fetch all coins");
 		console.log("--------------------------------------");
 
-		return fetch(coinListURL)
-			.then(res => res.json())
-			.then(res => console.log(res));
+		return fetch(coinListURL).then(res => res.json());
 	}
 };
 

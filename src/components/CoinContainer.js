@@ -13,6 +13,7 @@ class CoinContainer extends Component {
 		console.log("props: ", this.props);
 		console.log("--------------------------------------");
 
+		this.props.fetchAllCoins();
 		this.props.fetchMarketData();
 	}
 
@@ -23,14 +24,18 @@ class CoinContainer extends Component {
 
 		return (
 			<div>
-				<CoinList marketData={this.props.marketData} />
+				<CoinList
+					marketData={this.props.marketData}
+					allCoins={this.props.allCoins}
+				/>
 			</div>
 		);
 	}
 }
 
 const mapStateToProps = state => ({
-	marketData: state.marketData
+	marketData: state.marketData,
+	allCoins: state.allCoins
 });
 
 export default connect(mapStateToProps, actions)(CoinContainer);

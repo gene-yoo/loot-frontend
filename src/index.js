@@ -11,7 +11,7 @@ import "./index.css";
 console.log("inside index.js");
 console.log("--------------------------------------");
 
-const defaultInitialState = { marketData: [] };
+const defaultInitialState = { marketData: [], allCoins: [] };
 
 const reducer = (state = defaultInitialState, action) => {
 	switch (action.type) {
@@ -22,6 +22,14 @@ const reducer = (state = defaultInitialState, action) => {
 			console.log("--------------------------------------");
 
 			return { ...state, marketData: action.payload };
+
+		case FETCH_ALL_COINS:
+			console.log("inside reducer, fetch all coins");
+			console.log("state: ", state);
+			console.log("action: ", action);
+			console.log("--------------------------------------");
+
+			return { ...state, allCoins: action.payload };
 
 		default:
 			console.log("inside reducer, default case");
