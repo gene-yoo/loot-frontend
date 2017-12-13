@@ -1,4 +1,4 @@
-import { FETCH_MARKET_DATA } from "./types.js";
+import { FETCH_MARKET_DATA, FETCH_COIN_LIST } from "./types.js";
 import API from "../services/Api";
 
 export function fetchMarketData() {

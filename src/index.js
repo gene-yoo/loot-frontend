@@ -5,8 +5,11 @@ import { Provider } from "react-redux";
 import reduxThunk from "redux-thunk";
 import App from "./App";
 
-import { FETCH_MARKET_DATA } from "./actions/types";
+import { FETCH_MARKET_DATA, FETCH_ALL_COINS } from "./actions/types";
 import "./index.css";
+
+console.log("inside index.js");
+console.log("--------------------------------------");
 
 const defaultInitialState = { marketData: [] };
 

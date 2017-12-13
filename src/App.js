@@ -8,6 +8,9 @@ class App extends Component {
 	}
 
 	render() {
+		console.log("inside app, render");
+		console.log("--------------------------------------");
+
 		return (
 			<div>
 				<CoinContainer />

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions/functions";
+import CoinList from "./CoinList";
 
 class CoinContainer extends Component {
 	constructor(props) {
@@ -8,16 +9,23 @@ class CoinContainer extends Component {
 	}
 
 	componentDidMount() {
+		console.log("inside coin container, comp did mount");
+		console.log("props: ", this.props);
+		console.log("--------------------------------------");
+
 		this.props.fetchMarketData();
 	}
 
 	render() {
 		console.log("inside coin container, render");
 		console.log("props: ", this.props);
-		console.log("store: ", this.store);
 		console.log("--------------------------------------");
 
-		return <div>Inside Coin Container</div>;
+		return (
+			<div>
+				<CoinList marketData={this.props.marketData} />
+			</div>
+		);
 	}
 }
 

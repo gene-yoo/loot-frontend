@@ -1,1 +1,2 @@
 export const FETCH_MARKET_DATA = "FETCH_MARKET_DATA";
+export const FETCH_ALL_COINS = "FETCH_ALL_COINS";
