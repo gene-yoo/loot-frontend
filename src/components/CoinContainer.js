@@ -13,8 +13,7 @@ class CoinContainer extends Component {
 		console.log("props: ", this.props);
 		console.log("--------------------------------------");
 
-		this.props.fetchAllCoins();
-		this.props.fetchMarketData();
+		this.props.fetchAllCoinsAndMarketData();
 	}
 
 	render() {

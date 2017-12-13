@@ -1,13 +1,13 @@
 const marketDataURL =
-	"https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC&tsyms=USD";
+	"https://min-api.cryptocompare.com/data/pricemultifull?tsyms=USD&fsyms=";
 const coinListURL = "https://min-api.cryptocompare.com/data/all/coinlist";
 
 const API = {
-	fetchMarketData: () => {
+	fetchMarketData: coinSyms => {
 		console.log("inside API, fetch market data");
 		console.log("--------------------------------------");
 
-		return fetch(marketDataURL).then(res => res.json());
+		return fetch(marketDataURL + coinSyms.join(",")).then(res => res.json());
 	},
 
 	fetchAllCoins: () => {

@@ -11,7 +11,7 @@ import "./index.css";
 console.log("inside index.js");
 console.log("--------------------------------------");
 
-const defaultInitialState = { marketData: [], allCoins: [] };
+const defaultInitialState = { marketData: {}, allCoins: [] };
 
 const reducer = (state = defaultInitialState, action) => {
 	switch (action.type) {
