@@ -9,7 +9,7 @@ const CoinList = props => {
 	let coins = "Loading ...";
 
 	if (props.marketData.DISPLAY) {
-		coins = props.allCoins.slice(0, 5).map(coin => {
+		coins = props.allCoins.slice(0, 49).map(coin => {
 			let coinData = props.marketData.DISPLAY[coin.Symbol]["USD"];
 			return (
 				<Table.Row key={coin.Id} style={{ height: "50px" }}>

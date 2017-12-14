@@ -33,7 +33,11 @@ const CoinChart = props => {
 		]
 	};
 
-	return <Line data={data} />;
+	return (
+		<div style={{ width: "1000px", height: "400px" }}>
+			<Line data={data} options={{ maintainAspectRatio: false }} />
+		</div>
+	);
 };
 
 // const CoinChart = props => {

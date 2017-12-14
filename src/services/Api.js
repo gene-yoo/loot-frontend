@@ -2,7 +2,7 @@ const marketDataURL =
 	"https://min-api.cryptocompare.com/data/pricemultifull?tsyms=USD&fsyms=";
 const coinListURL = "https://min-api.cryptocompare.com/data/all/coinlist";
 const coinHistoURL =
-	"https://min-api.cryptocompare.com/data/histominute?fsym=BTC&tsym=USD&limit=60&aggregate=3&e=CCCAGG";
+	"https://min-api.cryptocompare.com/data/histominute?fsym=BTC&tsym=USD&limit=1440&aggregate=3&e=CCCAGG";
 
 const API = {
 	fetchMarketData: coinSyms => {

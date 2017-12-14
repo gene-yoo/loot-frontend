@@ -43,7 +43,7 @@ export function fetchAllCoinsAndMarketData() {
 				return coins;
 			})
 			.then(coins => {
-				let coinSyms = coins.slice(0, 50).map(coin => coin.Symbol);
+				let coinSyms = coins.slice(0, 49).map(coin => coin.Symbol);
 
 				API.fetchMarketData(coinSyms).then(res =>
 					dispatch({

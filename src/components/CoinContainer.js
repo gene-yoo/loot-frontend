@@ -21,12 +21,12 @@ class CoinContainer extends Component {
 
 		return (
 			<div>
+				<CoinChart coinHisto={this.props.coinHisto} />
+				<br />
 				<CoinList
 					marketData={this.props.marketData}
 					allCoins={this.props.allCoins}
 				/>
-				<br />
-				<CoinChart coinHisto={this.props.coinHisto} />
 			</div>
 		);
 	}
