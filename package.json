@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "chart.js": "^1.1.1",
     "react": "^16.2.0",
     "react-chartjs": "^0.8.0",
     "react-dom": "^16.2.0",
@@ -19,5 +18,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "chart.js": "^2.7.1",
+    "install-peers": "^1.0.2",
+    "react-chartjs-2": "^2.6.4"
   }
 }
