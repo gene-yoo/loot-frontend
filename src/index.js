@@ -5,13 +5,17 @@ import { Provider } from "react-redux";
 import reduxThunk from "redux-thunk";
 import App from "./App";
 
-import { FETCH_MARKET_DATA, FETCH_ALL_COINS } from "./actions/types";
+import {
+	FETCH_MARKET_DATA,
+	FETCH_ALL_COINS,
+	FETCH_COIN_HISTO
+} from "./actions/types";
 import "./index.css";
 
 console.log("inside index.js");
 console.log("--------------------------------------");
 
-const defaultInitialState = { marketData: {}, allCoins: [] };
+const defaultInitialState = { marketData: {}, allCoins: [], coinHisto: [] };
 
 const reducer = (state = defaultInitialState, action) => {
 	switch (action.type) {
@@ -30,6 +34,13 @@ const reducer = (state = defaultInitialState, action) => {
 			console.log("--------------------------------------");
 
 			return { ...state, allCoins: action.payload };
+
+		case FETCH_COIN_HISTO:
+			console.log("inside reducer, fetch coin histo");
+			console.log("state: ", state);
+			console.log("action: ", action);
+			console.log("--------------------------------------");
+			return { ...state, coinHisto: action.payload };
 
 		default:
 			console.log("inside reducer, default case");

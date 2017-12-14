@@ -1,4 +1,9 @@
-import { FETCH_MARKET_DATA, FETCH_ALL_COINS } from "./types.js";
+import {
+	FETCH_MARKET_DATA,
+	FETCH_ALL_COINS,
+	FETCH_COIN_HISTO
+} from "./types.js";
+
 import API from "../services/Api";
 
 // export function fetchMarketData() {
@@ -50,4 +55,17 @@ export function fetchAllCoinsAndMarketData() {
 	};
 }
 
-export function fetchMarketDataByCoins() {}
+export function fetchCoinHistoData() {
+	return dispatch => {
+		console.log("inside actions/functions, fetchCoinHistoData");
+		console.log("--------------------------------------");
+
+		return API.fetchCoinHistoData().then(res => {
+			console.log("coin histo response: ", res);
+			dispatch({
+				type: FETCH_COIN_HISTO,
+				payload: res.Data
+			});
+		});
+	};
+}

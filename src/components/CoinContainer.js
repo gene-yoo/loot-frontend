@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions/functions";
 import CoinList from "./CoinList";
+import CoinChart from "./CoinChart";
 
 class CoinContainer extends Component {
 	componentDidMount() {
@@ -10,6 +11,7 @@ class CoinContainer extends Component {
 		console.log("--------------------------------------");
 
 		this.props.fetchAllCoinsAndMarketData();
+		this.props.fetchCoinHistoData();
 	}
 
 	render() {
@@ -23,6 +25,8 @@ class CoinContainer extends Component {
 					marketData={this.props.marketData}
 					allCoins={this.props.allCoins}
 				/>
+				<br />
+				<CoinChart coinHisto={this.props.coinHisto} />
 			</div>
 		);
 	}
@@ -30,7 +34,8 @@ class CoinContainer extends Component {
 
 const mapStateToProps = state => ({
 	marketData: state.marketData,
-	allCoins: state.allCoins
+	allCoins: state.allCoins,
+	coinHisto: state.coinHisto
 });
 
 export default connect(mapStateToProps, actions)(CoinContainer);
