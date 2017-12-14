@@ -4,10 +4,6 @@ import * as actions from "../actions/functions";
 import CoinList from "./CoinList";
 
 class CoinContainer extends Component {
-	constructor(props) {
-		super(props);
-	}
-
 	componentDidMount() {
 		console.log("inside coin container, comp did mount");
 		console.log("props: ", this.props);

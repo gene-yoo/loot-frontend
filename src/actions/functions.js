@@ -27,7 +27,7 @@ export function fetchAllCoinsAndMarketData() {
 					coins.push(res["Data"][coin]);
 				}
 				coins.sort((a, b) => {
-					return parseInt(a.SortOrder) - parseInt(b.SortOrder);
+					return parseInt(a.SortOrder, 10) - parseInt(b.SortOrder, 10);
 				});
 
 				dispatch({
