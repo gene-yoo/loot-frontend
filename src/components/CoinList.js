@@ -11,15 +11,19 @@ const CoinList = props => {
 	if (props.marketData.DISPLAY) {
 		coins = props.allCoins.slice(0, 49).map(coin => {
 			let coinData = props.marketData.DISPLAY[coin.Symbol]["USD"];
-			let status =
+			let priceChangeStatus =
 				props.marketData.RAW[coin.Symbol]["USD"]["CHANGE24HOUR"] > 0
 					? "green"
 					: "red";
+			let selected = props.selectedSym === coin.Symbol ? "#E3F6FC" : "white";
 
 			return (
 				<Table.Row
 					key={coin.Id}
-					style={{ height: "50px" }}
+					style={{
+						height: "50px",
+						backgroundColor: selected
+					}}
 					onClick={() => props.handleChartSelection(coin.Symbol)}
 				>
 					<Table.Cell>{coin.SortOrder}</Table.Cell>
@@ -33,7 +37,7 @@ const CoinList = props => {
 					<Table.Cell>{coin.Symbol}</Table.Cell>
 					<Table.Cell>{coinData.MKTCAP}</Table.Cell>
 					<Table.Cell>{coinData.PRICE}</Table.Cell>
-					<Table.Cell style={{ color: status }}>
+					<Table.Cell style={{ color: priceChangeStatus }}>
 						{coinData.CHANGE24HOUR}
 					</Table.Cell>
 					<Table.Cell>{coinData.HIGH24HOUR}</Table.Cell>

@@ -59,6 +59,7 @@ class CoinContainer extends Component {
 					marketData={this.props.marketData}
 					allCoins={this.props.allCoins}
 					handleChartSelection={this.handleChartSelection}
+					selectedSym={this.state.selectedSym}
 				/>
 			</div>
 		);

@@ -61,7 +61,6 @@ export function fetchCoinHistoData(coinSym) {
 		console.log("--------------------------------------");
 
 		return API.fetchCoinHistoData(coinSym).then(res => {
-			console.log("coin histo response: ", res);
 			dispatch({
 				type: FETCH_COIN_HISTO,
 				payload: res.Data
