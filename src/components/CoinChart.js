@@ -10,7 +10,7 @@ const CoinChart = props => {
 		labels: props.coinHisto.map(coin => coin.time),
 		datasets: [
 			{
-				label: "BTC (Close)",
+				label: `${props.selectedSym} (Close)`,
 				fill: false,
 				lineTension: 0.1,
 				backgroundColor: "rgba(153,204,255,0.4)",

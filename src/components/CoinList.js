@@ -12,7 +12,11 @@ const CoinList = props => {
 		coins = props.allCoins.slice(0, 49).map(coin => {
 			let coinData = props.marketData.DISPLAY[coin.Symbol]["USD"];
 			return (
-				<Table.Row key={coin.Id} style={{ height: "50px" }}>
+				<Table.Row
+					key={coin.Id}
+					style={{ height: "50px" }}
+					onClick={() => props.handleChartSelection(coin.Symbol)}
+				>
 					<Table.Cell>{coin.SortOrder}</Table.Cell>
 					<Table.Cell verticalAlign="middle">
 						<Image

@@ -55,12 +55,12 @@ export function fetchAllCoinsAndMarketData() {
 	};
 }
 
-export function fetchCoinHistoData() {
+export function fetchCoinHistoData(coinSym) {
 	return dispatch => {
 		console.log("inside actions/functions, fetchCoinHistoData");
 		console.log("--------------------------------------");
 
-		return API.fetchCoinHistoData().then(res => {
+		return API.fetchCoinHistoData(coinSym).then(res => {
 			console.log("coin histo response: ", res);
 			dispatch({
 				type: FETCH_COIN_HISTO,

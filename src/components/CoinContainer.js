@@ -5,13 +5,36 @@ import CoinList from "./CoinList";
 import CoinChart from "./CoinChart";
 
 class CoinContainer extends Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			selectedSym: "BTC"
+		};
+
+		this.handleChartSelection = this.handleChartSelection.bind(this);
+	}
+
 	componentDidMount() {
 		console.log("inside coin container, comp did mount");
 		console.log("props: ", this.props);
 		console.log("--------------------------------------");
 
 		this.props.fetchAllCoinsAndMarketData();
-		this.props.fetchCoinHistoData();
+		this.props.fetchCoinHistoData(this.state.selectedSym);
+	}
+
+	handleChartSelection(coinSym) {
+		console.log("inside coin container, handle chart selection");
+		console.log("coin symbol: ", coinSym);
+		console.log("--------------------------------------");
+
+		this.setState(
+			{
+				selectedSym: coinSym
+			},
+			() => this.props.fetchCoinHistoData(this.state.selectedSym)
+		);
 	}
 
 	render() {
@@ -21,11 +44,15 @@ class CoinContainer extends Component {
 
 		return (
 			<div>
-				<CoinChart coinHisto={this.props.coinHisto} />
+				<CoinChart
+					coinHisto={this.props.coinHisto}
+					selectedSym={this.state.selectedSym}
+				/>
 				<br />
 				<CoinList
 					marketData={this.props.marketData}
 					allCoins={this.props.allCoins}
+					handleChartSelection={this.handleChartSelection}
 				/>
 			</div>
 		);
