@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import * as actions from "../actions/functions";
 import CoinList from "./CoinList";
 import CoinChart from "./CoinChart";
+import CoinSearch from "./CoinSearch";
 
 class CoinContainer extends Component {
 	constructor(props) {
@@ -52,6 +53,8 @@ class CoinContainer extends Component {
 					coinHisto={this.props.coinHisto}
 					selectedSym={this.state.selectedSym}
 				/>
+				<br />
+				<CoinSearch />
 				<br />
 				<CoinList
 					marketData={this.props.marketData}
