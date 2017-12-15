@@ -1,5 +1,5 @@
 import React from "react";
-import { Input } from "semantic-ui-react";
+import { Input, Header } from "semantic-ui-react";
 
 const CoinSearch = props => {
 	console.log("inside coin search, render");
@@ -7,8 +7,15 @@ const CoinSearch = props => {
 	console.log("--------------------------------------");
 
 	return (
-		<div>
-			<Input icon="search" placeholder="Search..." />
+		<div style={{ textAlign: "center" }}>
+			<Header as="h3" style={{ display: "inline-block", paddingRight: "10px" }}>
+				Filter:
+			</Header>
+			<Input
+				icon="search"
+				placeholder="Search by Coin..."
+				style={{ width: "700px" }}
+			/>
 		</div>
 	);
 };

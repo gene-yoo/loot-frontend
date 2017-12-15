@@ -12,7 +12,7 @@ class App extends Component {
 		console.log("--------------------------------------");
 
 		return (
-			<div>
+			<div style={{ textAlign: "center" }}>
 				<CoinContainer />
 			</div>
 		);

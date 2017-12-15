@@ -30,7 +30,11 @@ const CoinList = props => {
 					<Table.Cell verticalAlign="middle">
 						<Image
 							src={`https://www.cryptocompare.com${coin.ImageUrl}`}
-							style={{ maxWidth: "20px", paddingRight: "10px" }}
+							style={{
+								maxWidth: "30px",
+								paddingRight: "10px",
+								display: "inline-block"
+							}}
 						/>
 						{coin.CoinName}
 					</Table.Cell>
@@ -48,7 +52,7 @@ const CoinList = props => {
 	}
 
 	return (
-		<Table textAlign="left" style={{ width: "1000px" }}>
+		<Table selectable textAlign="left" style={{ width: "1000px" }}>
 			<Table.Header>
 				<Table.Row style={{ height: "25px" }}>
 					<Table.HeaderCell>Rank</Table.HeaderCell>

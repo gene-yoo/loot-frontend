@@ -55,7 +55,6 @@ class CoinContainer extends Component {
 				/>
 				<br />
 				<CoinSearch />
-				<br />
 				<CoinList
 					marketData={this.props.marketData}
 					allCoins={this.props.allCoins}
