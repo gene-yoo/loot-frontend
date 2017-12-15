@@ -11,8 +11,6 @@ class CoinContainer extends Component {
 		this.state = {
 			selectedSym: "BTC"
 		};
-
-		this.handleChartSelection = this.handleChartSelection.bind(this);
 	}
 
 	componentDidMount() {
@@ -23,14 +21,14 @@ class CoinContainer extends Component {
 		this.props.fetchAllCoinsAndMarketData();
 		this.props.fetchCoinHistoData(this.state.selectedSym);
 
-		setInterval(() => this.props.fetchAllCoinsAndMarketData(), 60000);
+		setInterval(() => this.props.fetchAllCoinsAndMarketData(), 15000);
 		setInterval(
 			() => this.props.fetchCoinHistoData(this.state.selectedSym),
-			60000
+			15000
 		);
 	}
 
-	handleChartSelection(coinSym) {
+	handleChartSelection = coinSym => {
 		console.log("inside coin container, handle chart selection");
 		console.log("coin symbol: ", coinSym);
 		console.log("--------------------------------------");
@@ -41,7 +39,7 @@ class CoinContainer extends Component {
 			},
 			() => this.props.fetchCoinHistoData(this.state.selectedSym)
 		);
-	}
+	};
 
 	render() {
 		console.log("inside coin container, render");
