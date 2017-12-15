@@ -11,6 +11,11 @@ const CoinList = props => {
 	if (props.marketData.DISPLAY) {
 		coins = props.allCoins.slice(0, 49).map(coin => {
 			let coinData = props.marketData.DISPLAY[coin.Symbol]["USD"];
+			let status =
+				props.marketData.RAW[coin.Symbol]["USD"]["CHANGE24HOUR"] > 0
+					? "green"
+					: "red";
+
 			return (
 				<Table.Row
 					key={coin.Id}
@@ -28,7 +33,9 @@ const CoinList = props => {
 					<Table.Cell>{coin.Symbol}</Table.Cell>
 					<Table.Cell>{coinData.MKTCAP}</Table.Cell>
 					<Table.Cell>{coinData.PRICE}</Table.Cell>
-					<Table.Cell>{coinData.CHANGE24HOUR}</Table.Cell>
+					<Table.Cell style={{ color: status }}>
+						{coinData.CHANGE24HOUR}
+					</Table.Cell>
 					<Table.Cell>{coinData.HIGH24HOUR}</Table.Cell>
 					<Table.Cell>{coinData.LOW24HOUR}</Table.Cell>
 				</Table.Row>

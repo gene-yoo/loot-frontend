@@ -22,6 +22,12 @@ class CoinContainer extends Component {
 
 		this.props.fetchAllCoinsAndMarketData();
 		this.props.fetchCoinHistoData(this.state.selectedSym);
+
+		setInterval(() => this.props.fetchAllCoinsAndMarketData(), 60000);
+		setInterval(
+			() => this.props.fetchCoinHistoData(this.state.selectedSym),
+			60000
+		);
 	}
 
 	handleChartSelection(coinSym) {
