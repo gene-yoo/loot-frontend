@@ -39,7 +39,7 @@ export function fetchAllCoinsAndMarketData() {
 					type: FETCH_ALL_COINS,
 					payload: coins
 				});
-
+				console.log("coins are: ", coins);
 				return coins;
 			})
 			.then(coins => {
