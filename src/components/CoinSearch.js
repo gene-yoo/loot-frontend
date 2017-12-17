@@ -3,7 +3,7 @@ import { Input, Header } from "semantic-ui-react";
 
 const CoinSearch = props => {
 	console.log("inside coin search, render");
-	console.log("props: ", this.props);
+	console.log("props: ", props);
 	console.log("--------------------------------------");
 
 	return (
@@ -15,6 +15,8 @@ const CoinSearch = props => {
 				icon="search"
 				placeholder="Search by Coin..."
 				style={{ width: "700px" }}
+				onChange={props.handleSearchTerm}
+				value={props.searchTerm}
 			/>
 		</div>
 	);
