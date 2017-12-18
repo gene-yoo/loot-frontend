@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Menu, Container } from "semantic-ui-react";
+import { Menu, Container, Button } from "semantic-ui-react";
+import { withRouter } from "react-router-dom";
 
 class Navbar extends Component {
 	render() {
@@ -14,7 +15,24 @@ class Navbar extends Component {
 			>
 				<Container>
 					<Menu.Item>Home</Menu.Item>
-					<Menu.Item>Todays Markets</Menu.Item>
+					<Menu.Item>
+						<Button
+							as="a"
+							inverted
+							onClick={() => this.props.history.push("/markets")}
+						>
+							Todays Markets
+						</Button>
+					</Menu.Item>
+					<Menu.Item>
+						<Button
+							as="a"
+							inverted
+							onClick={() => this.props.history.push("/signup")}
+						>
+							Signup
+						</Button>
+					</Menu.Item>
 					<Menu.Item>My Porfolio</Menu.Item>
 				</Container>
 			</Menu>
@@ -22,4 +40,4 @@ class Navbar extends Component {
 	}
 }
 
-export default Navbar;
+export default withRouter(Navbar);

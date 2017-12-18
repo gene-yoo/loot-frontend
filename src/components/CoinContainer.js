@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions/functions";
+
+import { Route, Switch, withRouter } from "react-router-dom";
+import { Segment } from "semantic-ui-react";
+
 import CoinList from "./CoinList";
 import CoinChart from "./CoinChart";
 import CoinSearch from "./CoinSearch";
 import Navbar from "./Navbar";
-import { Route, Switch, withRouter } from "react-router-dom";
-import { Segment } from "semantic-ui-react";
+import Signup from "./Signup";
 
 class CoinContainer extends Component {
 	constructor(props) {
@@ -59,6 +62,11 @@ class CoinContainer extends Component {
 		}
 	}
 
+	componentWillUnmount() {
+		console.log("inside coin container, component will unmount");
+		console.log("--------------------------------------");
+	}
+
 	handleChartSelection = coinSym => {
 		console.log("inside coin container, handle chart selection");
 		console.log("coin symbol: ", coinSym);
@@ -103,7 +111,13 @@ class CoinContainer extends Component {
 				<Segment attached="bottom">
 					<Switch>
 						<Route
-							path="/"
+							path="/signup"
+							render={() => {
+								return <Signup />;
+							}}
+						/>
+						<Route
+							path="/markets"
 							render={() => {
 								return (
 									<div>
