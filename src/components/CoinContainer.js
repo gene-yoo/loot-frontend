@@ -12,7 +12,7 @@ class CoinContainer extends Component {
 		this.state = {
 			selectedSym: "BTC",
 			searchTerm: "",
-			filteredCoins: ["BTC", "ETH"]
+			filteredCoins: ["BTC"]
 		};
 	}
 
@@ -22,7 +22,7 @@ class CoinContainer extends Component {
 		console.log("--------------------------------------");
 
 		this.props.fetchAllCoins();
-		this.props.fetchMarketData(this.state.filteredCoins);
+		// this.props.fetchMarketData(this.state.filteredCoins);
 		this.props.fetchCoinHistoData(this.state.selectedSym);
 
 		// setInterval(() => this.props.fetchAllCoins(), 60000);
@@ -30,6 +30,32 @@ class CoinContainer extends Component {
 		// 	() => this.props.fetchCoinHistoData(this.state.selectedSym),
 		// 	60000
 		// );
+	}
+
+	componentWillReceiveProps(nextProps) {
+		console.log("inside coin container, component will receive props");
+		console.log("next Props: ", nextProps);
+		console.log("--------------------------------------");
+
+		if (nextProps.allCoins !== this.props.allCoins) {
+			let coins = nextProps.allCoins
+				.sort((a, b) => parseInt(a.SortOrder, 10) - parseInt(b.SortOrder, 10))
+				.map(coin => coin.Symbol)
+				.slice(0, 49);
+
+			console.log(
+				"inside coin container, component will receive props -- if statement"
+			);
+			console.log("coins are: ", coins);
+			console.log("--------------------------------------");
+
+			this.setState(
+				{
+					filteredCoins: coins
+				},
+				() => nextProps.fetchMarketData(this.state.filteredCoins)
+			);
+		}
 	}
 
 	handleChartSelection = coinSym => {

@@ -3,7 +3,7 @@ import { Table, Image } from "semantic-ui-react";
 
 class CoinList extends Component {
 	filterCoins() {
-		console.log("inside coin list, filter coins");
+		// console.log("inside coin list, filter coins");
 		return this.props.allCoins.filter(coin =>
 			Object.keys(this.props.marketData.DISPLAY).includes(coin.Symbol)
 		);
@@ -12,32 +12,31 @@ class CoinList extends Component {
 	renderCoins() {
 		let coins = "Loading ...";
 
-		console.log(
-			"inside coin list, render coins - marketData: ",
-			this.props.marketData
-		);
+		// console.log(
+		// 	"inside coin list, render coins - marketData: ",
+		// 	this.props.marketData
+		// );
 		let marketDataKeys = this.props.marketData.DISPLAY
 			? Object.keys(this.props.marketData.DISPLAY)
 			: [];
 		let updateStatus = marketDataKeys.every(key =>
 			this.props.filteredCoins.includes(key)
 		);
-		console.log(
-			"inside coin list, render coins - marketDataKeys: ",
-			marketDataKeys
-		);
-		console.log(
-			"inside coin list, render coins - filteredCoins: ",
-			this.props.filteredCoins
-		);
-		console.log(
-			"inside coin list, render coins - updateStatus: ",
-			updateStatus
-		);
+		// console.log(
+		// 	"inside coin list, render coins - filteredCoins: ",
+		// 	this.props.filteredCoins
+		// );
+		// console.log(
+		// 	"inside coin list, render coins - marketDataKeys: ",
+		// 	marketDataKeys
+		// );
+		// console.log(
+		// 	"inside coin list, render coins - updateStatus: ",
+		// 	updateStatus
+		// );
 
 		if (this.props.marketData.DISPLAY && updateStatus) {
 			coins = this.filterCoins().map(coin => {
-				console.log("inside coin list, render coins map");
 				let coinData = this.props.marketData.DISPLAY[coin.Symbol]["USD"];
 				let priceChangeStatus =
 					this.props.marketData.RAW[coin.Symbol]["USD"]["CHANGE24HOUR"] > 0
