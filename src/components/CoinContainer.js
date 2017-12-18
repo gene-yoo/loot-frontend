@@ -4,6 +4,9 @@ import * as actions from "../actions/functions";
 import CoinList from "./CoinList";
 import CoinChart from "./CoinChart";
 import CoinSearch from "./CoinSearch";
+import Navbar from "./Navbar";
+import { Route, Switch, withRouter } from "react-router-dom";
+import { Segment } from "semantic-ui-react";
 
 class CoinContainer extends Component {
 	constructor(props) {
@@ -27,7 +30,7 @@ class CoinContainer extends Component {
 		setInterval(() => {
 			this.props.fetchMarketData(this.state.filteredCoins);
 			this.props.fetchCoinHistoData(this.state.selectedSym);
-		}, 15000);
+		}, 60000);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -95,23 +98,38 @@ class CoinContainer extends Component {
 
 		return (
 			<div>
-				<CoinChart
-					coinHisto={this.props.coinHisto}
-					selectedSym={this.state.selectedSym}
-				/>
-				<br />
-				<CoinSearch
-					handleSearchTerm={this.handleSearchTerm}
-					searchTerm={this.state.searchTerm}
-				/>
-				<CoinList
-					marketData={this.props.marketData}
-					allCoins={this.props.allCoins}
-					filteredCoins={this.state.filteredCoins}
-					handleChartSelection={this.handleChartSelection}
-					selectedSym={this.state.selectedSym}
-					searchTerm={this.state.searchTerm}
-				/>
+				<Navbar />
+
+				<Segment attached="bottom">
+					<Switch>
+						<Route
+							path="/"
+							render={() => {
+								return (
+									<div>
+										<CoinChart
+											coinHisto={this.props.coinHisto}
+											selectedSym={this.state.selectedSym}
+										/>
+										<br />
+										<CoinSearch
+											handleSearchTerm={this.handleSearchTerm}
+											searchTerm={this.state.searchTerm}
+										/>
+										<CoinList
+											marketData={this.props.marketData}
+											allCoins={this.props.allCoins}
+											filteredCoins={this.state.filteredCoins}
+											handleChartSelection={this.handleChartSelection}
+											selectedSym={this.state.selectedSym}
+											searchTerm={this.state.searchTerm}
+										/>
+									</div>
+								);
+							}}
+						/>
+					</Switch>
+				</Segment>
 			</div>
 		);
 	}
@@ -123,4 +141,4 @@ const mapStateToProps = state => ({
 	coinHisto: state.coinHisto
 });
 
-export default connect(mapStateToProps, actions)(CoinContainer);
+export default withRouter(connect(mapStateToProps, actions)(CoinContainer));
