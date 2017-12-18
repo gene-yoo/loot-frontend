@@ -11,7 +11,8 @@ class CoinContainer extends Component {
 
 		this.state = {
 			selectedSym: "BTC",
-			searchTerm: ""
+			searchTerm: "",
+			filteredCoins: ["BTC", "ETH"]
 		};
 	}
 
@@ -20,14 +21,15 @@ class CoinContainer extends Component {
 		console.log("props: ", this.props);
 		console.log("--------------------------------------");
 
-		this.props.fetchAllCoinsAndMarketData();
+		this.props.fetchAllCoins();
+		this.props.fetchMarketData(this.state.filteredCoins);
 		this.props.fetchCoinHistoData(this.state.selectedSym);
 
-		setInterval(() => this.props.fetchAllCoinsAndMarketData(), 60000);
-		setInterval(
-			() => this.props.fetchCoinHistoData(this.state.selectedSym),
-			60000
-		);
+		// setInterval(() => this.props.fetchAllCoins(), 60000);
+		// setInterval(
+		// 	() => this.props.fetchCoinHistoData(this.state.selectedSym),
+		// 	60000
+		// );
 	}
 
 	handleChartSelection = coinSym => {
@@ -70,6 +72,7 @@ class CoinContainer extends Component {
 				<CoinList
 					marketData={this.props.marketData}
 					allCoins={this.props.allCoins}
+					filteredCoins={this.state.filteredCoins}
 					handleChartSelection={this.handleChartSelection}
 					selectedSym={this.state.selectedSym}
 					searchTerm={this.state.searchTerm}

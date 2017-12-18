@@ -6,38 +6,39 @@ import {
 
 import API from "../services/Api";
 
-export function fetchAllCoinsAndMarketData() {
+export function fetchAllCoins() {
 	return dispatch => {
-		console.log("inside actions/functions, fetchAllCoinsAndMarketData");
+		console.log("inside actions/functions, fetchAllCoins");
 		console.log("--------------------------------------");
 
-		return API.fetchAllCoins()
-			.then(res => {
-				let coins = [];
-				for (const coin in res["Data"]) {
-					coins.push(res["Data"][coin]);
-				}
-				coins.sort((a, b) => {
-					return parseInt(a.SortOrder, 10) - parseInt(b.SortOrder, 10);
-				});
-
-				dispatch({
-					type: FETCH_ALL_COINS,
-					payload: coins
-				});
-				console.log("coins are: ", coins);
-				return coins;
-			})
-			.then(coins => {
-				let coinSyms = coins.slice(0, 49).map(coin => coin.Symbol);
-
-				API.fetchMarketData(coinSyms).then(res =>
-					dispatch({
-						type: FETCH_MARKET_DATA,
-						payload: res
-					})
-				);
+		return API.fetchAllCoins().then(res => {
+			let coins = [];
+			for (const coin in res["Data"]) {
+				coins.push(res["Data"][coin]);
+			}
+			coins.sort((a, b) => {
+				return parseInt(a.SortOrder, 10) - parseInt(b.SortOrder, 10);
 			});
+
+			dispatch({
+				type: FETCH_ALL_COINS,
+				payload: coins
+			});
+		});
+	};
+}
+
+export function fetchMarketData(coinSyms) {
+	return dispatch => {
+		console.log("inside actions/functions, fetchMarketData");
+		console.log("--------------------------------------");
+
+		return API.fetchMarketData(coinSyms).then(res =>
+			dispatch({
+				type: FETCH_MARKET_DATA,
+				payload: res
+			})
+		);
 	};
 }
 
