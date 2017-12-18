@@ -46,11 +46,23 @@ class CoinContainer extends Component {
 	};
 
 	handleSearchTerm = ev => {
-		console.log("inside coin cointainer, handle search term");
+		console.log("inside coin container, handle search term");
 		console.log("event target: ", ev.target.value);
-		this.setState({
-			searchTerm: ev.target.value
-		});
+		let searchTerm = ev.target.value;
+		let coinMatches = this.props.allCoins
+			.filter(coin => coin.FullName.toLowerCase().includes(searchTerm))
+			.sort((a, b) => parseInt(a.SortOrder, 10) - parseInt(b.SortOrder, 10))
+			.map(coin => coin.Symbol)
+			.slice(0, 49);
+		console.log("coin matches are: ", coinMatches);
+
+		this.setState(
+			{
+				searchTerm: searchTerm,
+				filteredCoins: coinMatches
+			},
+			() => this.props.fetchMarketData(this.state.filteredCoins)
+		);
 	};
 
 	render() {
