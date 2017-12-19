@@ -10,6 +10,7 @@ import CoinChart from "./CoinChart";
 import CoinSearch from "./CoinSearch";
 import Navbar from "./Navbar";
 import Signup from "./Signup";
+import Login from "./Login";
 
 class CoinContainer extends Component {
 	constructor(props) {
@@ -114,6 +115,12 @@ class CoinContainer extends Component {
 							path="/signup"
 							render={() => {
 								return <Signup />;
+							}}
+						/>
+						<Route
+							path="/login"
+							render={() => {
+								return <Login />;
 							}}
 						/>
 						<Route

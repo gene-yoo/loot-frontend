@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { Container, Form, Header, Button, Input } from "semantic-ui-react";
+import {
+	Container,
+	Form,
+	Header,
+	Button,
+	Input,
+	Icon
+} from "semantic-ui-react";
 
 class Signup extends Component {
 	constructor(props) {
@@ -26,7 +33,13 @@ class Signup extends Component {
 	render() {
 		return (
 			<Container align="center">
-				<Header as="h1">Please sign up below:</Header>
+				<Header
+					as="h2"
+					style={{ color: "rgba(153,204,255,1)" }}
+					textAlign="center"
+				>
+					Please signup below.
+				</Header>
 				<Form
 					onSubmit={ev => {
 						ev.preventDefault();

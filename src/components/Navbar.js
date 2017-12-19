@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Menu, Container, Button } from "semantic-ui-react";
-import { withRouter } from "react-router-dom";
+import { Menu, Container, Button, Icon, Dropdown } from "semantic-ui-react";
+import { Link, withRouter } from "react-router-dom";
 
 class Navbar extends Component {
 	render() {
@@ -14,26 +14,60 @@ class Navbar extends Component {
 				inverted
 			>
 				<Container>
-					<Menu.Item>Home</Menu.Item>
+					<Menu.Item header>
+						<Icon name="creative commons" size="big" />
+						LOOT
+					</Menu.Item>
 					<Menu.Item>
 						<Button
 							as="a"
 							inverted
 							onClick={() => this.props.history.push("/markets")}
 						>
-							Todays Markets
+							Latest Market Prices
 						</Button>
 					</Menu.Item>
+
 					<Menu.Item>
+						<Dropdown
+							button
+							text="Manage Portfolio"
+							style={{
+								color: "white",
+								backgroundColor: "rgba(153,204,255,1)",
+								border: "2px solid white"
+							}}
+						>
+							<Dropdown.Menu>
+								<Dropdown.Item className="Item">
+									<Link
+										to="/myportfolio"
+										style={{ color: "black", fontSize: "0.9em" }}
+									>
+										<Icon name="folder" size="small" /> View Portfolio
+									</Link>
+								</Dropdown.Item>
+								<Dropdown.Item className="Item">
+									<Link
+										to="/createportfolio"
+										style={{ color: "black", fontSize: "0.9em" }}
+									>
+										<Icon name="folder" size="small" /> Create New Portfolio
+									</Link>
+								</Dropdown.Item>
+							</Dropdown.Menu>
+						</Dropdown>
+					</Menu.Item>
+
+					<Menu.Item position="right">
 						<Button
 							as="a"
 							inverted
-							onClick={() => this.props.history.push("/signup")}
+							onClick={() => this.props.history.push("/login")}
 						>
-							Signup
+							Login
 						</Button>
 					</Menu.Item>
-					<Menu.Item>My Porfolio</Menu.Item>
 				</Container>
 			</Menu>
 		);
