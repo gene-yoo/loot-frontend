@@ -47,6 +47,7 @@ class Login extends Component {
 						size="large"
 						onSubmit={ev => {
 							ev.preventDefault();
+							this.props.loginUser({ auth: this.state }, this.props.history);
 						}}
 					>
 						<Form.Input
