@@ -8,6 +8,7 @@ import {
 	Message,
 	Segment
 } from "semantic-ui-react";
+import { Link, withRouter } from "react-router-dom";
 
 const Login = props => {
 	return (
@@ -21,7 +22,12 @@ const Login = props => {
 					<Icon name="creative commons" size="small" />
 					Welcome to Loot!
 				</Header>
-				<Form size="large">
+				<Form
+					size="large"
+					onSubmit={ev => {
+						ev.preventDefault();
+					}}
+				>
 					<Form.Input
 						fluid
 						icon="user"
@@ -45,11 +51,14 @@ const Login = props => {
 					</Button>
 				</Form>
 				<Message>
-					New User? <a href="/signup">Please Sign Up Here</a>
+					New User?
+					<Link to="/signup" style={{ color: "#4286f4", paddingLeft: "8px" }}>
+						Please sign up here.
+					</Link>
 				</Message>
 			</Grid.Column>
 		</Grid>
 	);
 };
 
-export default Login;
+export default withRouter(Login);

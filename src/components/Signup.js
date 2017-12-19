@@ -1,12 +1,5 @@
 import React, { Component } from "react";
-import {
-	Container,
-	Form,
-	Header,
-	Button,
-	Input,
-	Icon
-} from "semantic-ui-react";
+import { Container, Form, Header, Button } from "semantic-ui-react";
 
 class Signup extends Component {
 	constructor(props) {
@@ -14,11 +7,10 @@ class Signup extends Component {
 		this.state = {
 			username: "",
 			password: "",
-			passwordConfirmation: "",
-			preferredSources: [],
-			preferredCategories: []
+			passwordConfirmation: ""
 		};
 	}
+
 	handleSignUpTerms = event => {
 		console.log("inside signup form, handle sign up terms");
 		console.log("event target name: ", event.target.name);
@@ -41,45 +33,50 @@ class Signup extends Component {
 					Please signup below.
 				</Header>
 				<Form
+					size="large"
 					onSubmit={ev => {
 						ev.preventDefault();
-						this.props.handleSignupSubmit(this.state);
 					}}
 				>
 					<Container style={{ width: "500px" }}>
-						<Form.Field className="field">
-							<Input
-								onChange={this.handleSignUpTerms}
-								value={this.state.username}
-								type="text"
-								name="username"
-								placeholder="Username"
-							/>
-						</Form.Field>
-						<Form.Field>
-							<Input
-								onChange={this.handleSignUpTerms}
-								value={this.state.password}
-								type="password"
-								name="password"
-								placeholder="Password"
-							/>
-						</Form.Field>
-
-						<Form.Field>
-							<Input
-								onChange={this.handleSignUpTerms}
-								value={this.state.passwordConfirmation}
-								type="password"
-								name="passwordConfirmation"
-								placeholder="Password Confirmation"
-							/>
-						</Form.Field>
+						<Form.Input
+							fluid
+							icon="user"
+							iconPosition="left"
+							placeholder="Username"
+							name="username"
+							type="text"
+							onChange={this.handleSignUpTerms}
+							value={this.state.username}
+						/>
+						<Form.Input
+							fluid
+							icon="lock"
+							iconPosition="left"
+							placeholder="Password"
+							name="password"
+							type="password"
+							onChange={this.handleSignUpTerms}
+							value={this.state.password}
+						/>
+						<Form.Input
+							fluid
+							icon="lock"
+							iconPosition="left"
+							placeholder="Confirm Password"
+							name="passwordConfirmation"
+							type="password"
+							onChange={this.handleSignUpTerms}
+							value={this.state.passwordConfirmation}
+						/>
+						<Button
+							style={{ backgroundColor: "rgba(153,204,255,1)", color: "white" }}
+							fluid
+							size="large"
+						>
+							Submit
+						</Button>
 					</Container>
-					<br />
-					<Form.Field>
-						<Button type="submit">Submit</Button>
-					</Form.Field>
 				</Form>
 			</Container>
 		);
