@@ -3,6 +3,7 @@ const marketDataURL =
 const coinListURL = "https://min-api.cryptocompare.com/data/all/coinlist";
 const coinHistoURL =
 	"https://min-api.cryptocompare.com/data/histominute?tsym=USD&limit=1440&aggregate=3&e=CCCAGG&fsym=";
+const apiURL = "http://localhost:3000/";
 
 const API = {
 	fetchMarketData: coinSyms => {
@@ -24,6 +25,19 @@ const API = {
 		console.log("--------------------------------------");
 
 		return fetch(coinHistoURL + coinSym).then(res => res.json());
+	},
+
+	signupUser: data => {
+		console.log("inside API, signup User");
+		console.log("--------------------------------------");
+		let headers = {};
+		let body = {};
+
+		return fetch(apiURL + "signup", {
+			method: "POST",
+			headers,
+			body: JSON.stringify(body)
+		}).then(res => res.json());
 	}
 };
 

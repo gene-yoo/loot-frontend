@@ -157,9 +157,9 @@ class CoinContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-	marketData: state.marketData,
-	allCoins: state.allCoins,
-	coinHisto: state.coinHisto
+	marketData: state.coins.marketData,
+	allCoins: state.coins.allCoins,
+	coinHisto: state.coins.coinHisto
 });
 
 export default withRouter(connect(mapStateToProps, actions)(CoinContainer));

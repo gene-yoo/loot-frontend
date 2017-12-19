@@ -1,7 +1,8 @@
 import {
 	FETCH_MARKET_DATA,
 	FETCH_ALL_COINS,
-	FETCH_COIN_HISTO
+	FETCH_COIN_HISTO,
+	SET_CURRENT_USER
 } from "./types.js";
 
 import API from "../services/Api";
@@ -50,6 +51,20 @@ export function fetchCoinHistoData(coinSym) {
 		return API.fetchCoinHistoData(coinSym).then(res => {
 			dispatch({
 				type: FETCH_COIN_HISTO,
+				payload: res.Data
+			});
+		});
+	};
+}
+
+export function signupUser(data) {
+	return dispatch => {
+		console.log("inside actions/functions, signupUser");
+		console.log("--------------------------------------");
+
+		return API.signupUser(data).then(res => {
+			dispatch({
+				type: SET_CURRENT_USER,
 				payload: res.Data
 			});
 		});

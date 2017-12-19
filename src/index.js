@@ -5,13 +5,13 @@ import { Provider } from "react-redux";
 import reduxThunk from "redux-thunk";
 import App from "./App";
 import "./index.css";
-import reducer from "./reducers/root";
+import rootReducer from "./reducers/root";
 import { BrowserRouter as Router } from "react-router-dom";
 
 console.log("inside index.js");
 console.log("--------------------------------------");
 
-const store = createStore(reducer, applyMiddleware(reduxThunk));
+const store = createStore(rootReducer, applyMiddleware(reduxThunk));
 
 ReactDOM.render(
 	<Router>
