@@ -41,6 +41,18 @@ const API = {
 			headers,
 			body: JSON.stringify(data)
 		}).then(res => res.json());
+	},
+
+	loginUser: data => {
+		console.log("inside API, login User");
+		console.log("data is: ", data);
+		console.log("--------------------------------------");
+
+		return fetch(apiURL + "login", {
+			method: "POST",
+			headers,
+			body: JSON.stringify(data)
+		}).then(res => res.json());
 	}
 };
 

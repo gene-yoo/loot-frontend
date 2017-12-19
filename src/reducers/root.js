@@ -51,7 +51,7 @@ const coinsReducer = (state = defaultInitialState, action) => {
 const authReducer = (state = { currentUser: {} }, action) => {
 	switch (action.type) {
 		case SET_CURRENT_USER:
-			console.log("inside authReduer, set current user");
+			console.log("inside authReducer, set current user");
 			console.log("state: ", state);
 			console.log("action: ", action);
 			console.log("--------------------------------------");

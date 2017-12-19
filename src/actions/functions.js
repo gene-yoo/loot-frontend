@@ -74,3 +74,21 @@ export function signupUser(data, history) {
 		});
 	};
 }
+
+export function loginUser(data, history) {
+	return dispatch => {
+		console.log("inside actions/functions, loginUser");
+		console.log("--------------------------------------");
+
+		return API.loginUser(data).then(res => {
+			console.log("response from login is: ", res);
+			localStorage.setItem("token", res.token);
+			const { id, username } = res;
+			dispatch({
+				type: SET_CURRENT_USER,
+				payload: { id, username }
+			});
+			history.push("/markets");
+		});
+	};
+}

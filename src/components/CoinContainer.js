@@ -120,7 +120,7 @@ class CoinContainer extends Component {
 						<Route
 							path="/login"
 							render={() => {
-								return <Login />;
+								return <Login loginUser={this.props.loginUser} />;
 							}}
 						/>
 						<Route
