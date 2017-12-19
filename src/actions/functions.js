@@ -57,16 +57,20 @@ export function fetchCoinHistoData(coinSym) {
 	};
 }
 
-export function signupUser(data) {
+export function signupUser(data, history) {
 	return dispatch => {
 		console.log("inside actions/functions, signupUser");
 		console.log("--------------------------------------");
 
 		return API.signupUser(data).then(res => {
+			console.log("response from signup is: ", res);
+			localStorage.setItem("token", res.token);
+			const { id, username } = res;
 			dispatch({
 				type: SET_CURRENT_USER,
-				payload: res.Data
+				payload: { id, username }
 			});
+			history.push("/markets");
 		});
 	};
 }

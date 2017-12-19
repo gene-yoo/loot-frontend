@@ -55,10 +55,8 @@ const authReducer = (state = { currentUser: {} }, action) => {
 			console.log("state: ", state);
 			console.log("action: ", action);
 			console.log("--------------------------------------");
-			debugger;
 
-			const { id, username } = action.user;
-			return { ...state, currentUser: { id, username } };
+			return { ...state, currentUser: action.payload };
 		default:
 			return state;
 	}

@@ -23,6 +23,10 @@ class Signup extends Component {
 	};
 
 	render() {
+		console.log("inside signup, render");
+		console.log("props: ", this.props);
+		console.log("--------------------------------------");
+
 		return (
 			<Container align="center">
 				<Header
@@ -36,6 +40,7 @@ class Signup extends Component {
 					size="large"
 					onSubmit={ev => {
 						ev.preventDefault();
+						this.props.signupUser({ user: this.state }, this.props.history);
 					}}
 				>
 					<Container style={{ width: "500px" }}>

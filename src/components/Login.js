@@ -1,13 +1,5 @@
 import React from "react";
-import {
-	Button,
-	Form,
-	Grid,
-	Header,
-	Icon,
-	Message,
-	Segment
-} from "semantic-ui-react";
+import { Button, Form, Grid, Header, Icon, Message } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
 
 const Login = props => {

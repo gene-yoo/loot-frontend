@@ -113,8 +113,8 @@ class CoinContainer extends Component {
 					<Switch>
 						<Route
 							path="/signup"
-							render={() => {
-								return <Signup />;
+							render={props => {
+								return <Signup signupUser={this.props.signupUser} {...props} />;
 							}}
 						/>
 						<Route
