@@ -125,9 +125,9 @@ class Portfolio extends Component {
 				<Header
 					as="h2"
 					style={{ color: "rgba(153,204,255,1)" }}
-					textAlign="left"
+					textAlign="center"
 				>
-					Create a New Portfolio
+					Create New Portfolio
 				</Header>
 				<Container>
 					<Form
