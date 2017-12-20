@@ -12,28 +12,12 @@ class CoinList extends Component {
 	renderCoins() {
 		let coins = "Loading ...";
 
-		// console.log(
-		// 	"inside coin list, render coins - marketData: ",
-		// 	this.props.marketData
-		// );
 		let marketDataKeys = this.props.marketData.DISPLAY
 			? Object.keys(this.props.marketData.DISPLAY)
 			: [];
 		let updateStatus = marketDataKeys.every(key =>
 			this.props.filteredCoins.includes(key)
 		);
-		// console.log(
-		// 	"inside coin list, render coins - filteredCoins: ",
-		// 	this.props.filteredCoins
-		// );
-		// console.log(
-		// 	"inside coin list, render coins - marketDataKeys: ",
-		// 	marketDataKeys
-		// );
-		// console.log(
-		// 	"inside coin list, render coins - updateStatus: ",
-		// 	updateStatus
-		// );
 
 		if (this.props.marketData.DISPLAY && updateStatus) {
 			coins = this.filterCoins().map(coin => {
@@ -86,6 +70,7 @@ class CoinList extends Component {
 		console.log("inside coin list, render");
 		console.log("props: ", this.props);
 		console.log("--------------------------------------");
+
 		return (
 			<Table selectable textAlign="left" style={{ width: "1000px" }}>
 				<Table.Header>

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import * as actions from "../actions/functions";
 
 import { Route, Switch, withRouter } from "react-router-dom";
-import { Segment } from "semantic-ui-react";
+import { Segment, Container } from "semantic-ui-react";
 
 import CoinList from "./CoinList";
 import CoinChart from "./CoinChart";
@@ -11,6 +11,7 @@ import CoinSearch from "./CoinSearch";
 import Navbar from "./Navbar";
 import Signup from "./Signup";
 import Login from "./Login";
+import Portfolio from "./Portfolio";
 
 class CoinContainer extends Component {
 	constructor(props) {
@@ -52,12 +53,6 @@ class CoinContainer extends Component {
 				.sort((a, b) => parseInt(a.SortOrder, 10) - parseInt(b.SortOrder, 10))
 				.map(coin => coin.Symbol)
 				.slice(0, 49);
-			//
-			// console.log(
-			// 	"inside coin container, component will receive props -- if statement"
-			// );
-			// console.log("coins are: ", coins);
-			// console.log("--------------------------------------");
 
 			this.setState(
 				{
@@ -111,54 +106,68 @@ class CoinContainer extends Component {
 		console.log("--------------------------------------");
 
 		return (
-			<div>
+			<div style={{ height: "100%" }}>
 				<Navbar
 					username={this.props.username}
 					logoutUser={this.props.logoutUser}
 				/>
-
-				<Segment attached="bottom">
-					<Switch>
-						<Route
-							path="/signup"
-							render={props => {
-								return <Signup signupUser={this.props.signupUser} {...props} />;
-							}}
-						/>
-						<Route
-							path="/login"
-							render={() => {
-								return <Login loginUser={this.props.loginUser} />;
-							}}
-						/>
-						<Route
-							path="/markets"
-							render={() => {
-								return (
-									<div>
-										<CoinChart
-											coinHisto={this.props.coinHisto}
-											selectedSym={this.state.selectedSym}
-										/>
-										<br />
-										<CoinSearch
-											handleSearchTerm={this.handleSearchTerm}
-											searchTerm={this.state.searchTerm}
-										/>
-										<CoinList
+				<Container align="center">
+					<Segment attached="bottom">
+						<Switch>
+							<Route
+								path="/signup"
+								render={props => {
+									return (
+										<Signup signupUser={this.props.signupUser} {...props} />
+									);
+								}}
+							/>
+							<Route
+								path="/login"
+								render={() => {
+									return <Login loginUser={this.props.loginUser} />;
+								}}
+							/>
+							<Route
+								path="/markets"
+								render={() => {
+									return (
+										<div>
+											<CoinChart
+												coinHisto={this.props.coinHisto}
+												selectedSym={this.state.selectedSym}
+											/>
+											<br />
+											<CoinSearch
+												handleSearchTerm={this.handleSearchTerm}
+												searchTerm={this.state.searchTerm}
+											/>
+											<CoinList
+												marketData={this.props.marketData}
+												allCoins={this.props.allCoins}
+												filteredCoins={this.state.filteredCoins}
+												handleChartSelection={this.handleChartSelection}
+												selectedSym={this.state.selectedSym}
+												searchTerm={this.state.searchTerm}
+											/>
+										</div>
+									);
+								}}
+							/>
+							<Route
+								path="/createportfolio"
+								render={() => {
+									return (
+										<Portfolio
 											marketData={this.props.marketData}
 											allCoins={this.props.allCoins}
-											filteredCoins={this.state.filteredCoins}
-											handleChartSelection={this.handleChartSelection}
-											selectedSym={this.state.selectedSym}
-											searchTerm={this.state.searchTerm}
 										/>
-									</div>
-								);
-							}}
-						/>
-					</Switch>
-				</Segment>
+									);
+								}}
+							/>
+						</Switch>
+					</Segment>
+				</Container>
 			</div>
 		);
 	}
