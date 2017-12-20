@@ -111,7 +111,7 @@ class CoinContainer extends Component {
 					username={this.props.username}
 					logoutUser={this.props.logoutUser}
 				/>
-				<Container align="center">
+				<div align="center">
 					<Segment attached="bottom">
 						<Switch>
 							<Route
@@ -167,7 +167,7 @@ class CoinContainer extends Component {
 							/>
 						</Switch>
 					</Segment>
-				</Container>
+				</div>
 			</div>
 		);
 	}
