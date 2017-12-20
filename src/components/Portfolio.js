@@ -51,46 +51,6 @@ class Portfolio extends Component {
 		console.log("props: ", this.props);
 		console.log("--------------------------------------");
 
-		// let initialCoins = this.props.allCoins.slice(0, 18).map(coin => (
-		// 	<Card
-		// 		key={coin.Id}
-		// 		align="center"
-		// 		style={{
-		// 			width: "250px",
-		// 			height: "50px",
-		// 			display: "inline-block",
-		// 			textAlign: "left"
-		// 		}}
-		// 	>
-		// 		<Card.Content
-		// 			style={{
-		// 				paddingTop: "5px",
-		// 				fontSize: "0.9em",
-		// 				display: "inline-block"
-		// 			}}
-		// 		>
-		// 			<Checkbox
-		// 				name="preferredSources"
-		// 				value={coin.Symbol}
-		// 				onChange={this.handleSignUpCheckboxes}
-		// 				style={{
-		// 					display: "inline-block",
-		// 					width: "50px"
-		// 				}}
-		// 			/>
-		// 			<Image
-		// 				src={`https://www.cryptocompare.com${coin.ImageUrl}`}
-		// 				style={{
-		// 					maxWidth: "40px",
-		// 					paddingRight: "10px",
-		// 					display: "inline-block"
-		// 				}}
-		// 			/>
-		// 			{coin.CoinName}
-		// 		</Card.Content>
-		// 	</Card>
-		// ));
-
 		let initialCoins = this.props.allCoins.slice(0, 20).map(coin => (
 			<div
 				key={coin.Id}
