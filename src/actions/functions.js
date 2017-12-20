@@ -61,7 +61,7 @@ export function fetchCoinHistoData(coinSym) {
 	};
 }
 
-export function submitNewPortfolio(formData) {
+export function submitNewPortfolio(formData, history) {
 	return dispatch => {
 		console.log("inside actions/functions, submitNewPortfolio");
 		console.log("--------------------------------------");
@@ -71,6 +71,8 @@ export function submitNewPortfolio(formData) {
 				type: CREATE_PORTFOLIO,
 				payload: res
 			});
+			debugger;
+			history.push("/myportfolio");
 		});
 	};
 }

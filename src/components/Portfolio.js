@@ -79,7 +79,7 @@ class Portfolio extends Component {
 				>
 					<Checkbox
 						name="initialCoins"
-						value={coin.Symbol}
+						value={coin.FullName}
 						onChange={this.handlePortfolioCheckboxes}
 						style={{ position: "relative", top: "15px", marginLeft: "15px" }}
 					/>
@@ -134,7 +134,10 @@ class Portfolio extends Component {
 						size="large"
 						onSubmit={ev => {
 							ev.preventDefault();
-							this.props.submitNewPortfolio({ portfolio: this.state });
+							this.props.submitNewPortfolio(
+								{ portfolio: { ...this.state, user_id: this.props.user_id } },
+								this.props.history
+							);
 						}}
 					>
 						<Form.Field>
