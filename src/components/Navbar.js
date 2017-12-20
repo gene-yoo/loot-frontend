@@ -4,6 +4,10 @@ import { Link, withRouter } from "react-router-dom";
 
 class Navbar extends Component {
 	render() {
+		console.log("inside navbar, render");
+		console.log("props: ", this.props);
+		console.log("--------------------------------------");
+
 		return (
 			<Menu
 				attached="top"
@@ -60,13 +64,26 @@ class Navbar extends Component {
 					</Menu.Item>
 
 					<Menu.Item position="right">
-						<Button
-							as="a"
-							inverted
-							onClick={() => this.props.history.push("/login")}
-						>
-							Login
-						</Button>
+						{this.props.username === "" ? (
+							<Button
+								as="a"
+								inverted
+								onClick={() => this.props.history.push("/login")}
+							>
+								Login
+							</Button>
+						) : (
+							<Button
+								as="a"
+								style={{
+									backgroundColor: "white",
+									color: "rgba(153,204,255,1)"
+								}}
+								inverted
+							>
+								Welcome back, {this.props.username}!
+							</Button>
+						)}
 					</Menu.Item>
 				</Container>
 			</Menu>

@@ -92,3 +92,20 @@ export function loginUser(data, history) {
 		});
 	};
 }
+
+export function getCurrentUser(token, history) {
+	return dispatch => {
+		console.log("inside actions/functions, get current user");
+		console.log("--------------------------------------");
+
+		return API.getCurrentUser(token).then(res => {
+			console.log("response from fetch is: ", res);
+			const { id, username } = res;
+			dispatch({
+				type: SET_CURRENT_USER,
+				payload: { id, username }
+			});
+			history.push("/markets");
+		});
+	};
+}

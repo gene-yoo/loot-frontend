@@ -44,7 +44,7 @@ const API = {
 	},
 
 	loginUser: data => {
-		console.log("inside API, login User");
+		console.log("inside API, loginUser");
 		console.log("data is: ", data);
 		console.log("--------------------------------------");
 
@@ -52,6 +52,15 @@ const API = {
 			method: "POST",
 			headers,
 			body: JSON.stringify(data)
+		}).then(res => res.json());
+	},
+
+	getCurrentUser: token => {
+		console.log("inside API, getCurrentUser");
+		console.log("--------------------------------------");
+
+		return fetch(apiURL + "current_user", {
+			headers: Object.assign({}, headers, { token: token })
 		}).then(res => res.json());
 	}
 };

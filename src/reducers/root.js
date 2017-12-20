@@ -7,13 +7,18 @@ import {
 	SET_CURRENT_USER
 } from "../actions/types";
 
-const defaultInitialState = {
+const defaultInitialStateCoinReducer = {
 	marketData: {},
 	allCoins: [],
 	coinHisto: []
 };
 
-const coinsReducer = (state = defaultInitialState, action) => {
+const defaultInitialStateAuthReducer = {
+	user_id: "",
+	username: ""
+};
+
+const coinsReducer = (state = defaultInitialStateCoinReducer, action) => {
 	switch (action.type) {
 		case FETCH_ALL_COINS:
 			console.log("inside coinsReducer, fetch all coins");
@@ -48,7 +53,7 @@ const coinsReducer = (state = defaultInitialState, action) => {
 	}
 };
 
-const authReducer = (state = { currentUser: {} }, action) => {
+const authReducer = (state = defaultInitialStateAuthReducer, action) => {
 	switch (action.type) {
 		case SET_CURRENT_USER:
 			console.log("inside authReducer, set current user");
@@ -56,7 +61,11 @@ const authReducer = (state = { currentUser: {} }, action) => {
 			console.log("action: ", action);
 			console.log("--------------------------------------");
 
-			return { ...state, currentUser: action.payload };
+			return {
+				...state,
+				user_id: action.payload.id,
+				username: action.payload.username
+			};
 		default:
 			return state;
 	}

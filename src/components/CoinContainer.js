@@ -35,6 +35,11 @@ class CoinContainer extends Component {
 			this.props.fetchMarketData(this.state.filteredCoins);
 			this.props.fetchCoinHistoData(this.state.selectedSym);
 		}, 60000);
+
+		if (localStorage.getItem("token")) {
+			let token = localStorage.getItem("token");
+			this.props.getCurrentUser(token, this.props.history);
+		}
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -107,7 +112,7 @@ class CoinContainer extends Component {
 
 		return (
 			<div>
-				<Navbar />
+				<Navbar username={this.props.username} />
 
 				<Segment attached="bottom">
 					<Switch>
@@ -159,7 +164,9 @@ class CoinContainer extends Component {
 const mapStateToProps = state => ({
 	marketData: state.coins.marketData,
 	allCoins: state.coins.allCoins,
-	coinHisto: state.coins.coinHisto
+	coinHisto: state.coins.coinHisto,
+	user_id: state.auth.user_id,
+	username: state.auth.username
 });
 
 export default withRouter(connect(mapStateToProps, actions)(CoinContainer));
