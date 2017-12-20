@@ -5,8 +5,6 @@ import {
 	Header,
 	Container,
 	Checkbox,
-	Card,
-	Input,
 	Image
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
@@ -24,6 +22,9 @@ class Portfolio extends Component {
 
 	handlePortfolioAttributes = event => {
 		console.log("inside portfolio handle change");
+		console.log("event target name: ", event.target.name);
+		console.log("event target value: ", event.target.value);
+		console.log("--------------------------------");
 
 		this.setState({
 			[event.target.name]: event.target.value
@@ -31,18 +32,22 @@ class Portfolio extends Component {
 	};
 
 	handlePortfolioCheckboxes = event => {
-		let collection = this.state[event.target.name];
+		let elem = event.target.parentElement.firstChild;
 
-		if (event.target.checked) {
-			collection.push(parseInt(event.target.value));
+		console.log("inside portfolio handle portfolio checkboxes");
+		console.log("value: ", elem.value);
+		console.log("checked: ", elem.checked);
+
+		let collection = this.state[elem.name];
+
+		if (!elem.checked) {
+			collection.push(elem.value);
 		} else {
-			collection = collection.filter(
-				item => item !== parseInt(event.target.value)
-			);
+			collection = collection.filter(item => item !== elem.value);
 		}
 
 		this.setState({
-			[event.target.name]: collection
+			initialCoins: collection
 		});
 	};
 
@@ -73,9 +78,9 @@ class Portfolio extends Component {
 					}}
 				>
 					<Checkbox
-						name="preferredSources"
+						name="initialCoins"
 						value={coin.Symbol}
-						onChange={this.handleSignUpCheckboxes}
+						onChange={this.handlePortfolioCheckboxes}
 						style={{ position: "relative", top: "15px", marginLeft: "15px" }}
 					/>
 				</div>
@@ -155,7 +160,12 @@ class Portfolio extends Component {
 							/>
 						</Form.Field>
 
-						<Form.Field>{initialCoins}</Form.Field>
+						<Form.Field>
+							<Header as="h3" style={{ color: "grey" }} textAlign="left">
+								(Optional) Choose from the following coins to get started:
+							</Header>
+							{initialCoins}
+						</Form.Field>
 
 						<Button
 							style={{ backgroundColor: "rgba(153,204,255,1)", color: "white" }}

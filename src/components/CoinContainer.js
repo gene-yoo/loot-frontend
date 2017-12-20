@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import * as actions from "../actions/functions";
 
 import { Route, Switch, withRouter } from "react-router-dom";
-import { Segment, Container } from "semantic-ui-react";
+import { Segment } from "semantic-ui-react";
 
 import CoinList from "./CoinList";
 import CoinChart from "./CoinChart";
