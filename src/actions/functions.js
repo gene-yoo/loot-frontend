@@ -2,7 +2,8 @@ import {
 	FETCH_MARKET_DATA,
 	FETCH_ALL_COINS,
 	FETCH_COIN_HISTO,
-	SET_CURRENT_USER
+	SET_CURRENT_USER,
+	LOGOUT_USER
 } from "./types.js";
 
 import API from "../services/Api";
@@ -107,5 +108,15 @@ export function getCurrentUser(token, history) {
 			});
 			history.push("/markets");
 		});
+	};
+}
+
+export function logoutUser() {
+	return dispatch => {
+		console.log("inside actions/functions, logout user");
+		console.log("--------------------------------------");
+		localStorage.removeItem("token");
+
+		return dispatch({ type: LOGOUT_USER });
 	};
 }

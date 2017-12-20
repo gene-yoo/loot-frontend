@@ -112,7 +112,10 @@ class CoinContainer extends Component {
 
 		return (
 			<div>
-				<Navbar username={this.props.username} />
+				<Navbar
+					username={this.props.username}
+					logoutUser={this.props.logoutUser}
+				/>
 
 				<Segment attached="bottom">
 					<Switch>

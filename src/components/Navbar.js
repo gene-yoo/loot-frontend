@@ -73,15 +73,8 @@ class Navbar extends Component {
 								Login
 							</Button>
 						) : (
-							<Button
-								as="a"
-								style={{
-									backgroundColor: "white",
-									color: "rgba(153,204,255,1)"
-								}}
-								inverted
-							>
-								Welcome back, {this.props.username}!
+							<Button as="a" inverted onClick={() => this.props.logoutUser()}>
+								Logout
 							</Button>
 						)}
 					</Menu.Item>

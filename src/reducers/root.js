@@ -4,7 +4,8 @@ import {
 	FETCH_MARKET_DATA,
 	FETCH_ALL_COINS,
 	FETCH_COIN_HISTO,
-	SET_CURRENT_USER
+	SET_CURRENT_USER,
+	LOGOUT_USER
 } from "../actions/types";
 
 const defaultInitialStateCoinReducer = {
@@ -66,6 +67,13 @@ const authReducer = (state = defaultInitialStateAuthReducer, action) => {
 				user_id: action.payload.id,
 				username: action.payload.username
 			};
+		case LOGOUT_USER:
+			console.log("inside authReducer, logout user");
+			console.log("state: ", state);
+			console.log("action: ", action);
+			console.log("--------------------------------------");
+
+			return { ...state, user_id: "", username: "" };
 		default:
 			return state;
 	}
