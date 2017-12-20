@@ -134,6 +134,7 @@ class Portfolio extends Component {
 						size="large"
 						onSubmit={ev => {
 							ev.preventDefault();
+							this.props.submitNewPortfolio({ portfolio: this.state });
 						}}
 					>
 						<Form.Field>

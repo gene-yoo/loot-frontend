@@ -161,6 +161,7 @@ class CoinContainer extends Component {
 										<Portfolio
 											marketData={this.props.marketData}
 											allCoins={this.props.allCoins}
+											submitNewPortfolio={this.props.submitNewPortfolio}
 										/>
 									);
 								}}

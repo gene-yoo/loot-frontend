@@ -3,10 +3,13 @@ import {
 	FETCH_ALL_COINS,
 	FETCH_COIN_HISTO,
 	SET_CURRENT_USER,
+	CREATE_PORTFOLIO,
 	LOGOUT_USER
 } from "./types.js";
 
 import API from "../services/Api";
+
+// API FETCH FUNCTIONS -------------------------------------------------------
 
 export function fetchAllCoins() {
 	return dispatch => {
@@ -57,6 +60,22 @@ export function fetchCoinHistoData(coinSym) {
 		});
 	};
 }
+
+export function submitNewPortfolio(formData) {
+	return dispatch => {
+		console.log("inside actions/functions, submitNewPortfolio");
+		console.log("--------------------------------------");
+
+		return API.submitNewPortfolio(formData).then(res => {
+			dispatch({
+				type: CREATE_PORTFOLIO,
+				payload: res
+			});
+		});
+	};
+}
+
+// AUTH FUNCTIONS -------------------------------------------------------
 
 export function signupUser(data, history) {
 	return dispatch => {

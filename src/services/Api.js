@@ -62,6 +62,18 @@ const API = {
 		return fetch(apiURL + "current_user", {
 			headers: Object.assign({}, headers, { token: token })
 		}).then(res => res.json());
+	},
+
+	submitNewPortfolio: formData => {
+		console.log("inside API, submitNewPortfolio");
+		console.log("form data is: ", formData);
+		console.log("--------------------------------------");
+
+		return fetch(apiURL + "portfolios", {
+			method: "POST",
+			headers,
+			body: JSON.stringify(formData)
+		}).then(res => res.json());
 	}
 };
 
