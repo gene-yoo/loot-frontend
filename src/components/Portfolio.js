@@ -7,7 +7,7 @@ import {
 	Checkbox,
 	Image
 } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 class Portfolio extends Component {
 	constructor(props) {
@@ -149,8 +149,6 @@ class Portfolio extends Component {
 									};
 								});
 
-							debugger;
-
 							this.props.submitNewPortfolio(
 								{
 									portfolio: {
@@ -208,4 +206,4 @@ class Portfolio extends Component {
 	}
 }
 
-export default Portfolio;
+export default withRouter(Portfolio);

@@ -4,6 +4,7 @@ import {
 	FETCH_MARKET_DATA,
 	FETCH_ALL_COINS,
 	FETCH_COIN_HISTO,
+	CREATE_PORTFOLIO,
 	SET_CURRENT_USER,
 	LOGOUT_USER
 } from "../actions/types";
@@ -17,6 +18,10 @@ const defaultInitialStateCoinReducer = {
 const defaultInitialStateAuthReducer = {
 	user_id: "",
 	username: ""
+};
+
+const defaultInitialStatePortfolioReducer = {
+	portfolio: {}
 };
 
 const coinsReducer = (state = defaultInitialStateCoinReducer, action) => {
@@ -79,6 +84,30 @@ const authReducer = (state = defaultInitialStateAuthReducer, action) => {
 	}
 };
 
-const rootReducer = combineReducers({ coins: coinsReducer, auth: authReducer });
+const portfolioReducer = (
+	state = defaultInitialStatePortfolioReducer,
+	action
+) => {
+	switch (action.type) {
+		case CREATE_PORTFOLIO:
+			console.log("inside portfolioReducer, create portfolio");
+			console.log("state: ", state);
+			console.log("action: ", action);
+			console.log("--------------------------------------");
+
+			return {
+				...state,
+				portfolio: action.payload
+			};
+		default:
+			return state;
+	}
+};
+
+const rootReducer = combineReducers({
+	coins: coinsReducer,
+	auth: authReducer,
+	portfolio: portfolioReducer
+});
 
 export default rootReducer;

@@ -71,7 +71,6 @@ export function submitNewPortfolio(formData, history) {
 				type: CREATE_PORTFOLIO,
 				payload: res
 			});
-			debugger;
 			history.push("/myportfolio");
 		});
 	};
