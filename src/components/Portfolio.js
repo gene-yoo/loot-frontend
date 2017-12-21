@@ -79,7 +79,7 @@ class Portfolio extends Component {
 				>
 					<Checkbox
 						name="initialCoins"
-						value={coin.FullName}
+						value={coin.Symbol}
 						onChange={this.handlePortfolioCheckboxes}
 						style={{ position: "relative", top: "15px", marginLeft: "15px" }}
 					/>
@@ -138,9 +138,32 @@ class Portfolio extends Component {
 							let state = this.state;
 							console.log(props);
 							console.log(state);
+
+							let coinInfo = props.allCoins
+								.filter(coin => this.state.initialCoins.includes(coin.Symbol))
+								.map(coin => {
+									return { coinSymbol: coin.Symbol, coinName: coin.CoinName };
+								});
+							let coinPrices = [];
+
+							this.state.initialCoins.forEach(coin =>
+								coinPrices.push({
+									coinSymbol: coin,
+									coinPrice: props.marketData.RAW[coin]["USD"]["PRICE"]
+								})
+							);
+
 							debugger;
+
 							this.props.submitNewPortfolio(
-								{ portfolio: { ...this.state, user_id: this.props.user_id } },
+								{
+									portfolio: {
+										...this.state,
+										user_id: this.props.user_id,
+										initialCoins: coinInfo,
+										initialPrices: coinPrices
+									}
+								},
 								this.props.history
 							);
 						}}
