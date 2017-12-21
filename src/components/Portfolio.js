@@ -142,16 +142,12 @@ class Portfolio extends Component {
 							let coinInfo = props.allCoins
 								.filter(coin => this.state.initialCoins.includes(coin.Symbol))
 								.map(coin => {
-									return { coinSymbol: coin.Symbol, coinName: coin.CoinName };
+									return {
+										coinSymbol: coin.Symbol,
+										coinName: coin.CoinName,
+										coinPrice: props.marketData.RAW[coin.Symbol]["USD"]["PRICE"]
+									};
 								});
-							let coinPrices = [];
-
-							this.state.initialCoins.forEach(coin =>
-								coinPrices.push({
-									coinSymbol: coin,
-									coinPrice: props.marketData.RAW[coin]["USD"]["PRICE"]
-								})
-							);
 
 							debugger;
 
@@ -160,8 +156,7 @@ class Portfolio extends Component {
 									portfolio: {
 										...this.state,
 										user_id: this.props.user_id,
-										initialCoins: coinInfo,
-										initialPrices: coinPrices
+										initialCoins: coinInfo
 									}
 								},
 								this.props.history
