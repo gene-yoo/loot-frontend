@@ -134,6 +134,11 @@ class Portfolio extends Component {
 						size="large"
 						onSubmit={ev => {
 							ev.preventDefault();
+							let props = this.props;
+							let state = this.state;
+							console.log(props);
+							console.log(state);
+							debugger;
 							this.props.submitNewPortfolio(
 								{ portfolio: { ...this.state, user_id: this.props.user_id } },
 								this.props.history
