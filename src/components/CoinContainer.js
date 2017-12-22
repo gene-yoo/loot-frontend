@@ -177,6 +177,7 @@ class CoinContainer extends Component {
 											allCoins={this.props.allCoins}
 											submitNewPortfolio={this.props.submitNewPortfolio}
 											user_id={this.props.user_id}
+											portfolio={this.props.portfolio}
 										/>
 									);
 								}}
