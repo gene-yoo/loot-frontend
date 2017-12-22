@@ -11,6 +11,7 @@ import CoinSearch from "./CoinSearch";
 import Navbar from "./Navbar";
 import Signup from "./Signup";
 import Login from "./Login";
+import PortfolioForm from "./PortfolioForm";
 import Portfolio from "./Portfolio";
 
 class CoinContainer extends Component {
@@ -156,6 +157,19 @@ class CoinContainer extends Component {
 							/>
 							<Route
 								path="/createportfolio"
+								render={() => {
+									return (
+										<PortfolioForm
+											marketData={this.props.marketData}
+											allCoins={this.props.allCoins}
+											submitNewPortfolio={this.props.submitNewPortfolio}
+											user_id={this.props.user_id}
+										/>
+									);
+								}}
+							/>
+							<Route
+								path="/myportfolio"
 								render={() => {
 									return (
 										<Portfolio
