@@ -21,7 +21,11 @@ const defaultInitialStateAuthReducer = {
 };
 
 const defaultInitialStatePortfolioReducer = {
-	portfolio: {}
+	id: "",
+	balance: "",
+	description: "",
+	name: "",
+	transactions: []
 };
 
 const coinsReducer = (state = defaultInitialStateCoinReducer, action) => {
@@ -95,10 +99,7 @@ const portfolioReducer = (
 			console.log("action: ", action);
 			console.log("--------------------------------------");
 
-			return {
-				...state,
-				portfolio: action.payload
-			};
+			return action.payload;
 		default:
 			return state;
 	}

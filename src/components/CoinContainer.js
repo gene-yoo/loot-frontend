@@ -180,7 +180,8 @@ const mapStateToProps = state => ({
 	allCoins: state.coins.allCoins,
 	coinHisto: state.coins.coinHisto,
 	user_id: state.auth.user_id,
-	username: state.auth.username
+	username: state.auth.username,
+	portfolio: state.portfolio
 });
 
 export default withRouter(connect(mapStateToProps, actions)(CoinContainer));
