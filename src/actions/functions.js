@@ -4,6 +4,7 @@ import {
 	FETCH_COIN_HISTO,
 	SET_CURRENT_USER,
 	CREATE_PORTFOLIO,
+	SET_PORTFOLIO,
 	LOGOUT_USER
 } from "./types.js";
 
@@ -72,6 +73,20 @@ export function submitNewPortfolio(formData, history) {
 				payload: res
 			});
 			history.push("/myportfolio");
+		});
+	};
+}
+
+export function fetchExistingPortfolio(token, portfolioId, history) {
+	return dispatch => {
+		console.log("inside actions/functions, fetch existing portfolio");
+		console.log("--------------------------------------");
+
+		return API.fetchExistingPortfolio(token, portfolioId).then(res => {
+			dispatch({
+				type: SET_PORTFOLIO,
+				payload: res
+			});
 		});
 	};
 }

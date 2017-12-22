@@ -1,62 +1,64 @@
 import React, { Component } from "react";
-import {
-	Form,
-	Button,
-	Header,
-	Container,
-	Checkbox,
-	Image
-} from "semantic-ui-react";
-import { Link, withRouter } from "react-router-dom";
+import { Grid, Table, Header } from "semantic-ui-react";
+import { withRouter } from "react-router-dom";
 
 class Portfolio extends Component {
 	constructor(props) {
 		super(props);
-
-		this.state = {
-			name: "",
-			description: "",
-			initialCoins: []
-		};
 	}
 
-	handlePortfolioAttributes = event => {
-		console.log("inside portfolio handle change");
-		console.log("event target name: ", event.target.name);
-		console.log("event target value: ", event.target.value);
-		console.log("--------------------------------");
+	renderTransactions() {
+		let transactions = "Loading ...";
 
-		this.setState({
-			[event.target.name]: event.target.value
+		transactions = this.props.portfolio.transactions.map(trans => {
+			return (
+				<Table.Row
+					key={trans.trans_id}
+					style={{
+						height: "50px"
+					}}
+				>
+					<Table.Cell>{trans.balance}</Table.Cell>
+					<Table.Cell>{trans.created_at}</Table.Cell>
+					<Table.Cell>{trans.trans_type}</Table.Cell>
+					<Table.Cell>{trans.coin_symbol}</Table.Cell>
+					<Table.Cell>{trans.trans_price}</Table.Cell>
+					<Table.Cell>{trans.quantity}</Table.Cell>
+				</Table.Row>
+			);
 		});
-	};
 
-	handlePortfolioCheckboxes = event => {
-		let elem = event.target.parentElement.firstChild;
-
-		console.log("inside portfolio handle portfolio checkboxes");
-		console.log("value: ", elem.value);
-		console.log("checked: ", elem.checked);
-
-		let collection = this.state[elem.name];
-
-		if (!elem.checked) {
-			collection.push(elem.value);
-		} else {
-			collection = collection.filter(item => item !== elem.value);
-		}
-
-		this.setState({
-			initialCoins: collection
-		});
-	};
+		return transactions;
+	}
 
 	render() {
 		console.log("inside portfolio, render");
 		console.log("props: ", this.props);
 		console.log("--------------------------------------");
 
-		return <div> Inside View Portfolio</div>;
+		return (
+			<Grid>
+				<Grid.Column width={4}>
+					<Header as="h3">Inside First Column</Header>
+				</Grid.Column>
+				<Grid.Column width={12}>
+					<Header as="h3">Inside Second Column</Header>
+					<Table textAlign="left" style={{ width: "750px" }}>
+						<Table.Header>
+							<Table.Row style={{ height: "25px" }}>
+								<Table.HeaderCell>Index</Table.HeaderCell>
+								<Table.HeaderCell>Timestamp</Table.HeaderCell>
+								<Table.HeaderCell>Type</Table.HeaderCell>
+								<Table.HeaderCell>Coin Symbol</Table.HeaderCell>
+								<Table.HeaderCell>Transaction Price</Table.HeaderCell>
+								<Table.HeaderCell>Quantity</Table.HeaderCell>
+							</Table.Row>
+						</Table.Header>
+						<Table.Body>{this.renderTransactions()}</Table.Body>
+					</Table>
+				</Grid.Column>
+			</Grid>
+		);
 	}
 }
 
