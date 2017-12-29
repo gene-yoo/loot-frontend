@@ -30,9 +30,10 @@ class Portfolio extends Component {
 					}}
 				>
 					<Table.Cell>{trans.balance}</Table.Cell>
-					<Table.Cell>{new Date(trans.created_at).toTimeString()}</Table.Cell>
+					<Table.Cell>{new Date(trans.created_at).toUTCString()}</Table.Cell>
 					<Table.Cell>{trans.trans_type}</Table.Cell>
 					<Table.Cell>{trans.coin_symbol}</Table.Cell>
+					<Table.Cell>{trans.trans_amt}</Table.Cell>
 					<Table.Cell>{trans.trans_price}</Table.Cell>
 					<Table.Cell>{trans.quantity}</Table.Cell>
 				</Table.Row>
@@ -54,14 +55,15 @@ class Portfolio extends Component {
 				</Grid.Column>
 				<Grid.Column width={12}>
 					<Header as="h3">Inside Second Column</Header>
-					<Table textAlign="left" style={{ width: "750px" }}>
+					<Table textAlign="left" style={{ width: "800px" }}>
 						<Table.Header>
 							<Table.Row style={{ height: "25px" }}>
 								<Table.HeaderCell>Index</Table.HeaderCell>
 								<Table.HeaderCell>Timestamp</Table.HeaderCell>
 								<Table.HeaderCell>Type</Table.HeaderCell>
 								<Table.HeaderCell>Coin Symbol</Table.HeaderCell>
-								<Table.HeaderCell>Transaction Price</Table.HeaderCell>
+								<Table.HeaderCell>Trans Amt $</Table.HeaderCell>
+								<Table.HeaderCell>Trans Price</Table.HeaderCell>
 								<Table.HeaderCell>Quantity</Table.HeaderCell>
 							</Table.Row>
 						</Table.Header>
