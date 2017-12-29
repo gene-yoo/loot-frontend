@@ -5,6 +5,7 @@ import {
 	FETCH_ALL_COINS,
 	FETCH_COIN_HISTO,
 	CREATE_PORTFOLIO,
+	SET_PORTFOLIO,
 	SET_CURRENT_USER,
 	LOGOUT_USER
 } from "../actions/types";
@@ -95,6 +96,13 @@ const portfolioReducer = (
 	switch (action.type) {
 		case CREATE_PORTFOLIO:
 			console.log("inside portfolioReducer, create portfolio");
+			console.log("state: ", state);
+			console.log("action: ", action);
+			console.log("--------------------------------------");
+
+			return action.payload;
+		case SET_PORTFOLIO:
+			console.log("inside portfolioReducer, set portfolio");
 			console.log("state: ", state);
 			console.log("action: ", action);
 			console.log("--------------------------------------");

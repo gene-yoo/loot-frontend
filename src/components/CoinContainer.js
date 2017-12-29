@@ -178,6 +178,7 @@ class CoinContainer extends Component {
 											submitNewPortfolio={this.props.submitNewPortfolio}
 											user_id={this.props.user_id}
 											portfolio={this.props.portfolio}
+											fetchExistingPortfolio={this.props.fetchExistingPortfolio}
 										/>
 									);
 								}}

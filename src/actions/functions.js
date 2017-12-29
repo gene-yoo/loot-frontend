@@ -77,12 +77,12 @@ export function submitNewPortfolio(formData, history) {
 	};
 }
 
-export function fetchExistingPortfolio(token, portfolioId, history) {
+export function fetchExistingPortfolio(token) {
 	return dispatch => {
 		console.log("inside actions/functions, fetch existing portfolio");
 		console.log("--------------------------------------");
 
-		return API.fetchExistingPortfolio(token, portfolioId).then(res => {
+		return API.fetchExistingPortfolio(token).then(res => {
 			dispatch({
 				type: SET_PORTFOLIO,
 				payload: res

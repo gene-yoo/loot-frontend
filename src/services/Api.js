@@ -31,15 +31,12 @@ const API = {
 		return fetch(coinHistoURL + coinSym).then(res => res.json());
 	},
 
-	fetchExistingPortfolio: (token, portfolioId) => {
+	fetchExistingPortfolio: token => {
 		console.log("inside API, fetch existing portfolio");
 		console.log("--------------------------------------");
 
-		return fetch(apiURL + "portfolios/" + portfolioId, {
-			headers: Object.assign({}, headers, {
-				token,
-				portfolioId
-			})
+		return fetch(apiURL + "portfolios", {
+			headers: Object.assign({}, headers, { token: token })
 		}).then(res => res.json());
 	},
 

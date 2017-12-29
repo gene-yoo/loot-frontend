@@ -7,6 +7,17 @@ class Portfolio extends Component {
 		super(props);
 	}
 
+	componentDidMount() {
+		console.log("inside portfolio, comp did mount");
+		console.log("props: ", this.props);
+		console.log("--------------------------------------");
+
+		if (localStorage.getItem("token")) {
+			let token = localStorage.getItem("token");
+			this.props.fetchExistingPortfolio(token);
+		}
+	}
+
 	renderTransactions() {
 		let transactions = "Loading ...";
 
