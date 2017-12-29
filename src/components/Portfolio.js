@@ -30,7 +30,7 @@ class Portfolio extends Component {
 					}}
 				>
 					<Table.Cell>{trans.balance}</Table.Cell>
-					<Table.Cell>{trans.created_at}</Table.Cell>
+					<Table.Cell>{new Date(trans.created_at).toTimeString()}</Table.Cell>
 					<Table.Cell>{trans.trans_type}</Table.Cell>
 					<Table.Cell>{trans.coin_symbol}</Table.Cell>
 					<Table.Cell>{trans.trans_price}</Table.Cell>
