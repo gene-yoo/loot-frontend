@@ -43,6 +43,66 @@ class Portfolio extends Component {
 		return transactions;
 	}
 
+	renderPerformance() {
+		let stats = "Loading ...";
+		let portfolio = this.props.portfolio;
+		let marketData = this.props.marketData["RAW"];
+		console.log("transactions are: ", portfolio.transactions);
+
+		let totalValue = portfolio.transactions.reduce((acc, curr) => {
+			return acc + curr.quantity * marketData[curr.coin_symbol]["USD"]["PRICE"];
+		}, 0);
+
+		let totalInv = portfolio.transactions.reduce((acc, curr) => {
+			return acc + curr.trans_amt;
+		}, 0);
+
+		let totalPerf = (totalValue - totalInv) / totalInv;
+
+		stats = (
+			<div style={{ width: "100%" }}>
+				<div
+					style={{
+						display: "inline-block",
+						border: "1px solid black",
+						minWidth: "200px",
+						minHeight: "50px",
+						margin: "5px"
+					}}
+				>
+					<span>{parseFloat(portfolio.balance).toFixed(2)}</span>
+					<Header as="h5">Remaining Free Cash</Header>
+				</div>
+				<div
+					style={{
+						display: "inline-block",
+						border: "1px solid black",
+						minWidth: "200px",
+						minHeight: "50px",
+						margin: "5px"
+					}}
+				>
+					<span>{Math.round(totalValue, -2).toFixed(2)}</span>
+					<Header as="h5">Total Portfolio Value</Header>
+				</div>
+				<div
+					style={{
+						display: "inline-block",
+						border: "1px solid black",
+						minWidth: "200px",
+						minHeight: "50px",
+						margin: "5px"
+					}}
+				>
+					<span>{totalPerf}</span>
+					<Header as="h5">YTD Performance</Header>
+				</div>
+			</div>
+		);
+
+		return stats;
+	}
+
 	render() {
 		console.log("inside portfolio, render");
 		console.log("props: ", this.props);
@@ -55,6 +115,7 @@ class Portfolio extends Component {
 				</Grid.Column>
 				<Grid.Column width={12}>
 					<Header as="h3">Inside Second Column</Header>
+					<div>{this.renderPerformance()}</div>
 					<Table textAlign="left" style={{ width: "800px" }}>
 						<Table.Header>
 							<Table.Row style={{ height: "25px" }}>
