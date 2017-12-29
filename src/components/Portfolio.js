@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Grid, Table, Header } from "semantic-ui-react";
 import { withRouter } from "react-router-dom";
+import PortfolioChart from "./PortfolioChart";
 
 class Portfolio extends Component {
 	constructor(props) {
@@ -100,7 +101,7 @@ class Portfolio extends Component {
 							top: "15px"
 						}}
 					>
-						$ {Math.round(totalInv, -2).toFixed(2)}
+						$ {totalInv.toFixed(2)}
 					</span>
 					<Header as="h5">Total Invested</Header>
 				</div>
@@ -120,7 +121,7 @@ class Portfolio extends Component {
 							top: "15px"
 						}}
 					>
-						$ {Math.round(totalValue, -2).toFixed(2)}
+						$ {totalValue.toFixed(2)}
 					</span>
 					<Header as="h5">Total Portfolio Value</Header>
 				</div>
@@ -142,7 +143,7 @@ class Portfolio extends Component {
 								top: "15px"
 							}}
 						>
-							+ {totalPerf.toFixed(2)} %
+							+ {Math.abs(totalPerf).toFixed(2)} %
 						</span>
 					) : (
 						<span
@@ -153,7 +154,7 @@ class Portfolio extends Component {
 								top: "15px"
 							}}
 						>
-							- {totalPerf.toFixed(2)} %
+							- {Math.abs(totalPerf).toFixed(2)} %
 						</span>
 					)}
 					<Header as="h5">YTD Performance</Header>
@@ -173,6 +174,7 @@ class Portfolio extends Component {
 			<Grid>
 				<Grid.Column width={6}>
 					<Header as="h3">Inside First Column</Header>
+					<PortfolioChart portfolio={this.props.portfolio} />
 				</Grid.Column>
 				<Grid.Column width={10}>
 					<Header as="h3" style={{ textAlign: "left" }}>
