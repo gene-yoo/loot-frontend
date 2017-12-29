@@ -1,13 +1,19 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
 
+const timeConverter = epoch => {
+	let date = new Date(0);
+	date.setUTCSeconds(epoch);
+	return date.toLocaleString();
+};
+
 const CoinChart = props => {
 	console.log("inside coin chart, render");
 	console.log("props: ", props);
 	console.log("--------------------------------------");
 
 	const data = {
-		labels: props.coinHisto.map(coin => coin.time),
+		labels: props.coinHisto.map(coin => timeConverter(coin.time)),
 		datasets: [
 			{
 				label: `${props.selectedSym} (Closing Price)`,
