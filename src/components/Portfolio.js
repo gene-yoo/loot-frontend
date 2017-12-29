@@ -54,47 +54,108 @@ class Portfolio extends Component {
 		}, 0);
 
 		let totalInv = portfolio.transactions.reduce((acc, curr) => {
-			return acc + curr.trans_amt;
+			return acc + parseFloat(curr.trans_amt);
 		}, 0);
 
-		let totalPerf = (totalValue - totalInv) / totalInv;
+		let totalPerf = (totalValue - totalInv) / totalInv * 100;
+		console.log("total Value: ", totalValue);
+		console.log("total Inv: ", totalInv);
+		console.log("total Perf: ", totalPerf);
 
 		stats = (
 			<div style={{ width: "100%" }}>
 				<div
 					style={{
 						display: "inline-block",
-						border: "1px solid black",
-						minWidth: "200px",
-						minHeight: "50px",
+						border: "1px solid white",
+						minWidth: "175px",
+						minHeight: "30px",
 						margin: "5px"
 					}}
 				>
-					<span>{parseFloat(portfolio.balance).toFixed(2)}</span>
+					<span
+						style={{
+							fontSize: "2em",
+							position: "relative",
+							top: "15px"
+						}}
+					>
+						$ {parseFloat(portfolio.balance).toFixed(2)}
+					</span>
 					<Header as="h5">Remaining Free Cash</Header>
 				</div>
 				<div
 					style={{
 						display: "inline-block",
-						border: "1px solid black",
-						minWidth: "200px",
-						minHeight: "50px",
+						border: "1px solid white",
+						minWidth: "175px",
+						minHeight: "30px",
 						margin: "5px"
 					}}
 				>
-					<span>{Math.round(totalValue, -2).toFixed(2)}</span>
+					<span
+						style={{
+							fontSize: "2em",
+							position: "relative",
+							top: "15px"
+						}}
+					>
+						$ {Math.round(totalInv, -2).toFixed(2)}
+					</span>
+					<Header as="h5">Total Invested</Header>
+				</div>
+				<div
+					style={{
+						display: "inline-block",
+						border: "1px solid white",
+						minWidth: "175px",
+						minHeight: "30px",
+						margin: "5px"
+					}}
+				>
+					<span
+						style={{
+							fontSize: "2em",
+							position: "relative",
+							top: "15px"
+						}}
+					>
+						$ {Math.round(totalValue, -2).toFixed(2)}
+					</span>
 					<Header as="h5">Total Portfolio Value</Header>
 				</div>
 				<div
 					style={{
 						display: "inline-block",
-						border: "1px solid black",
-						minWidth: "200px",
-						minHeight: "50px",
+						border: "1px solid white",
+						minWidth: "175px",
+						minHeight: "30px",
 						margin: "5px"
 					}}
 				>
-					<span>{totalPerf}</span>
+					{totalPerf > 0 ? (
+						<span
+							style={{
+								color: "green",
+								fontSize: "2em",
+								position: "relative",
+								top: "15px"
+							}}
+						>
+							+ {totalPerf.toFixed(2)} %
+						</span>
+					) : (
+						<span
+							style={{
+								color: "red",
+								fontSize: "2em",
+								position: "relative",
+								top: "15px"
+							}}
+						>
+							- {totalPerf.toFixed(2)} %
+						</span>
+					)}
 					<Header as="h5">YTD Performance</Header>
 				</div>
 			</div>
@@ -110,12 +171,17 @@ class Portfolio extends Component {
 
 		return (
 			<Grid>
-				<Grid.Column width={4}>
+				<Grid.Column width={6}>
 					<Header as="h3">Inside First Column</Header>
 				</Grid.Column>
-				<Grid.Column width={12}>
-					<Header as="h3">Inside Second Column</Header>
+				<Grid.Column width={10}>
+					<Header as="h3" style={{ textAlign: "left" }}>
+						Portfolio Performance
+					</Header>
 					<div>{this.renderPerformance()}</div>
+					<Header as="h3" style={{ textAlign: "left" }}>
+						Recent Transactions
+					</Header>
 					<Table textAlign="left" style={{ width: "800px" }}>
 						<Table.Header>
 							<Table.Row style={{ height: "25px" }}>
@@ -125,7 +191,7 @@ class Portfolio extends Component {
 								<Table.HeaderCell>Coin Symbol</Table.HeaderCell>
 								<Table.HeaderCell>Trans Amt $</Table.HeaderCell>
 								<Table.HeaderCell>Trans Price</Table.HeaderCell>
-								<Table.HeaderCell>Quantity</Table.HeaderCell>
+								<Table.HeaderCell>Trans Qty</Table.HeaderCell>
 							</Table.Row>
 						</Table.Header>
 						<Table.Body>{this.renderTransactions()}</Table.Body>
