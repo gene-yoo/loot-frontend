@@ -7,10 +7,10 @@ const PortfolioChart = props => {
 	console.log("--------------------------------------");
 
 	const data = {
-		labels: ["Red", "Green", "Yellow"],
+		labels: props.holdings.map(coin => coin.symbol),
 		datasets: [
 			{
-				data: [300, 50, 100],
+				data: props.holdings.map(coin => coin.totalValue),
 				backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
 				hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
 			}
