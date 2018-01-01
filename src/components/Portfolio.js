@@ -229,7 +229,7 @@ class Portfolio extends Component {
 			<Grid>
 				<Grid.Column width={6}>
 					<Header as="h3" style={{ textAlign: "left" }}>
-						Portfolio Distribution %
+						Portfolio Distribution $
 					</Header>
 					<PortfolioChart holdings={this.mapHoldings()} />
 					<Header as="h3" style={{ textAlign: "left" }}>

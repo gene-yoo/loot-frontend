@@ -10,7 +10,7 @@ const PortfolioChart = props => {
 		labels: props.holdings.map(coin => coin.symbol),
 		datasets: [
 			{
-				data: props.holdings.map(coin => coin.totalValue),
+				data: props.holdings.map(coin => coin.totalValue.toFixed(2)),
 				backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
 				hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
 			}
@@ -18,7 +18,7 @@ const PortfolioChart = props => {
 	};
 
 	return (
-		<div style={{ width: "400px", height: "400px" }}>
+		<div style={{ width: "400px", height: "200px" }}>
 			<Pie data={data} />
 		</div>
 	);
