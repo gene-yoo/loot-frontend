@@ -19,6 +19,110 @@ class Portfolio extends Component {
 		}
 	}
 
+	// --- helper methods --------------------------------------------------
+
+	mapHoldings() {
+		console.log("inside portfolio, mapHoldings");
+		console.log("--------------------------------------");
+
+		let marketData = this.props.marketData["RAW"];
+		let holdings = this.props.portfolio.net_holdings;
+		let coins = [];
+
+		for (const coin in holdings) {
+			coins.push({
+				symbol: coin,
+				totalValue:
+					marketData[coin]["USD"]["PRICE"] * parseFloat(holdings[coin])
+			});
+		}
+
+		console.log("coins from mapHoldings: ", coins);
+
+		return coins;
+	}
+
+	mapInvestments() {
+		console.log("inside portfolio, mapEarnings");
+		console.log("props are: ", this.props);
+		console.log("--------------------------------------");
+
+		let investments = {};
+
+		for (let trans of this.props.portfolio.transactions) {
+			if (investments[trans.coin_symbol]) {
+				trans.trans_type === "buy"
+					? (investments[trans.coin_symbol] += parseFloat(trans.trans_amt))
+					: (investments[trans.coin_symbol] -= parseFloat(trans.trans_amt));
+			} else {
+				investments[trans.coin_symbol] = parseFloat(trans.trans_amt);
+			}
+		}
+
+		console.log("investments from mapInvestments: ", investments);
+
+		return investments;
+	}
+
+	sumInvestments() {
+		let allInv = this.mapInvestments();
+		let sum = 0;
+
+		for (const coinSym in allInv) {
+			sum += allInv[coinSym];
+		}
+		return sum;
+	}
+
+	// --- render methods --------------------------------------------------
+
+	renderHoldings() {
+		console.log("inside portfolio, renderHoldings");
+		console.log("props are: ", this.props);
+		console.log("--------------------------------------");
+
+		let holdings = "Loading ...";
+
+		let totalPortfolio = this.mapHoldings().reduce((acc, curr) => {
+			return acc + parseFloat(curr.totalValue);
+		}, 0);
+
+		let rank = 0;
+
+		let inv = this.mapInvestments();
+
+		holdings = this.mapHoldings()
+			.sort((a, b) => b.totalValue - a.totalValue)
+			.map(coin => {
+				return (
+					<Table.Row
+						key={coin.symbol}
+						style={{
+							height: "50px"
+						}}
+					>
+						<Table.Cell>{(rank += 1)}</Table.Cell>
+						<Table.Cell>{coin.symbol}</Table.Cell>
+						<Table.Cell>
+							{(coin.totalValue / totalPortfolio * 100).toFixed(2)} %
+						</Table.Cell>
+						<Table.Cell>$ {coin.totalValue.toFixed(2)}</Table.Cell>
+						{coin.totalValue - inv[coin.symbol] > 0 ? (
+							<Table.Cell style={{ color: "green" }}>
+								+ $ {Math.abs(coin.totalValue - inv[coin.symbol]).toFixed(2)}
+							</Table.Cell>
+						) : (
+							<Table.Cell style={{ color: "red" }}>
+								- $ {Math.abs(coin.totalValue - inv[coin.symbol]).toFixed(2)}
+							</Table.Cell>
+						)}
+					</Table.Row>
+				);
+			});
+
+		return holdings;
+	}
+
 	renderTransactions() {
 		let transactions = "Loading ...";
 
@@ -45,45 +149,20 @@ class Portfolio extends Component {
 
 	renderPerformance() {
 		let stats = "Loading ...";
-		let portfolio = this.props.portfolio;
-		let marketData = this.props.marketData["RAW"];
-		console.log("transactions are: ", portfolio.transactions);
+		// console.log("transactions are: ", portfolio.transactions);
 
-		let totalValue = portfolio.transactions.reduce((acc, curr) => {
-			return acc + curr.quantity * marketData[curr.coin_symbol]["USD"]["PRICE"];
+		let totalValue = this.mapHoldings().reduce((acc, curr) => {
+			return acc + curr.totalValue;
 		}, 0);
 
-		let totalInv = portfolio.transactions.reduce((acc, curr) => {
-			return acc + parseFloat(curr.trans_amt);
-		}, 0);
+		let totalInv = this.sumInvestments();
 
-		let totalPerf = (totalValue - totalInv) / totalInv * 100;
-		// console.log("total Value: ", totalValue);
-		// console.log("total Inv: ", totalInv);
-		// console.log("total Perf: ", totalPerf);
+		let totalEarnings = totalValue - totalInv;
+
+		let totalPerf = totalEarnings / totalInv * 100;
 
 		stats = (
 			<div style={{ width: "100%" }}>
-				<div
-					style={{
-						display: "inline-block",
-						border: "1px solid white",
-						minWidth: "175px",
-						minHeight: "30px",
-						margin: "5px"
-					}}
-				>
-					<span
-						style={{
-							fontSize: "2em",
-							position: "relative",
-							top: "15px"
-						}}
-					>
-						$ {parseFloat(portfolio.balance).toFixed(2)}
-					</span>
-					<Header as="h5">Remaining Free Cash</Header>
-				</div>
 				<div
 					style={{
 						display: "inline-block",
@@ -120,9 +199,66 @@ class Portfolio extends Component {
 							top: "15px"
 						}}
 					>
+						$ {parseFloat(this.props.portfolio.balance).toFixed(2)}
+					</span>
+					<Header as="h5">Remaining Free Cash</Header>
+				</div>
+
+				<br />
+
+				<div
+					style={{
+						display: "inline-block",
+						border: "1px solid white",
+						minWidth: "175px",
+						minHeight: "30px",
+						margin: "5px"
+					}}
+				>
+					<span
+						style={{
+							fontSize: "2em",
+							position: "relative",
+							top: "15px"
+						}}
+					>
 						$ {totalValue.toFixed(2)}
 					</span>
 					<Header as="h5">Total Portfolio Value</Header>
+				</div>
+				<div
+					style={{
+						display: "inline-block",
+						border: "1px solid white",
+						minWidth: "175px",
+						minHeight: "30px",
+						margin: "5px"
+					}}
+				>
+					{totalEarnings > 0 ? (
+						<span
+							style={{
+								color: "green",
+								fontSize: "2em",
+								position: "relative",
+								top: "15px"
+							}}
+						>
+							+ $ {Math.abs(totalEarnings).toFixed(2)}
+						</span>
+					) : (
+						<span
+							style={{
+								color: "red",
+								fontSize: "2em",
+								position: "relative",
+								top: "15px"
+							}}
+						>
+							- $ {Math.abs(totalEarnings).toFixed(2)}
+						</span>
+					)}
+					<Header as="h5">YTD Performance $</Header>
 				</div>
 				<div
 					style={{
@@ -156,68 +292,12 @@ class Portfolio extends Component {
 							- {Math.abs(totalPerf).toFixed(2)} %
 						</span>
 					)}
-					<Header as="h5">YTD Performance</Header>
+					<Header as="h5">YTD Performance %</Header>
 				</div>
 			</div>
 		);
 
 		return stats;
-	}
-
-	mapHoldings() {
-		console.log("inside portfolio, mapHoldings");
-		console.log("--------------------------------------");
-
-		let marketData = this.props.marketData["RAW"];
-		let holdings = this.props.portfolio.net_holdings;
-		let coins = [];
-
-		for (const coin in holdings) {
-			coins.push({
-				symbol: coin,
-				totalValue:
-					marketData[coin]["USD"]["PRICE"] * parseFloat(holdings[coin])
-			});
-		}
-
-		console.log("coins from mapHoldings: ", coins);
-
-		return coins;
-	}
-
-	renderHoldings() {
-		console.log("inside portfolio, renderHoldings");
-		console.log("--------------------------------------");
-
-		let holdings = "Loading ...";
-
-		let totalPortfolio = this.mapHoldings().reduce((acc, curr) => {
-			return acc + parseFloat(curr.totalValue);
-		}, 0);
-
-		let rank = 0;
-
-		holdings = this.mapHoldings()
-			.sort((a, b) => b.totalValue - a.totalValue)
-			.map(coin => {
-				return (
-					<Table.Row
-						key={coin.symbol}
-						style={{
-							height: "50px"
-						}}
-					>
-						<Table.Cell>{(rank += 1)}</Table.Cell>
-						<Table.Cell>{coin.symbol}</Table.Cell>
-						<Table.Cell>$ {coin.totalValue.toFixed(2)}</Table.Cell>
-						<Table.Cell>
-							{(coin.totalValue / totalPortfolio * 100).toFixed(2)} %
-						</Table.Cell>
-					</Table.Row>
-				);
-			});
-
-		return holdings;
 	}
 
 	render() {
@@ -235,13 +315,14 @@ class Portfolio extends Component {
 					<Header as="h3" style={{ textAlign: "left" }}>
 						Net Holdings
 					</Header>
-					<Table textAlign="left" style={{ width: "400px" }}>
+					<Table textAlign="left" style={{ width: "475px" }}>
 						<Table.Header>
 							<Table.Row style={{ height: "25px" }}>
 								<Table.HeaderCell>Rank</Table.HeaderCell>
 								<Table.HeaderCell>Coin Symbol</Table.HeaderCell>
-								<Table.HeaderCell>Tot Value $</Table.HeaderCell>
 								<Table.HeaderCell>% Portfolio</Table.HeaderCell>
+								<Table.HeaderCell>Tot Value $</Table.HeaderCell>
+								<Table.HeaderCell>Net Earnings $</Table.HeaderCell>
 							</Table.Row>
 						</Table.Header>
 						<Table.Body>{this.renderHoldings()}</Table.Body>
