@@ -22,8 +22,8 @@ class Portfolio extends Component {
 	// --- helper methods --------------------------------------------------
 
 	mapHoldings() {
-		// console.log("inside portfolio, mapHoldings");
-		// console.log("--------------------------------------");
+		console.log("inside portfolio, mapHoldings");
+		console.log("--------------------------------------");
 
 		let marketData = this.props.marketData["RAW"];
 		let holdings = this.props.portfolio.net_holdings;
@@ -90,6 +90,8 @@ class Portfolio extends Component {
 		let rank = 0;
 
 		let inv = this.mapInvestments();
+
+		debugger;
 
 		holdings = this.mapHoldings()
 			.sort((a, b) => b.totalValue - a.totalValue)
