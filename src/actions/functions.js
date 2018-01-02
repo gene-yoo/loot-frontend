@@ -77,6 +77,21 @@ export function submitNewPortfolio(formData, history) {
 	};
 }
 
+export function submitNewTransaction(transData, history) {
+	return dispatch => {
+		console.log("inside actions/functions, submitNewTransaction");
+		console.log("--------------------------------------");
+
+		return API.submitNewTransaction(transData).then(res => {
+			dispatch({
+				type: SET_PORTFOLIO,
+				payload: res
+			});
+			history.push("/myportfolio");
+		});
+	};
+}
+
 export function fetchExistingPortfolio(token) {
 	return dispatch => {
 		console.log("inside actions/functions, fetch existing portfolio");

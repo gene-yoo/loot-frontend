@@ -102,20 +102,26 @@ class CoinContainer extends Component {
 		);
 	};
 
-	handlePurchaseSubmit = ({ purchaseAmount, transactionType }) => {
+	handleTransactionSubmit = ({ transactionAmount, transactionType }) => {
 		console.log("inside coin container, handle purchase submit");
 
-		let body = {
-			purchaseAmount: parseFloat(purchaseAmount),
+		let transData = {
+			portfolioId: this.props.portfolio.id,
+			transactionAmount: parseFloat(transactionAmount),
 			transactionType,
-			selectedCoin: this.state.selectedSym,
+			coinSymbol: this.state.selectedSym,
+			coinName: this.props.allCoins.find(
+				coin => coin.Symbol === this.state.selectedSym
+			),
 			transactionPrice: this.props.marketData["RAW"][this.state.selectedSym][
 				"USD"
 			]["PRICE"]
 		};
 
-		console.log("body: ", body);
+		console.log("transData: ", transData);
 		console.log("--------------------------------------");
+
+		this.props.submitNewTransaction(transData, this.props.history);
 	};
 
 	render() {
@@ -165,7 +171,7 @@ class CoinContainer extends Component {
 												allCoins={this.props.allCoins}
 												filteredCoins={this.state.filteredCoins}
 												handleChartSelection={this.handleChartSelection}
-												handlePurchaseSubmit={this.handlePurchaseSubmit}
+												handleTransactionSubmit={this.handleTransactionSubmit}
 												selectedSym={this.state.selectedSym}
 												searchTerm={this.state.searchTerm}
 												portfolio={this.props.portfolio}

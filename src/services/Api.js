@@ -83,6 +83,20 @@ const API = {
 			headers,
 			body: JSON.stringify(formData)
 		}).then(res => res.json());
+	},
+
+	submitNewTransaction: transData => {
+		console.log("inside API, submitNewTransaction");
+		console.log("trans data is: ", transData);
+		console.log("--------------------------------------");
+
+		let body = Object.assign({}, { transaction: transData });
+
+		return fetch(apiURL + "new_transaction", {
+			method: "POST",
+			headers,
+			body: JSON.stringify(body)
+		}).then(res => res.json());
 	}
 };
 

@@ -15,7 +15,7 @@ class CoinList extends Component {
 
 		this.state = {
 			transactionType: "",
-			purchaseAmount: ""
+			transactionAmount: ""
 		};
 	}
 
@@ -44,12 +44,12 @@ class CoinList extends Component {
 		});
 	};
 
-	handlePurchaseAmount = ev => {
+	handleTransactionAmount = ev => {
 		console.log("inside coin list, handle purchase amount");
 		console.log("--------------------------------------");
 
 		this.setState({
-			purchaseAmount: ev.target.value
+			transactionAmount: ev.target.value
 		});
 	};
 
@@ -174,7 +174,7 @@ class CoinList extends Component {
 										<Form
 											style={{ display: "inline-block" }}
 											onSubmit={() =>
-												this.props.handlePurchaseSubmit(this.state)}
+												this.props.handleTransactionSubmit(this.state)}
 										>
 											<div
 												style={{
@@ -193,7 +193,7 @@ class CoinList extends Component {
 														verticalAlign: "middle"
 													}}
 												>
-													$
+													${" "}
 													{parseFloat(this.props.portfolio.balance).toFixed(2)}
 												</span>
 											</div>
@@ -211,7 +211,7 @@ class CoinList extends Component {
 												<Form.Input
 													id="purchase-amount"
 													placeholder="Purchase Amount ($)"
-													onChange={this.handlePurchaseAmount}
+													onChange={this.handleTransactionAmount}
 												/>
 											</div>
 											<div
@@ -231,10 +231,10 @@ class CoinList extends Component {
 														verticalAlign: "middle"
 													}}
 												>
-													{this.state.purchaseAmount === ""
+													{this.state.transactionAmount === ""
 														? 0
 														: this.shortenPurchaseQty(
-																parseFloat(this.state.purchaseAmount) /
+																parseFloat(this.state.transactionAmount) /
 																	selectedCoinPricing.PRICE
 															)}
 												</span>
@@ -256,20 +256,20 @@ class CoinList extends Component {
 														verticalAlign: "middle"
 													}}
 												>
-													$
-													{this.state.purchaseAmount === ""
+													${" "}
+													{this.state.transactionAmount === ""
 														? parseFloat(this.props.portfolio.balance).toFixed(
 																2
 															)
 														: (parseFloat(this.props.portfolio.balance) -
-																parseFloat(this.state.purchaseAmount)
+																parseFloat(this.state.transactionAmount)
 															).toFixed(2)}
 												</span>
 											</div>
 											<br />
 											<Header as="h5">Confirm your purchase?</Header>
 											<Button type="submit">Yes, I Confirm</Button>
-											<Button type="submit">No, Cancel Transaction</Button>
+											<Button>No, Cancel Transaction</Button>
 										</Form>
 									</Grid.Row>
 								</Grid.Column>
