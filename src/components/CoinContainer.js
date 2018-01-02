@@ -102,6 +102,15 @@ class CoinContainer extends Component {
 		);
 	};
 
+	handlePurchaseSubmit = ({ purchaseAmount, transactionType }) => {
+		console.log("inside coin list, handle purchase submit");
+		console.log("state: ", this.state);
+		console.log("props: ", this.props);
+		console.log("purchaseAmount: ", purchaseAmount);
+		console.log("transactionType: ", transactionType);
+		console.log("--------------------------------------");
+	};
+
 	render() {
 		console.log("inside coin container, render");
 		console.log("props: ", this.props);
@@ -149,6 +158,7 @@ class CoinContainer extends Component {
 												allCoins={this.props.allCoins}
 												filteredCoins={this.state.filteredCoins}
 												handleChartSelection={this.handleChartSelection}
+												handlePurchaseSubmit={this.handlePurchaseSubmit}
 												selectedSym={this.state.selectedSym}
 												searchTerm={this.state.searchTerm}
 												portfolio={this.props.portfolio}

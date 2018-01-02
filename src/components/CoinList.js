@@ -14,6 +14,7 @@ class CoinList extends Component {
 		super(props);
 
 		this.state = {
+			transactionType: "",
 			purchaseAmount: ""
 		};
 	}
@@ -34,6 +35,18 @@ class CoinList extends Component {
 			: qty.toString();
 	};
 
+	handleTransactionType = ev => {
+		console.log("inside coin list, handle purchase amount");
+		console.log("--------------------------------------");
+
+		this.setState(
+			{
+				transactionType: ev.target.innerText.toLowerCase()
+			},
+			() => console.log(this.state)
+		);
+	};
+
 	handlePurchaseAmount = ev => {
 		console.log("inside coin list, handle purchase amount");
 		console.log("--------------------------------------");
@@ -42,23 +55,18 @@ class CoinList extends Component {
 			{
 				purchaseAmount: ev.target.value
 			},
-			() => console.log(this.state.purchaseAmount)
+			() => console.log(this.state)
 		);
 	};
 
-	handlePurchaseSubmit = ev => {
-		console.log("inside coin list, handle purchase submit");
-		console.log("--------------------------------------");
-	};
-
-	filterCoins() {
+	filterCoins = () => {
 		// console.log("inside coin list, filter coins");
 		return this.props.allCoins.filter(coin =>
 			Object.keys(this.props.marketData.DISPLAY).includes(coin.Symbol)
 		);
-	}
+	};
 
-	renderExchangeModals() {
+	renderExchangeModals = () => {
 		let selectedCoinInfo = this.props.allCoins.find(
 			coin => coin.Symbol === this.props.selectedSym
 		);
@@ -68,7 +76,9 @@ class CoinList extends Component {
 
 		return (
 			<div>
-				<Modal trigger={<Button>Buy</Button>}>
+				<Modal
+					trigger={<Button onClick={this.handleTransactionType}>Buy</Button>}
+				>
 					<Modal.Header>Buy</Modal.Header>
 					<Modal.Content>
 						<Modal.Description>
@@ -169,7 +179,8 @@ class CoinList extends Component {
 									<Grid.Row style={{ marginBottom: "30px" }}>
 										<Form
 											style={{ display: "inline-block" }}
-											onSubmit={this.handlePurchaseSubmit}
+											onSubmit={() =>
+												this.props.handlePurchaseSubmit(this.state)}
 										>
 											<div
 												style={{
@@ -282,9 +293,9 @@ class CoinList extends Component {
 				</Modal>
 			</div>
 		);
-	}
+	};
 
-	renderCoins() {
+	renderCoins = () => {
 		let coins = "Loading ...";
 
 		let marketDataKeys = this.props.marketData.DISPLAY
@@ -340,7 +351,7 @@ class CoinList extends Component {
 		}
 
 		return coins;
-	}
+	};
 
 	render() {
 		console.log("inside coin list, render");
