@@ -103,11 +103,18 @@ class CoinContainer extends Component {
 	};
 
 	handlePurchaseSubmit = ({ purchaseAmount, transactionType }) => {
-		console.log("inside coin list, handle purchase submit");
-		console.log("state: ", this.state);
-		console.log("props: ", this.props);
-		console.log("purchaseAmount: ", purchaseAmount);
-		console.log("transactionType: ", transactionType);
+		console.log("inside coin container, handle purchase submit");
+
+		let body = {
+			purchaseAmount: parseFloat(purchaseAmount),
+			transactionType,
+			selectedCoin: this.state.selectedSym,
+			transactionPrice: this.props.marketData["RAW"][this.state.selectedSym][
+				"USD"
+			]["PRICE"]
+		};
+
+		console.log("body: ", body);
 		console.log("--------------------------------------");
 	};
 

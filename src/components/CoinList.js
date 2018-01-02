@@ -39,24 +39,18 @@ class CoinList extends Component {
 		console.log("inside coin list, handle purchase amount");
 		console.log("--------------------------------------");
 
-		this.setState(
-			{
-				transactionType: ev.target.innerText.toLowerCase()
-			},
-			() => console.log(this.state)
-		);
+		this.setState({
+			transactionType: ev.target.innerText.toLowerCase()
+		});
 	};
 
 	handlePurchaseAmount = ev => {
 		console.log("inside coin list, handle purchase amount");
 		console.log("--------------------------------------");
 
-		this.setState(
-			{
-				purchaseAmount: ev.target.value
-			},
-			() => console.log(this.state)
-		);
+		this.setState({
+			purchaseAmount: ev.target.value
+		});
 	};
 
 	filterCoins = () => {
