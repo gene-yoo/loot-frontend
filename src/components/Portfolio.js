@@ -22,8 +22,8 @@ class Portfolio extends Component {
 	// --- helper methods --------------------------------------------------
 
 	mapHoldings() {
-		console.log("inside portfolio, mapHoldings");
-		console.log("--------------------------------------");
+		// console.log("inside portfolio, mapHoldings");
+		// console.log("--------------------------------------");
 
 		let marketData = this.props.marketData["RAW"];
 		let holdings = this.props.portfolio.net_holdings;
@@ -43,9 +43,9 @@ class Portfolio extends Component {
 	}
 
 	mapInvestments() {
-		console.log("inside portfolio, mapEarnings");
-		console.log("props are: ", this.props);
-		console.log("--------------------------------------");
+		// console.log("inside portfolio, mapEarnings");
+		// console.log("props are: ", this.props);
+		// console.log("--------------------------------------");
 
 		let investments = {};
 
@@ -59,7 +59,7 @@ class Portfolio extends Component {
 			}
 		}
 
-		console.log("investments from mapInvestments: ", investments);
+		// console.log("investments from mapInvestments: ", investments);
 
 		return investments;
 	}
@@ -77,9 +77,9 @@ class Portfolio extends Component {
 	// --- render methods --------------------------------------------------
 
 	renderHoldings() {
-		console.log("inside portfolio, renderHoldings");
-		console.log("props are: ", this.props);
-		console.log("--------------------------------------");
+		// console.log("inside portfolio, renderHoldings");
+		// console.log("props are: ", this.props);
+		// console.log("--------------------------------------");
 
 		let holdings = "Loading ...";
 

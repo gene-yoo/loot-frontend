@@ -59,6 +59,14 @@ class Navbar extends Component {
 										<Icon name="folder" size="small" /> Create New Portfolio
 									</Link>
 								</Dropdown.Item>
+								<Dropdown.Item className="Item">
+									<Link
+										to="/exchange"
+										style={{ color: "black", fontSize: "0.9em" }}
+									>
+										<Icon name="folder" size="small" /> Exchange Coins
+									</Link>
+								</Dropdown.Item>
 							</Dropdown.Menu>
 						</Dropdown>
 					</Menu.Item>
