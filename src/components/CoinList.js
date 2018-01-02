@@ -24,6 +24,16 @@ class CoinList extends Component {
 		return date.toLocaleString();
 	};
 
+	shortenPurchaseQty = qty => {
+		return qty.toString().length > 15
+			? qty
+					.toString()
+					.split("")
+					.slice(0, 13)
+					.join("") + "..."
+			: qty.toString();
+	};
+
 	handlePurchaseAmount = ev => {
 		console.log("inside coin list, handle purchase amount");
 		console.log("--------------------------------------");
@@ -34,6 +44,11 @@ class CoinList extends Component {
 			},
 			() => console.log(this.state.purchaseAmount)
 		);
+	};
+
+	handlePurchaseSubmit = ev => {
+		console.log("inside coin list, handle purchase submit");
+		console.log("--------------------------------------");
 	};
 
 	filterCoins() {
@@ -152,27 +167,31 @@ class CoinList extends Component {
 										</div>
 									</Grid.Row>
 									<Grid.Row style={{ marginBottom: "30px" }}>
-										<div
-											style={{
-												display: "inline-block",
-												border: "1px solid white",
-												minHeight: "30px",
-												marginRight: "40px"
-											}}
+										<Form
+											style={{ display: "inline-block" }}
+											onSubmit={this.handlePurchaseSubmit}
 										>
-											<Header as="h5" textAlign="left">
-												Available Free Cash
-											</Header>
-											<span
+											<div
 												style={{
-													fontSize: "1.5em",
-													verticalAlign: "middle"
+													display: "inline-block",
+													border: "1px solid white",
+													minHeight: "30px",
+													marginRight: "40px"
 												}}
 											>
-												$ {parseFloat(this.props.portfolio.balance).toFixed(2)}
-											</span>
-										</div>
-										<Form style={{ display: "inline-block" }}>
+												<Header as="h5" textAlign="left">
+													Available Free Cash
+												</Header>
+												<span
+													style={{
+														fontSize: "1.5em",
+														verticalAlign: "middle"
+													}}
+												>
+													$
+													{parseFloat(this.props.portfolio.balance).toFixed(2)}
+												</span>
+											</div>
 											<div
 												style={{
 													display: "inline-block",
@@ -190,6 +209,62 @@ class CoinList extends Component {
 													onChange={this.handlePurchaseAmount}
 												/>
 											</div>
+											<div
+												style={{
+													display: "inline-block",
+													border: "1px solid white",
+													minHeight: "30px",
+													marginRight: "40px"
+												}}
+											>
+												<Header as="h5" textAlign="left">
+													Purchase Qty
+												</Header>
+												<span
+													style={{
+														fontSize: "1.5em",
+														verticalAlign: "middle"
+													}}
+												>
+													{this.state.purchaseAmount === ""
+														? 0
+														: this.shortenPurchaseQty(
+																parseFloat(this.state.purchaseAmount) /
+																	selectedCoinPricing.PRICE
+															)}
+												</span>
+											</div>
+											<div
+												style={{
+													display: "inline-block",
+													border: "1px solid white",
+													minHeight: "30px",
+													marginRight: "40px"
+												}}
+											>
+												<Header as="h5" textAlign="left">
+													Net Remaining Free Cash
+												</Header>
+												<span
+													style={{
+														fontSize: "1.5em",
+														verticalAlign: "middle"
+													}}
+												>
+													$
+													{this.state.purchaseAmount === ""
+														? parseFloat(this.props.portfolio.balance).toFixed(
+																2
+															)
+														: (parseFloat(this.props.portfolio.balance) -
+																parseFloat(this.state.purchaseAmount)
+															).toFixed(2)}
+												</span>
+											</div>
+											<br />
+											<Header as="h5">Confirm your purchase?</Header>
+											<Button type="submit">Yes, I Confirm</Button>
+											<Button type="submit">No, Cancel Transaction</Button>
 										</Form>
 									</Grid.Row>
 								</Grid.Column>
