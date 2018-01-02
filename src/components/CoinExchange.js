@@ -27,7 +27,7 @@ class CoinExchange extends Component {
 		console.log("--------------------------------------");
 
 		this.setState({
-			transType: ev.target.innerText
+			transType: ev.target.innerText.toLowerCase()
 		});
 	};
 

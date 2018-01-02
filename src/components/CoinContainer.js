@@ -42,6 +42,7 @@ class CoinContainer extends Component {
 		if (localStorage.getItem("token")) {
 			let token = localStorage.getItem("token");
 			this.props.getCurrentUser(token, this.props.history);
+			this.props.fetchExistingPortfolio(token);
 		}
 	}
 
@@ -151,6 +152,7 @@ class CoinContainer extends Component {
 												handleChartSelection={this.handleChartSelection}
 												selectedSym={this.state.selectedSym}
 												searchTerm={this.state.searchTerm}
+												porfolio={this.props.portfolio}
 											/>
 										</div>
 									);
