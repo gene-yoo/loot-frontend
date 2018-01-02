@@ -151,7 +151,7 @@ class CoinContainer extends Component {
 												handleChartSelection={this.handleChartSelection}
 												selectedSym={this.state.selectedSym}
 												searchTerm={this.state.searchTerm}
-												porfolio={this.props.portfolio}
+												portfolio={this.props.portfolio}
 											/>
 										</div>
 									);

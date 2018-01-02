@@ -1,17 +1,39 @@
 import React, { Component } from "react";
-import { Table, Image, Button, Modal, Grid } from "semantic-ui-react";
+import {
+	Table,
+	Image,
+	Button,
+	Modal,
+	Grid,
+	Header,
+	Form
+} from "semantic-ui-react";
 
 class CoinList extends Component {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			purchaseAmount: ""
+		};
 	}
 
-	handleExchangeSelection = ev => {
-		console.log("inside coin list, handle Transaction Type");
-		console.log("ev: ", ev.target);
+	convertEpochToLocal = epoch => {
+		let date = new Date(0);
+		date.setUTCSeconds(epoch);
+		return date.toLocaleString();
+	};
+
+	handlePurchaseAmount = ev => {
+		console.log("inside coin list, handle purchase amount");
 		console.log("--------------------------------------");
 
-		debugger;
+		this.setState(
+			{
+				purchaseAmount: ev.target.value
+			},
+			() => console.log(this.state.purchaseAmount)
+		);
 	};
 
 	filterCoins() {
@@ -29,9 +51,6 @@ class CoinList extends Component {
 			this.props.selectedSym
 		]["USD"];
 
-		console.log("selectedCoinInfo: ", selectedCoinInfo);
-		console.log("selectedCoinPricing: ", selectedCoinPricing);
-
 		return (
 			<div>
 				<Modal trigger={<Button>Buy</Button>}>
@@ -39,9 +58,141 @@ class CoinList extends Component {
 					<Modal.Content>
 						<Modal.Description>
 							<Grid>
-								<Grid.Column width={8}>Inside First Column</Grid.Column>
-
-								<Grid.Column width={8}>Inside Second Column</Grid.Column>
+								<Grid.Column width={16}>
+									<Grid.Row style={{ marginBottom: "30px" }}>
+										<div
+											style={{
+												display: "inline-block",
+												border: "1px solid white",
+												minHeight: "30px",
+												marginRight: "40px"
+											}}
+										>
+											<Header as="h5" textAlign="left">
+												Coin Name
+											</Header>
+											<Image
+												src={`https://www.cryptocompare.com${selectedCoinInfo.ImageUrl}`}
+												style={{
+													maxWidth: "30px",
+													paddingRight: "10px",
+													display: "inline-block"
+												}}
+											/>
+											<span
+												style={{
+													fontSize: "1.5em",
+													verticalAlign: "middle"
+												}}
+											>
+												{selectedCoinInfo.FullName}
+											</span>
+										</div>
+										<div
+											style={{
+												display: "inline-block",
+												border: "1px solid white",
+												minHeight: "30px",
+												marginRight: "40px"
+											}}
+										>
+											<Header as="h5" textAlign="left">
+												Current Price
+											</Header>
+											<span
+												style={{
+													fontSize: "1.5em",
+													verticalAlign: "middle"
+												}}
+											>
+												$ {selectedCoinPricing.PRICE}
+											</span>
+										</div>
+										<div
+											style={{
+												display: "inline-block",
+												border: "1px solid white",
+												minHeight: "30px",
+												marginRight: "40px"
+											}}
+										>
+											<Header as="h5" textAlign="left">
+												As Of
+											</Header>
+											<span
+												style={{
+													fontSize: "1.5em",
+													verticalAlign: "middle"
+												}}
+											>
+												{this.convertEpochToLocal(
+													selectedCoinPricing.LASTUPDATE
+												)}
+											</span>
+										</div>
+										<div
+											style={{
+												display: "inline-block",
+												border: "1px solid white",
+												minHeight: "30px",
+												marginRight: "40px"
+											}}
+										>
+											<Header as="h5" textAlign="left">
+												Source
+											</Header>
+											<span
+												style={{
+													fontSize: "1.5em",
+													verticalAlign: "middle"
+												}}
+											>
+												{selectedCoinPricing.LASTMARKET}
+											</span>
+										</div>
+									</Grid.Row>
+									<Grid.Row style={{ marginBottom: "30px" }}>
+										<div
+											style={{
+												display: "inline-block",
+												border: "1px solid white",
+												minHeight: "30px",
+												marginRight: "40px"
+											}}
+										>
+											<Header as="h5" textAlign="left">
+												Available Free Cash
+											</Header>
+											<span
+												style={{
+													fontSize: "1.5em",
+													verticalAlign: "middle"
+												}}
+											>
+												$ {parseFloat(this.props.portfolio.balance).toFixed(2)}
+											</span>
+										</div>
+										<Form style={{ display: "inline-block" }}>
+											<div
+												style={{
+													display: "inline-block",
+													border: "1px solid white",
+													minHeight: "30px",
+													marginRight: "40px"
+												}}
+											>
+												<Header as="h5" textAlign="left">
+													Enter Purchase $ Amount
+												</Header>
+												<Form.Input
+													id="purchase-amount"
+													placeholder="Purchase Amount ($)"
+													onChange={this.handlePurchaseAmount}
+												/>
+											</div>
+										</Form>
+									</Grid.Row>
+								</Grid.Column>
 							</Grid>
 						</Modal.Description>
 					</Modal.Content>
