@@ -1,13 +1,9 @@
 import React, { Component } from "react";
-import { Table, Image, Button } from "semantic-ui-react";
+import { Table, Image, Button, Modal, Grid } from "semantic-ui-react";
 
 class CoinList extends Component {
 	constructor(props) {
 		super(props);
-
-		this.state = {
-			transType: ""
-		};
 	}
 
 	handleExchangeSelection = ev => {
@@ -15,15 +11,50 @@ class CoinList extends Component {
 		console.log("ev: ", ev.target);
 		console.log("--------------------------------------");
 
-		this.setState({
-			transType: ev.target.innerText.toLowerCase()
-		});
+		debugger;
 	};
 
 	filterCoins() {
 		// console.log("inside coin list, filter coins");
 		return this.props.allCoins.filter(coin =>
 			Object.keys(this.props.marketData.DISPLAY).includes(coin.Symbol)
+		);
+	}
+
+	renderExchangeModals() {
+		let selectedCoinInfo = this.props.allCoins.find(
+			coin => coin.Symbol === this.props.selectedSym
+		);
+		let selectedCoinPricing = this.props.marketData["RAW"][
+			this.props.selectedSym
+		]["USD"];
+
+		console.log("selectedCoinInfo: ", selectedCoinInfo);
+		console.log("selectedCoinPricing: ", selectedCoinPricing);
+
+		return (
+			<div>
+				<Modal trigger={<Button>Buy</Button>}>
+					<Modal.Header>Buy</Modal.Header>
+					<Modal.Content>
+						<Modal.Description>
+							<Grid>
+								<Grid.Column width={8}>Inside First Column</Grid.Column>
+
+								<Grid.Column width={8}>Inside Second Column</Grid.Column>
+							</Grid>
+						</Modal.Description>
+					</Modal.Content>
+				</Modal>
+				<Modal trigger={<Button>Sell</Button>}>
+					<Modal.Header>Sell</Modal.Header>
+					<Modal.Content>
+						<Modal.Description>
+							Inside Modal Description - Sell
+						</Modal.Description>
+					</Modal.Content>
+				</Modal>
+			</div>
 		);
 	}
 
@@ -76,10 +107,7 @@ class CoinList extends Component {
 						</Table.Cell>
 						<Table.Cell>{coinData.HIGH24HOUR}</Table.Cell>
 						<Table.Cell>{coinData.LOW24HOUR}</Table.Cell>
-						<Table.Cell>
-							<Button onClick={this.handleExchangeSelection}>Buy</Button>
-							<Button onClick={this.handleExchangeSelection}>Sell</Button>
-						</Table.Cell>
+						<Table.Cell>{this.renderExchangeModals()}</Table.Cell>
 					</Table.Row>
 				);
 			});
@@ -90,7 +118,6 @@ class CoinList extends Component {
 
 	render() {
 		console.log("inside coin list, render");
-		console.log("state: ", this.state);
 		console.log("props: ", this.props);
 		console.log("--------------------------------------");
 

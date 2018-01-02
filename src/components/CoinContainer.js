@@ -13,7 +13,6 @@ import Signup from "./Signup";
 import Login from "./Login";
 import PortfolioForm from "./PortfolioForm";
 import Portfolio from "./Portfolio";
-import CoinExchange from "./CoinExchange";
 
 class CoinContainer extends Component {
 	constructor(props) {
@@ -176,21 +175,6 @@ class CoinContainer extends Component {
 								render={() => {
 									return (
 										<Portfolio
-											marketData={this.props.marketData}
-											allCoins={this.props.allCoins}
-											submitNewPortfolio={this.props.submitNewPortfolio}
-											user_id={this.props.user_id}
-											portfolio={this.props.portfolio}
-											fetchExistingPortfolio={this.props.fetchExistingPortfolio}
-										/>
-									);
-								}}
-							/>
-							<Route
-								path="/exchange"
-								render={() => {
-									return (
-										<CoinExchange
 											marketData={this.props.marketData}
 											allCoins={this.props.allCoins}
 											submitNewPortfolio={this.props.submitNewPortfolio}
