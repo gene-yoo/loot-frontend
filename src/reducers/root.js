@@ -26,7 +26,8 @@ const defaultInitialStatePortfolioReducer = {
 	balance: "",
 	description: "",
 	name: "",
-	transactions: []
+	transactions: [],
+	net_holdings: {}
 };
 
 const coinsReducer = (state = defaultInitialStateCoinReducer, action) => {

@@ -204,6 +204,7 @@ class CoinContainer extends Component {
 											user_id={this.props.user_id}
 											portfolio={this.props.portfolio}
 											fetchExistingPortfolio={this.props.fetchExistingPortfolio}
+											fetchMarketData={this.props.fetchMarketData}
 										/>
 									);
 								}}

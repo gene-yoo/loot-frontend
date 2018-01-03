@@ -13,21 +13,27 @@ class Portfolio extends Component {
 		console.log("props: ", this.props);
 		console.log("--------------------------------------");
 
-		debugger;
+		// if (localStorage.getItem("token")) {
+		// 	let token = localStorage.getItem("token");
+		// 	this.props.fetchExistingPortfolio(token);
+		// }
 
-		if (localStorage.getItem("token")) {
-			let token = localStorage.getItem("token");
-			this.props.fetchExistingPortfolio(token);
+		if (this.props.portfolio.id !== "") {
+			let coinSyms = Object.keys(this.props.portfolio.net_holdings);
+			this.props.fetchMarketData(coinSyms);
 		}
+	}
+
+	componentWillReceiveProps() {
+		console.log("inside portfolio, comp will receive props");
+		console.log("props: ", this.props);
+		console.log("--------------------------------------");
 	}
 
 	// --- helper methods --------------------------------------------------
 
 	mapHoldings() {
 		console.log("inside portfolio, mapHoldings");
-		console.log("--------------------------------------");
-
-		debugger;
 
 		let marketData = this.props.marketData["RAW"];
 		let holdings = this.props.portfolio.net_holdings;
@@ -42,6 +48,7 @@ class Portfolio extends Component {
 		}
 
 		console.log("coins from mapHoldings: ", coins);
+		console.log("--------------------------------------");
 
 		return coins;
 	}
@@ -141,8 +148,8 @@ class Portfolio extends Component {
 					<Table.Cell>{new Date(trans.created_at).toLocaleString()}</Table.Cell>
 					<Table.Cell>{trans.trans_type}</Table.Cell>
 					<Table.Cell>{trans.coin_symbol}</Table.Cell>
-					<Table.Cell>{trans.trans_amt}</Table.Cell>
-					<Table.Cell>{trans.trans_price}</Table.Cell>
+					<Table.Cell>$ {parseFloat(trans.trans_amt).toFixed(2)}</Table.Cell>
+					<Table.Cell>$ {parseFloat(trans.trans_price).toFixed(2)}</Table.Cell>
 					<Table.Cell>{trans.quantity}</Table.Cell>
 				</Table.Row>
 			);
@@ -309,7 +316,15 @@ class Portfolio extends Component {
 		console.log("props: ", this.props);
 		console.log("--------------------------------------");
 
-		return (
+		let marketDataKeys = this.props.marketData.DISPLAY
+			? Object.keys(this.props.marketData.DISPLAY)
+			: [];
+
+		let updateStatus = marketDataKeys.every(key =>
+			Object.keys(this.props.portfolio.net_holdings).includes(key)
+		);
+
+		return this.props.marketData.DISPLAY && updateStatus ? (
 			<Grid>
 				<Grid.Column width={6}>
 					<Header as="h3" style={{ textAlign: "left" }}>
@@ -355,6 +370,8 @@ class Portfolio extends Component {
 					</Table>
 				</Grid.Column>
 			</Grid>
+		) : (
+			<div>Loading ...</div>
 		);
 	}
 }
