@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid, Table, Header, Image, Container, Card } from "semantic-ui-react";
+import { Grid, Table, Header, Image } from "semantic-ui-react";
 import { withRouter } from "react-router-dom";
 import PortfolioChart from "./PortfolioChart";
 
@@ -384,7 +384,7 @@ class Portfolio extends Component {
 
 						<PortfolioChart holdings={this.mapHoldings()} />
 
-						<Table textAlign="left" style={{ width: "500px" }}>
+						<Table selectable textAlign="left" style={{ width: "500px" }}>
 							<Table.Header>
 								<Table.Row style={{ height: "25px" }}>
 									<Table.HeaderCell>Rank</Table.HeaderCell>
@@ -402,7 +402,7 @@ class Portfolio extends Component {
 						<Header as="h3" style={{ textAlign: "left" }}>
 							Recent Transactions
 						</Header>
-						<Table textAlign="left" style={{ width: "800px" }}>
+						<Table selectable textAlign="left" style={{ width: "800px" }}>
 							<Table.Header>
 								<Table.Row style={{ height: "25px" }}>
 									<Table.HeaderCell>Timestamp</Table.HeaderCell>
