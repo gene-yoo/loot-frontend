@@ -1,8 +1,8 @@
 const marketDataURL =
 	"https://min-api.cryptocompare.com/data/pricemultifull?tsyms=USD&fsyms=";
 const coinListURL = "https://min-api.cryptocompare.com/data/all/coinlist";
-const coinHistoURL =
-	"https://min-api.cryptocompare.com/data/histominute?tsym=USD&limit=1440&aggregate=3&e=CCCAGG&fsym=";
+// const coinHistoURL =
+// 	"https://min-api.cryptocompare.com/data/histominute?tsym=USD&limit=1440&aggregate=3&e=CCCAGG&fsym=";
 const apiURL = "http://localhost:3000/api/v1/";
 const headers = {
 	"Content-Type": "application/json",
@@ -24,11 +24,28 @@ const API = {
 		return fetch(coinListURL).then(res => res.json());
 	},
 
-	fetchCoinHistoData: coinSym => {
+	fetchCoinHistoData: (chartTiming, coinSym) => {
 		console.log("inside API, fetch coin histo data");
 		console.log("--------------------------------------");
 
-		return fetch(coinHistoURL + coinSym).then(res => res.json());
+		let coinHistoURL = "";
+
+		switch (chartTiming) {
+			case "7D":
+				coinHistoURL =
+					"https://min-api.cryptocompare.com/data/histohour?tsym=USD&limit=72&aggregate=3&e=CCCAGG&fsym=";
+				return fetch(coinHistoURL + coinSym).then(res => res.json());
+
+			case "1M":
+				coinHistoURL =
+					"https://min-api.cryptocompare.com/data/histoday?tsym=USD&limit=30&aggregate=3&e=CCCAGG&fsym=";
+				return fetch(coinHistoURL + coinSym).then(res => res.json());
+
+			default:
+				coinHistoURL =
+					"https://min-api.cryptocompare.com/data/histominute?tsym=USD&limit=1440&aggregate=3&e=CCCAGG&fsym=";
+				return fetch(coinHistoURL + coinSym).then(res => res.json());
+		}
 	},
 
 	fetchExistingPortfolio: token => {

@@ -54,7 +54,7 @@ const CoinChart = props => {
 				{
 					scaleLabel: {
 						display: true,
-						labelString: "Time (Min)"
+						labelString: "Time (EST)"
 					}
 				}
 			]

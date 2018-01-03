@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import * as actions from "../actions/functions";
 
 import { Route, Switch, withRouter } from "react-router-dom";
-import { Segment } from "semantic-ui-react";
+import { Segment, Button } from "semantic-ui-react";
 
 import CoinList from "./CoinList";
 import CoinChart from "./CoinChart";
@@ -22,7 +22,8 @@ class CoinContainer extends Component {
 			selectedSym: "BTC",
 			searchTerm: "",
 			filteredCoins: ["BTC"],
-			interval: ""
+			interval: "",
+			chartTiming: "24HRS"
 		};
 	}
 
@@ -32,7 +33,10 @@ class CoinContainer extends Component {
 		console.log("--------------------------------------");
 
 		this.props.fetchAllCoins();
-		this.props.fetchCoinHistoData(this.state.selectedSym);
+		this.props.fetchCoinHistoData(
+			this.state.chartTiming,
+			this.state.selectedSym
+		);
 
 		this.setCoinContainerInterval();
 
@@ -75,10 +79,30 @@ class CoinContainer extends Component {
 
 		let interval = setInterval(() => {
 			this.props.fetchMarketData(this.state.filteredCoins);
-			this.props.fetchCoinHistoData(this.state.selectedSym);
+			this.props.fetchCoinHistoData(
+				this.state.chartTiming,
+				this.state.selectedSym
+			);
 		}, 60000);
 
 		this.setState({ interval });
+	};
+
+	handleChartTimeline = ev => {
+		console.log("inside coin container, handle chart timeline");
+		console.log("ev: ", ev.target.innerText);
+		console.log("--------------------------------------");
+
+		this.setState(
+			{
+				chartTiming: ev.target.innerText
+			},
+			() =>
+				this.props.fetchCoinHistoData(
+					this.state.chartTiming,
+					this.state.selectedSym
+				)
+		);
 	};
 
 	handleChartSelection = coinSym => {
@@ -90,7 +114,11 @@ class CoinContainer extends Component {
 			{
 				selectedSym: coinSym
 			},
-			() => this.props.fetchCoinHistoData(this.state.selectedSym)
+			() =>
+				this.props.fetchCoinHistoData(
+					this.state.chartTiming,
+					this.state.selectedSym
+				)
 		);
 	};
 
@@ -168,6 +196,26 @@ class CoinContainer extends Component {
 								render={() => {
 									return (
 										<div>
+											<div style={{ width: "1000px", textAlign: "right" }}>
+												<div
+													style={{
+														display: "inline-block",
+														marginRight: "15px"
+													}}
+												>
+													Timeline:
+												</div>
+												<Button size="tiny" onClick={this.handleChartTimeline}>
+													24HRS
+												</Button>
+												<Button size="tiny" onClick={this.handleChartTimeline}>
+													7D
+												</Button>
+												<Button size="tiny" onClick={this.handleChartTimeline}>
+													1M
+												</Button>
+											</div>
+
 											<CoinChart
 												coinHisto={this.props.coinHisto}
 												selectedSym={this.state.selectedSym}

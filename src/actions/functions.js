@@ -48,12 +48,12 @@ export function fetchMarketData(coinSyms) {
 	};
 }
 
-export function fetchCoinHistoData(coinSym) {
+export function fetchCoinHistoData(chartTiming, coinSym) {
 	return dispatch => {
 		console.log("inside actions/functions, fetchCoinHistoData");
 		console.log("--------------------------------------");
 
-		return API.fetchCoinHistoData(coinSym).then(res => {
+		return API.fetchCoinHistoData(chartTiming, coinSym).then(res => {
 			dispatch({
 				type: FETCH_COIN_HISTO,
 				payload: res.Data
