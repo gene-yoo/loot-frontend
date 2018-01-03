@@ -21,7 +21,8 @@ class CoinContainer extends Component {
 		this.state = {
 			selectedSym: "BTC",
 			searchTerm: "",
-			filteredCoins: ["BTC"]
+			filteredCoins: ["BTC"],
+			interval: ""
 		};
 	}
 
@@ -33,10 +34,7 @@ class CoinContainer extends Component {
 		this.props.fetchAllCoins();
 		this.props.fetchCoinHistoData(this.state.selectedSym);
 
-		setInterval(() => {
-			this.props.fetchMarketData(this.state.filteredCoins);
-			this.props.fetchCoinHistoData(this.state.selectedSym);
-		}, 60000);
+		this.setCoinContainerInterval();
 
 		if (localStorage.getItem("token")) {
 			let token = localStorage.getItem("token");
@@ -48,9 +46,10 @@ class CoinContainer extends Component {
 	componentWillReceiveProps(nextProps) {
 		console.log("inside coin container, component will receive props");
 		console.log("next Props: ", nextProps);
-		console.log("--------------------------------------");
 
 		if (nextProps.allCoins !== this.props.allCoins) {
+			console.log("inside if statement");
+
 			let coins = nextProps.allCoins
 				.sort((a, b) => parseInt(a.SortOrder, 10) - parseInt(b.SortOrder, 10))
 				.map(coin => coin.Symbol)
@@ -63,12 +62,24 @@ class CoinContainer extends Component {
 				() => nextProps.fetchMarketData(this.state.filteredCoins)
 			);
 		}
-	}
 
-	componentWillUnmount() {
-		console.log("inside coin container, component will unmount");
 		console.log("--------------------------------------");
 	}
+
+	setCoinContainerInterval = () => {
+		console.log("--------------------------------------");
+		console.log("         SETTING CC INTERVAL           ");
+		console.log("--------------------------------------");
+
+		this.props.fetchMarketData(this.state.filteredCoins);
+
+		let interval = setInterval(() => {
+			this.props.fetchMarketData(this.state.filteredCoins);
+			this.props.fetchCoinHistoData(this.state.selectedSym);
+		}, 60000);
+
+		this.setState({ interval });
+	};
 
 	handleChartSelection = coinSym => {
 		console.log("inside coin container, handle chart selection");
@@ -205,6 +216,8 @@ class CoinContainer extends Component {
 											portfolio={this.props.portfolio}
 											fetchExistingPortfolio={this.props.fetchExistingPortfolio}
 											fetchMarketData={this.props.fetchMarketData}
+											setCoinContainerInterval={this.setCoinContainerInterval}
+											coinContainerInterval={this.state.interval}
 										/>
 									);
 								}}

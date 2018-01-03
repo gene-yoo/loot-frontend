@@ -6,6 +6,10 @@ import PortfolioChart from "./PortfolioChart";
 class Portfolio extends Component {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			interval: ""
+		};
 	}
 
 	componentDidMount() {
@@ -13,14 +17,25 @@ class Portfolio extends Component {
 		console.log("props: ", this.props);
 		console.log("--------------------------------------");
 
-		// if (localStorage.getItem("token")) {
-		// 	let token = localStorage.getItem("token");
-		// 	this.props.fetchExistingPortfolio(token);
-		// }
-
 		if (this.props.portfolio.id !== "") {
+			console.log("--------------------------------------");
+			console.log("        CLEARING CC INTERVAL           ");
+			console.log("--------------------------------------");
+			clearInterval(this.props.coinContainerInterval);
+
 			let coinSyms = Object.keys(this.props.portfolio.net_holdings);
 			this.props.fetchMarketData(coinSyms);
+
+			console.log("--------------------------------------");
+			console.log("         SETTING P INTERVAL           ");
+			console.log("--------------------------------------");
+
+			let interval = setInterval(
+				() => this.props.fetchMarketData(coinSyms),
+				60000
+			);
+
+			this.setState({ interval });
 		}
 	}
 
@@ -30,10 +45,39 @@ class Portfolio extends Component {
 		console.log("--------------------------------------");
 	}
 
+	componentWillUnmount() {
+		console.log("inside portfolio, comp will unmount");
+		console.log("props: ", this.props);
+		console.log("--------------------------------------");
+
+		console.log("--------------------------------------");
+		console.log("        CLEARING P INTERVAL           ");
+		console.log("--------------------------------------");
+
+		clearInterval(this.state.interval);
+		this.props.setCoinContainerInterval();
+	}
+
+	// --- set interval ----------------------------------------------------
+	setPortfolioInterval = () => {
+		console.log("--------------------------------------");
+		console.log("         SETTING P INTERVAL           ");
+		console.log("--------------------------------------");
+
+		this.props.fetchMarketData(this.state.filteredCoins);
+
+		let interval = setInterval(() => {
+			this.props.fetchMarketData(this.state.filteredCoins);
+			this.props.fetchCoinHistoData(this.state.selectedSym);
+		}, 60000);
+
+		this.setState({ interval });
+	};
+
 	// --- helper methods --------------------------------------------------
 
 	mapHoldings() {
-		console.log("inside portfolio, mapHoldings");
+		// console.log("inside portfolio, mapHoldings");
 
 		let marketData = this.props.marketData["RAW"];
 		let holdings = this.props.portfolio.net_holdings;
@@ -47,8 +91,8 @@ class Portfolio extends Component {
 			});
 		}
 
-		console.log("coins from mapHoldings: ", coins);
-		console.log("--------------------------------------");
+		// console.log("coins from mapHoldings: ", coins);
+		// console.log("--------------------------------------");
 
 		return coins;
 	}
