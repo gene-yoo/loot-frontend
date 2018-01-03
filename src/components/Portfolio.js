@@ -13,6 +13,8 @@ class Portfolio extends Component {
 		console.log("props: ", this.props);
 		console.log("--------------------------------------");
 
+		debugger;
+
 		if (localStorage.getItem("token")) {
 			let token = localStorage.getItem("token");
 			this.props.fetchExistingPortfolio(token);
@@ -24,6 +26,8 @@ class Portfolio extends Component {
 	mapHoldings() {
 		console.log("inside portfolio, mapHoldings");
 		console.log("--------------------------------------");
+
+		debugger;
 
 		let marketData = this.props.marketData["RAW"];
 		let holdings = this.props.portfolio.net_holdings;
@@ -90,8 +94,6 @@ class Portfolio extends Component {
 		let rank = 0;
 
 		let inv = this.mapInvestments();
-
-		debugger;
 
 		holdings = this.mapHoldings()
 			.sort((a, b) => b.totalValue - a.totalValue)

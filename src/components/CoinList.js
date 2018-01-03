@@ -54,19 +54,20 @@ class CoinList extends Component {
 	};
 
 	filterCoins = () => {
-		// console.log("inside coin list, filter coins");
+		console.log("inside coin list, filter coins");
 		return this.props.allCoins.filter(coin =>
 			Object.keys(this.props.marketData.DISPLAY).includes(coin.Symbol)
 		);
 	};
 
-	renderExchangeModals = () => {
+	renderExchangeModals = coinSym => {
 		let selectedCoinInfo = this.props.allCoins.find(
 			coin => coin.Symbol === this.props.selectedSym
 		);
-		let selectedCoinPricing = this.props.marketData["RAW"][
-			this.props.selectedSym
-		]["USD"];
+
+		// debugger;
+
+		let selectedCoinPricing = this.props.marketData["RAW"][coinSym]["USD"];
 
 		return (
 			<div>
@@ -338,7 +339,7 @@ class CoinList extends Component {
 						</Table.Cell>
 						<Table.Cell>{coinData.HIGH24HOUR}</Table.Cell>
 						<Table.Cell>{coinData.LOW24HOUR}</Table.Cell>
-						<Table.Cell>{this.renderExchangeModals()}</Table.Cell>
+						<Table.Cell>{this.renderExchangeModals(coin.Symbol)}</Table.Cell>
 					</Table.Row>
 				);
 			});
@@ -353,7 +354,7 @@ class CoinList extends Component {
 		console.log("--------------------------------------");
 
 		return (
-			<Table selectable textAlign="left" style={{ width: "1000px" }}>
+			<Table selectable textAlign="left" style={{ width: "1100px" }}>
 				<Table.Header>
 					<Table.Row style={{ height: "25px" }}>
 						<Table.HeaderCell>Rank</Table.HeaderCell>
