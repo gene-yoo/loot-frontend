@@ -67,9 +67,9 @@ class CoinContainer extends Component {
 	}
 
 	setCoinContainerInterval = () => {
-		console.log("--------------------------------------");
-		console.log("         SETTING CC INTERVAL           ");
-		console.log("--------------------------------------");
+		// console.log("--------------------------------------");
+		// console.log("         SETTING CC INTERVAL           ");
+		// console.log("--------------------------------------");
 
 		this.props.fetchMarketData(this.state.filteredCoins);
 

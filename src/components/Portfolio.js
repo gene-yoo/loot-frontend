@@ -18,17 +18,17 @@ class Portfolio extends Component {
 		console.log("--------------------------------------");
 
 		if (this.props.portfolio.id !== "") {
-			console.log("--------------------------------------");
-			console.log("        CLEARING CC INTERVAL           ");
-			console.log("--------------------------------------");
+			// console.log("--------------------------------------");
+			// console.log("        CLEARING CC INTERVAL           ");
+			// console.log("--------------------------------------");
 			clearInterval(this.props.coinContainerInterval);
 
 			let coinSyms = Object.keys(this.props.portfolio.net_holdings);
 			this.props.fetchMarketData(coinSyms);
 
-			console.log("--------------------------------------");
-			console.log("         SETTING P INTERVAL           ");
-			console.log("--------------------------------------");
+			// console.log("--------------------------------------");
+			// console.log("         SETTING P INTERVAL           ");
+			// console.log("--------------------------------------");
 
 			let interval = setInterval(
 				() => this.props.fetchMarketData(coinSyms),
@@ -50,9 +50,9 @@ class Portfolio extends Component {
 		console.log("props: ", this.props);
 		console.log("--------------------------------------");
 
-		console.log("--------------------------------------");
-		console.log("        CLEARING P INTERVAL           ");
-		console.log("--------------------------------------");
+		// console.log("--------------------------------------");
+		// console.log("        CLEARING P INTERVAL           ");
+		// console.log("--------------------------------------");
 
 		clearInterval(this.state.interval);
 		this.props.setCoinContainerInterval();
@@ -60,9 +60,9 @@ class Portfolio extends Component {
 
 	// --- set interval ----------------------------------------------------
 	setPortfolioInterval = () => {
-		console.log("--------------------------------------");
-		console.log("         SETTING P INTERVAL           ");
-		console.log("--------------------------------------");
+		// console.log("--------------------------------------");
+		// console.log("         SETTING P INTERVAL           ");
+		// console.log("--------------------------------------");
 
 		this.props.fetchMarketData(this.state.filteredCoins);
 

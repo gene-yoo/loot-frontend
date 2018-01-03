@@ -25,7 +25,7 @@ class CoinList extends Component {
 		return date.toLocaleString();
 	};
 
-	shortenPurchaseQty = qty => {
+	shortenTransQty = qty => {
 		return qty.toString().length > 15
 			? qty
 					.toString()
@@ -64,8 +64,6 @@ class CoinList extends Component {
 		let selectedCoinInfo = this.props.allCoins.find(
 			coin => coin.Symbol === this.props.selectedSym
 		);
-
-		// debugger;
 
 		let selectedCoinPricing = this.props.marketData["RAW"][coinSym]["USD"];
 
@@ -234,7 +232,7 @@ class CoinList extends Component {
 												>
 													{this.state.transactionAmount === ""
 														? 0
-														: this.shortenPurchaseQty(
+														: this.shortenTransQty(
 																parseFloat(this.state.transactionAmount) /
 																	selectedCoinPricing.PRICE
 															)}
@@ -278,11 +276,213 @@ class CoinList extends Component {
 						</Modal.Description>
 					</Modal.Content>
 				</Modal>
-				<Modal trigger={<Button>Sell</Button>}>
+				<Modal
+					trigger={<Button onClick={this.handleTransactionType}>Sell</Button>}
+				>
 					<Modal.Header>Sell</Modal.Header>
 					<Modal.Content>
 						<Modal.Description>
-							Inside Modal Description - Sell
+							<Grid>
+								<Grid.Column width={16}>
+									<Grid.Row style={{ marginBottom: "30px" }}>
+										<div
+											style={{
+												display: "inline-block",
+												border: "1px solid white",
+												minHeight: "30px",
+												marginRight: "40px"
+											}}
+										>
+											<Header as="h5" textAlign="left">
+												Coin Name
+											</Header>
+											<Image
+												src={`https://www.cryptocompare.com${selectedCoinInfo.ImageUrl}`}
+												style={{
+													maxWidth: "30px",
+													paddingRight: "10px",
+													display: "inline-block"
+												}}
+											/>
+											<span
+												style={{
+													fontSize: "1.5em",
+													verticalAlign: "middle"
+												}}
+											>
+												{selectedCoinInfo.FullName}
+											</span>
+										</div>
+										<div
+											style={{
+												display: "inline-block",
+												border: "1px solid white",
+												minHeight: "30px",
+												marginRight: "40px"
+											}}
+										>
+											<Header as="h5" textAlign="left">
+												Current Price
+											</Header>
+											<span
+												style={{
+													fontSize: "1.5em",
+													verticalAlign: "middle"
+												}}
+											>
+												$ {selectedCoinPricing.PRICE}
+											</span>
+										</div>
+										<div
+											style={{
+												display: "inline-block",
+												border: "1px solid white",
+												minHeight: "30px",
+												marginRight: "40px"
+											}}
+										>
+											<Header as="h5" textAlign="left">
+												As Of
+											</Header>
+											<span
+												style={{
+													fontSize: "1.5em",
+													verticalAlign: "middle"
+												}}
+											>
+												{this.convertEpochToLocal(
+													selectedCoinPricing.LASTUPDATE
+												)}
+											</span>
+										</div>
+										<div
+											style={{
+												display: "inline-block",
+												border: "1px solid white",
+												minHeight: "30px",
+												marginRight: "40px"
+											}}
+										>
+											<Header as="h5" textAlign="left">
+												Source
+											</Header>
+											<span
+												style={{
+													fontSize: "1.5em",
+													verticalAlign: "middle"
+												}}
+											>
+												{selectedCoinPricing.LASTMARKET}
+											</span>
+										</div>
+									</Grid.Row>
+									<Grid.Row style={{ marginBottom: "30px" }}>
+										<Form
+											style={{ display: "inline-block" }}
+											onSubmit={() =>
+												this.props.handleTransactionSubmit(this.state)}
+										>
+											<div
+												style={{
+													display: "inline-block",
+													border: "1px solid white",
+													minHeight: "30px",
+													marginRight: "40px"
+												}}
+											>
+												<Header as="h5" textAlign="left">
+													Available to Sell
+												</Header>
+												<span
+													style={{
+														fontSize: "1.5em",
+														verticalAlign: "middle"
+													}}
+												>
+													${" "}
+													{(parseFloat(
+														this.props.portfolio.net_holdings[coinSym]
+													) * selectedCoinPricing.PRICE
+													).toFixed(2)}
+												</span>
+											</div>
+											<div
+												style={{
+													display: "inline-block",
+													border: "1px solid white",
+													minHeight: "30px",
+													marginRight: "40px"
+												}}
+											>
+												<Header as="h5" textAlign="left">
+													Enter Selling $ Amount
+												</Header>
+												<Form.Input
+													id="selling-amount"
+													placeholder="Selling Amount ($)"
+													onChange={this.handleTransactionAmount}
+												/>
+											</div>
+											<div
+												style={{
+													display: "inline-block",
+													border: "1px solid white",
+													minHeight: "30px",
+													marginRight: "40px"
+												}}
+											>
+												<Header as="h5" textAlign="left">
+													Selling Qty
+												</Header>
+												<span
+													style={{
+														fontSize: "1.5em",
+														verticalAlign: "middle"
+													}}
+												>
+													{this.state.transactionAmount === ""
+														? 0
+														: this.shortenTransQty(
+																parseFloat(this.state.transactionAmount) /
+																	selectedCoinPricing.PRICE
+															)}
+												</span>
+											</div>
+											<div
+												style={{
+													display: "inline-block",
+													border: "1px solid white",
+													minHeight: "30px",
+													marginRight: "40px"
+												}}
+											>
+												<Header as="h5" textAlign="left">
+													Net Remaining Free Cash
+												</Header>
+												<span
+													style={{
+														fontSize: "1.5em",
+														verticalAlign: "middle"
+													}}
+												>
+													${" "}
+													{this.state.transactionAmount === ""
+														? parseFloat(this.props.portfolio.balance).toFixed(
+																2
+															)
+														: (parseFloat(this.props.portfolio.balance) +
+																parseFloat(this.state.transactionAmount)
+															).toFixed(2)}
+												</span>
+											</div>
+											<br />
+											<Header as="h5">Confirm your sale?</Header>
+											<Button type="submit">Yes, I Confirm</Button>
+											<Button>No, Cancel Transaction</Button>
+										</Form>
+									</Grid.Row>
+								</Grid.Column>
+							</Grid>
 						</Modal.Description>
 					</Modal.Content>
 				</Modal>
