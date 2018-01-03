@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid, Table, Header } from "semantic-ui-react";
+import { Grid, Table, Header, Image } from "semantic-ui-react";
 import { withRouter } from "react-router-dom";
 import PortfolioChart from "./PortfolioChart";
 
@@ -22,20 +22,7 @@ class Portfolio extends Component {
 			// console.log("        CLEARING CC INTERVAL           ");
 			// console.log("--------------------------------------");
 			clearInterval(this.props.coinContainerInterval);
-
-			let coinSyms = Object.keys(this.props.portfolio.net_holdings);
-			this.props.fetchMarketData(coinSyms);
-
-			// console.log("--------------------------------------");
-			// console.log("         SETTING P INTERVAL           ");
-			// console.log("--------------------------------------");
-
-			let interval = setInterval(
-				() => this.props.fetchMarketData(coinSyms),
-				60000
-			);
-
-			this.setState({ interval });
+			this.setPortfolioInterval();
 		}
 	}
 
@@ -59,17 +46,20 @@ class Portfolio extends Component {
 	}
 
 	// --- set interval ----------------------------------------------------
+
 	setPortfolioInterval = () => {
 		// console.log("--------------------------------------");
 		// console.log("         SETTING P INTERVAL           ");
 		// console.log("--------------------------------------");
 
-		this.props.fetchMarketData(this.state.filteredCoins);
+		let coinSyms = Object.keys(this.props.portfolio.net_holdings);
 
-		let interval = setInterval(() => {
-			this.props.fetchMarketData(this.state.filteredCoins);
-			this.props.fetchCoinHistoData(this.state.selectedSym);
-		}, 60000);
+		this.props.fetchMarketData(coinSyms);
+
+		let interval = setInterval(
+			() => this.props.fetchMarketData(coinSyms),
+			60000
+		);
 
 		this.setState({ interval });
 	};
@@ -97,39 +87,60 @@ class Portfolio extends Component {
 		return coins;
 	}
 
-	mapInvestments() {
+	mapTransactions() {
 		// console.log("inside portfolio, mapEarnings");
 		// console.log("props are: ", this.props);
 		// console.log("--------------------------------------");
 
-		let investments = {};
+		let netTransactions = {};
 
 		for (let trans of this.props.portfolio.transactions) {
-			if (investments[trans.coin_symbol]) {
-				trans.trans_type === "buy"
-					? (investments[trans.coin_symbol] += parseFloat(trans.trans_amt))
-					: (investments[trans.coin_symbol] -= parseFloat(trans.trans_amt));
+			if (trans.trans_type === "buy") {
+				netTransactions[trans.coin_symbol]
+					? (netTransactions[trans.coin_symbol] +=
+							parseFloat(trans.trans_price) * parseFloat(trans.quantity))
+					: (netTransactions[trans.coin_symbol] =
+							parseFloat(trans.trans_price) * parseFloat(trans.quantity));
 			} else {
-				investments[trans.coin_symbol] = parseFloat(trans.trans_amt);
+				netTransactions[trans.coin_symbol]
+					? (netTransactions[trans.coin_symbol] -=
+							parseFloat(trans.trans_price) * parseFloat(trans.quantity))
+					: (netTransactions[trans.coin_symbol] =
+							parseFloat(trans.trans_price) * parseFloat(trans.quantity));
 			}
 		}
 
-		// console.log("investments from mapInvestments: ", investments);
+		console.log("netTransactions from mapTransactions: ", netTransactions);
 
-		return investments;
+		return netTransactions;
 	}
 
-	sumInvestments() {
-		let allInv = this.mapInvestments();
+	sumTransactions() {
+		let netTransactions = this.mapTransactions();
 		let sum = 0;
 
-		for (const coinSym in allInv) {
-			sum += allInv[coinSym];
+		for (const coinSym in netTransactions) {
+			sum += netTransactions[coinSym];
 		}
 		return sum;
 	}
 
 	// --- render methods --------------------------------------------------
+
+	renderCoinImage = coinSym => {
+		let coin = this.props.allCoins.find(coin => coin.Symbol === coinSym);
+
+		return (
+			<Image
+				src={`https://www.cryptocompare.com${coin.ImageUrl}`}
+				style={{
+					maxWidth: "30px",
+					paddingRight: "10px",
+					display: "inline-block"
+				}}
+			/>
+		);
+	};
 
 	renderHoldings() {
 		// console.log("inside portfolio, renderHoldings");
@@ -144,7 +155,7 @@ class Portfolio extends Component {
 
 		let rank = 0;
 
-		let inv = this.mapInvestments();
+		let netTransactions = this.mapTransactions();
 
 		holdings = this.mapHoldings()
 			.sort((a, b) => b.totalValue - a.totalValue)
@@ -157,18 +168,27 @@ class Portfolio extends Component {
 						}}
 					>
 						<Table.Cell>{(rank += 1)}</Table.Cell>
-						<Table.Cell>{coin.symbol}</Table.Cell>
+						<Table.Cell>
+							{this.renderCoinImage(coin.symbol)}
+							{coin.symbol}
+						</Table.Cell>
 						<Table.Cell>
 							{(coin.totalValue / totalPortfolio * 100).toFixed(2)} %
 						</Table.Cell>
 						<Table.Cell>$ {coin.totalValue.toFixed(2)}</Table.Cell>
-						{coin.totalValue - inv[coin.symbol] > 0 ? (
+						{coin.totalValue - netTransactions[coin.symbol] > 0 ? (
 							<Table.Cell style={{ color: "green" }}>
-								+ $ {Math.abs(coin.totalValue - inv[coin.symbol]).toFixed(2)}
+								+ ${" "}
+								{Math.abs(
+									coin.totalValue - netTransactions[coin.symbol]
+								).toFixed(2)}
 							</Table.Cell>
 						) : (
 							<Table.Cell style={{ color: "red" }}>
-								- $ {Math.abs(coin.totalValue - inv[coin.symbol]).toFixed(2)}
+								- ${" "}
+								{Math.abs(
+									coin.totalValue - netTransactions[coin.symbol]
+								).toFixed(2)}
 							</Table.Cell>
 						)}
 					</Table.Row>
@@ -191,7 +211,10 @@ class Portfolio extends Component {
 				>
 					<Table.Cell>{new Date(trans.created_at).toLocaleString()}</Table.Cell>
 					<Table.Cell>{trans.trans_type}</Table.Cell>
-					<Table.Cell>{trans.coin_symbol}</Table.Cell>
+					<Table.Cell>
+						{this.renderCoinImage(trans.coin_symbol)}
+						{trans.coin_symbol}
+					</Table.Cell>
 					<Table.Cell>$ {parseFloat(trans.trans_amt).toFixed(2)}</Table.Cell>
 					<Table.Cell>$ {parseFloat(trans.trans_price).toFixed(2)}</Table.Cell>
 					<Table.Cell>{trans.quantity}</Table.Cell>
@@ -210,11 +233,11 @@ class Portfolio extends Component {
 			return acc + curr.totalValue;
 		}, 0);
 
-		let totalInv = this.sumInvestments();
+		let totalTransactions = this.sumTransactions();
 
-		let totalEarnings = totalValue - totalInv;
+		let totalEarnings = totalValue - totalTransactions;
 
-		let totalPerf = totalEarnings / totalInv * 100;
+		let totalPerf = totalEarnings / totalTransactions * 100;
 
 		stats = (
 			<div style={{ width: "100%" }}>
@@ -234,7 +257,7 @@ class Portfolio extends Component {
 							top: "15px"
 						}}
 					>
-						$ {totalInv.toFixed(2)}
+						$ {totalTransactions.toFixed(2)}
 					</span>
 					<Header as="h5">Total Invested</Header>
 				</div>
