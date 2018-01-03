@@ -7,7 +7,7 @@ import {
 	Checkbox,
 	Image
 } from "semantic-ui-react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 class PortfolioForm extends Component {
 	constructor(props) {
