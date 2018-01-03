@@ -1,5 +1,5 @@
 import React from "react";
-import { Pie } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 
 const PortfolioChart = props => {
 	console.log("inside portfolio chart, render");
@@ -10,16 +10,39 @@ const PortfolioChart = props => {
 		labels: props.holdings.map(coin => coin.symbol),
 		datasets: [
 			{
-				data: props.holdings.map(coin => coin.totalValue.toFixed(2)),
-				backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-				hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
+				data: props.holdings.map(coin => coin.totalValue.toFixed(2))
 			}
 		]
 	};
 
+	const options = {
+		maintainAspectRatio: false,
+		scales: {
+			yAxes: [
+				{
+					scaleLabel: {
+						display: true,
+						labelString: "Price (USD)"
+					}
+				}
+			],
+			xAxes: [
+				{
+					scaleLabel: {
+						display: true,
+						labelString: "Coin Symbol"
+					}
+				}
+			]
+		},
+		legend: {
+			display: false
+		}
+	};
+
 	return (
-		<div style={{ width: "400px", height: "200px" }}>
-			<Pie data={data} />
+		<div style={{ width: "500px", height: "250px" }}>
+			<Bar data={data} options={options} />
 		</div>
 	);
 };

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid, Table, Header, Image, Container } from "semantic-ui-react";
+import { Grid, Table, Header, Image, Container, Card } from "semantic-ui-react";
 import { withRouter } from "react-router-dom";
 import PortfolioChart from "./PortfolioChart";
 
@@ -247,7 +247,8 @@ class Portfolio extends Component {
 						border: "1px solid white",
 						minWidth: "175px",
 						minHeight: "30px",
-						margin: "25px"
+						margin: "25px",
+						textAlign: "center"
 					}}
 				>
 					<span
@@ -267,7 +268,8 @@ class Portfolio extends Component {
 						border: "1px solid white",
 						minWidth: "175px",
 						minHeight: "30px",
-						margin: "25px"
+						margin: "25px",
+						textAlign: "center"
 					}}
 				>
 					{totalEarnings > 0 ? (
@@ -301,7 +303,8 @@ class Portfolio extends Component {
 						border: "1px solid white",
 						minWidth: "175px",
 						minHeight: "30px",
-						margin: "25px"
+						margin: "25px",
+						textAlign: "center"
 					}}
 				>
 					{totalPerf > 0 ? (
@@ -335,7 +338,8 @@ class Portfolio extends Component {
 						border: "1px solid white",
 						minWidth: "175px",
 						minHeight: "30px",
-						margin: "25px"
+						margin: "25px",
+						textAlign: "center"
 					}}
 				>
 					<span
@@ -369,17 +373,18 @@ class Portfolio extends Component {
 		);
 
 		return this.props.marketData.DISPLAY && updateStatus ? (
-			<Grid centered columns={2}>
-				<Grid.Column>
-					<div>{this.renderPerformance()}</div>
-				</Grid.Column>
+			<Grid centered columns={1}>
+				<Grid.Column width={10}>{this.renderPerformance()}</Grid.Column>
 
-				<Grid.Row centered columns={3}>
-					<Grid.Column>
+				<Grid.Row centered columns={2}>
+					<Grid.Column width={5}>
 						<Header as="h3" style={{ textAlign: "left" }}>
 							Net Holdings
 						</Header>
-						<Table textAlign="left" style={{ width: "475px" }}>
+
+						<PortfolioChart holdings={this.mapHoldings()} />
+
+						<Table textAlign="left" style={{ width: "500px" }}>
 							<Table.Header>
 								<Table.Row style={{ height: "25px" }}>
 									<Table.HeaderCell>Rank</Table.HeaderCell>
@@ -393,16 +398,7 @@ class Portfolio extends Component {
 						</Table>
 					</Grid.Column>
 
-					<Grid.Column>
-						<Header as="h3" style={{ textAlign: "left" }}>
-							Portfolio Distribution $
-						</Header>
-						<PortfolioChart holdings={this.mapHoldings()} />
-					</Grid.Column>
-				</Grid.Row>
-
-				<Grid.Row centered columns={2}>
-					<Grid.Column>
+					<Grid.Column width={7}>
 						<Header as="h3" style={{ textAlign: "left" }}>
 							Recent Transactions
 						</Header>
