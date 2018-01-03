@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid, Table, Header, Image } from "semantic-ui-react";
+import { Grid, Table, Header, Image, Container } from "semantic-ui-react";
 import { withRouter } from "react-router-dom";
 import PortfolioChart from "./PortfolioChart";
 
@@ -345,26 +345,6 @@ class Portfolio extends Component {
 							top: "15px"
 						}}
 					>
-						$ {totalTransactions.toFixed(2)}
-					</span>
-					<Header as="h5">Total Invested</Header>
-				</div>
-				<div
-					style={{
-						display: "inline-block",
-						border: "1px solid white",
-						minWidth: "175px",
-						minHeight: "30px",
-						margin: "25px"
-					}}
-				>
-					<span
-						style={{
-							fontSize: "3.5em",
-							position: "relative",
-							top: "15px"
-						}}
-					>
 						$ {parseFloat(this.props.portfolio.balance).toFixed(2)}
 					</span>
 					<Header as="h5">Remaining Free Cash</Header>
@@ -390,12 +370,9 @@ class Portfolio extends Component {
 
 		return this.props.marketData.DISPLAY && updateStatus ? (
 			<Grid centered columns={2}>
-				<Grid.Row centered columns={3}>
-					<Header as="h3" style={{ textAlign: "left" }}>
-						Portfolio Performance
-					</Header>
+				<Grid.Column>
 					<div>{this.renderPerformance()}</div>
-				</Grid.Row>
+				</Grid.Column>
 
 				<Grid.Row centered columns={3}>
 					<Grid.Column>
@@ -424,23 +401,25 @@ class Portfolio extends Component {
 					</Grid.Column>
 				</Grid.Row>
 
-				<Grid.Row centered columns={3}>
-					<Header as="h3" style={{ textAlign: "left" }}>
-						Recent Transactions
-					</Header>
-					<Table textAlign="left" style={{ width: "800px" }}>
-						<Table.Header>
-							<Table.Row style={{ height: "25px" }}>
-								<Table.HeaderCell>Timestamp</Table.HeaderCell>
-								<Table.HeaderCell>Type</Table.HeaderCell>
-								<Table.HeaderCell>Coin Symbol</Table.HeaderCell>
-								<Table.HeaderCell>Trans Amt $</Table.HeaderCell>
-								<Table.HeaderCell>Trans Price</Table.HeaderCell>
-								<Table.HeaderCell>Trans Qty</Table.HeaderCell>
-							</Table.Row>
-						</Table.Header>
-						<Table.Body>{this.renderTransactions()}</Table.Body>
-					</Table>
+				<Grid.Row centered columns={2}>
+					<Grid.Column>
+						<Header as="h3" style={{ textAlign: "left" }}>
+							Recent Transactions
+						</Header>
+						<Table textAlign="left" style={{ width: "800px" }}>
+							<Table.Header>
+								<Table.Row style={{ height: "25px" }}>
+									<Table.HeaderCell>Timestamp</Table.HeaderCell>
+									<Table.HeaderCell>Type</Table.HeaderCell>
+									<Table.HeaderCell>Coin Symbol</Table.HeaderCell>
+									<Table.HeaderCell>Trans Amt $</Table.HeaderCell>
+									<Table.HeaderCell>Trans Price</Table.HeaderCell>
+									<Table.HeaderCell>Trans Qty</Table.HeaderCell>
+								</Table.Row>
+							</Table.Header>
+							<Table.Body>{this.renderTransactions()}</Table.Body>
+						</Table>
+					</Grid.Column>
 				</Grid.Row>
 			</Grid>
 		) : (
