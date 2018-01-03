@@ -200,7 +200,8 @@ class CoinContainer extends Component {
 												<div
 													style={{
 														display: "inline-block",
-														marginRight: "15px"
+														marginRight: "15px",
+														fontWeight: "bold"
 													}}
 												>
 													Timeline:

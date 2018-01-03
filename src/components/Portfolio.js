@@ -247,55 +247,12 @@ class Portfolio extends Component {
 						border: "1px solid white",
 						minWidth: "175px",
 						minHeight: "30px",
-						margin: "5px"
+						margin: "25px"
 					}}
 				>
 					<span
 						style={{
-							fontSize: "2em",
-							position: "relative",
-							top: "15px"
-						}}
-					>
-						$ {totalTransactions.toFixed(2)}
-					</span>
-					<Header as="h5">Total Invested</Header>
-				</div>
-				<div
-					style={{
-						display: "inline-block",
-						border: "1px solid white",
-						minWidth: "175px",
-						minHeight: "30px",
-						margin: "5px"
-					}}
-				>
-					<span
-						style={{
-							fontSize: "2em",
-							position: "relative",
-							top: "15px"
-						}}
-					>
-						$ {parseFloat(this.props.portfolio.balance).toFixed(2)}
-					</span>
-					<Header as="h5">Remaining Free Cash</Header>
-				</div>
-
-				<br />
-
-				<div
-					style={{
-						display: "inline-block",
-						border: "1px solid white",
-						minWidth: "175px",
-						minHeight: "30px",
-						margin: "5px"
-					}}
-				>
-					<span
-						style={{
-							fontSize: "2em",
+							fontSize: "3.5em",
 							position: "relative",
 							top: "15px"
 						}}
@@ -310,14 +267,14 @@ class Portfolio extends Component {
 						border: "1px solid white",
 						minWidth: "175px",
 						minHeight: "30px",
-						margin: "5px"
+						margin: "25px"
 					}}
 				>
 					{totalEarnings > 0 ? (
 						<span
 							style={{
 								color: "green",
-								fontSize: "2em",
+								fontSize: "3.5em",
 								position: "relative",
 								top: "15px"
 							}}
@@ -328,7 +285,7 @@ class Portfolio extends Component {
 						<span
 							style={{
 								color: "red",
-								fontSize: "2em",
+								fontSize: "3.5em",
 								position: "relative",
 								top: "15px"
 							}}
@@ -344,14 +301,14 @@ class Portfolio extends Component {
 						border: "1px solid white",
 						minWidth: "175px",
 						minHeight: "30px",
-						margin: "5px"
+						margin: "25px"
 					}}
 				>
 					{totalPerf > 0 ? (
 						<span
 							style={{
 								color: "green",
-								fontSize: "2em",
+								fontSize: "3.5em",
 								position: "relative",
 								top: "15px"
 							}}
@@ -362,7 +319,7 @@ class Portfolio extends Component {
 						<span
 							style={{
 								color: "red",
-								fontSize: "2em",
+								fontSize: "3.5em",
 								position: "relative",
 								top: "15px"
 							}}
@@ -371,6 +328,46 @@ class Portfolio extends Component {
 						</span>
 					)}
 					<Header as="h5">YTD Performance %</Header>
+				</div>
+				<div
+					style={{
+						display: "inline-block",
+						border: "1px solid white",
+						minWidth: "175px",
+						minHeight: "30px",
+						margin: "25px"
+					}}
+				>
+					<span
+						style={{
+							fontSize: "3.5em",
+							position: "relative",
+							top: "15px"
+						}}
+					>
+						$ {totalTransactions.toFixed(2)}
+					</span>
+					<Header as="h5">Total Invested</Header>
+				</div>
+				<div
+					style={{
+						display: "inline-block",
+						border: "1px solid white",
+						minWidth: "175px",
+						minHeight: "30px",
+						margin: "25px"
+					}}
+				>
+					<span
+						style={{
+							fontSize: "3.5em",
+							position: "relative",
+							top: "15px"
+						}}
+					>
+						$ {parseFloat(this.props.portfolio.balance).toFixed(2)}
+					</span>
+					<Header as="h5">Remaining Free Cash</Header>
 				</div>
 			</div>
 		);
@@ -392,33 +389,42 @@ class Portfolio extends Component {
 		);
 
 		return this.props.marketData.DISPLAY && updateStatus ? (
-			<Grid>
-				<Grid.Column width={6}>
-					<Header as="h3" style={{ textAlign: "left" }}>
-						Portfolio Distribution $
-					</Header>
-					<PortfolioChart holdings={this.mapHoldings()} />
-					<Header as="h3" style={{ textAlign: "left" }}>
-						Net Holdings
-					</Header>
-					<Table textAlign="left" style={{ width: "475px" }}>
-						<Table.Header>
-							<Table.Row style={{ height: "25px" }}>
-								<Table.HeaderCell>Rank</Table.HeaderCell>
-								<Table.HeaderCell>Coin Symbol</Table.HeaderCell>
-								<Table.HeaderCell>% Portfolio</Table.HeaderCell>
-								<Table.HeaderCell>Tot Value $</Table.HeaderCell>
-								<Table.HeaderCell>Net Earnings $</Table.HeaderCell>
-							</Table.Row>
-						</Table.Header>
-						<Table.Body>{this.renderHoldings()}</Table.Body>
-					</Table>
-				</Grid.Column>
-				<Grid.Column width={10}>
+			<Grid centered columns={2}>
+				<Grid.Row centered columns={3}>
 					<Header as="h3" style={{ textAlign: "left" }}>
 						Portfolio Performance
 					</Header>
 					<div>{this.renderPerformance()}</div>
+				</Grid.Row>
+
+				<Grid.Row centered columns={3}>
+					<Grid.Column>
+						<Header as="h3" style={{ textAlign: "left" }}>
+							Net Holdings
+						</Header>
+						<Table textAlign="left" style={{ width: "475px" }}>
+							<Table.Header>
+								<Table.Row style={{ height: "25px" }}>
+									<Table.HeaderCell>Rank</Table.HeaderCell>
+									<Table.HeaderCell>Coin Symbol</Table.HeaderCell>
+									<Table.HeaderCell>% Portfolio</Table.HeaderCell>
+									<Table.HeaderCell>Tot Value $</Table.HeaderCell>
+									<Table.HeaderCell>Net Earnings $</Table.HeaderCell>
+								</Table.Row>
+							</Table.Header>
+							<Table.Body>{this.renderHoldings()}</Table.Body>
+						</Table>
+					</Grid.Column>
+
+					<Grid.Column>
+						<Header as="h3" style={{ textAlign: "left" }}>
+							Portfolio Distribution $
+						</Header>
+						<PortfolioChart holdings={this.mapHoldings()} />
+					</Grid.Column>
+				</Grid.Row>
+
+				<Grid.Row centered columns={3}>
 					<Header as="h3" style={{ textAlign: "left" }}>
 						Recent Transactions
 					</Header>
@@ -435,7 +441,7 @@ class Portfolio extends Component {
 						</Table.Header>
 						<Table.Body>{this.renderTransactions()}</Table.Body>
 					</Table>
-				</Grid.Column>
+				</Grid.Row>
 			</Grid>
 		) : (
 			<div>Loading ...</div>
