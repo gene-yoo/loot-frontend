@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Route, withRouter } from "react-router-dom";
+import Welcome from "./components/Welcome";
 import CoinContainer from "./components/CoinContainer";
 
 class App extends Component {
@@ -12,11 +14,14 @@ class App extends Component {
 		console.log("--------------------------------------");
 
 		return (
-			<div>
-				<CoinContainer />
-			</div>
+			<Route
+				path="/"
+				render={() => {
+					return <Welcome />;
+				}}
+			/>
 		);
 	}
 }
 
-export default App;
+export default withRouter(App);
