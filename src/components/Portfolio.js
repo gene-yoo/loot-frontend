@@ -22,6 +22,8 @@ class Portfolio extends Component {
 			// console.log("        CLEARING CC INTERVAL           ");
 			// console.log("--------------------------------------");
 			clearInterval(this.props.coinContainerInterval);
+			let token = localStorage.getItem("token");
+			this.props.fetchExistingPortfolio(token);
 			this.setPortfolioInterval();
 		}
 	}
@@ -53,12 +55,11 @@ class Portfolio extends Component {
 		// console.log("--------------------------------------");
 
 		let coinSyms = Object.keys(this.props.portfolio.net_holdings);
-
 		this.props.fetchMarketData(coinSyms);
 
 		let interval = setInterval(
 			() => this.props.fetchMarketData(coinSyms),
-			60000
+			30000
 		);
 
 		this.setState({ interval });
@@ -384,7 +385,7 @@ class Portfolio extends Component {
 
 						<PortfolioChart holdings={this.mapHoldings()} />
 
-						<Table selectable textAlign="left" style={{ width: "500px" }}>
+						<Table selectable textAlign="left" style={{ width: "100%" }}>
 							<Table.Header>
 								<Table.Row style={{ height: "25px" }}>
 									<Table.HeaderCell>Rank</Table.HeaderCell>
@@ -402,7 +403,7 @@ class Portfolio extends Component {
 						<Header as="h3" style={{ textAlign: "left" }}>
 							Recent Transactions
 						</Header>
-						<Table selectable textAlign="left" style={{ width: "800px" }}>
+						<Table selectable textAlign="left" style={{ width: "100%" }}>
 							<Table.Header>
 								<Table.Row style={{ height: "25px" }}>
 									<Table.HeaderCell>Timestamp</Table.HeaderCell>

@@ -161,11 +161,13 @@ export function getCurrentUser(token, history) {
 	};
 }
 
-export function logoutUser() {
+export function logoutUser(history) {
 	return dispatch => {
 		console.log("inside actions/functions, logout user");
 		console.log("--------------------------------------");
 		localStorage.removeItem("token");
+
+		history.push("/welcome");
 
 		return dispatch({ type: LOGOUT_USER });
 	};

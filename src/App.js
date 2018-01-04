@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Route, withRouter } from "react-router-dom";
-import Welcome from "./components/Welcome";
 import CoinContainer from "./components/CoinContainer";
+import Welcome from "./components/Welcome";
 
 class App extends Component {
 	componentDidMount() {
@@ -13,14 +13,7 @@ class App extends Component {
 		console.log("inside app, render");
 		console.log("--------------------------------------");
 
-		return (
-			<Route
-				path="/"
-				render={() => {
-					return <Welcome />;
-				}}
-			/>
-		);
+		return <CoinContainer />;
 	}
 }
 

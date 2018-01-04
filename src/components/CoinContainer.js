@@ -13,6 +13,7 @@ import Signup from "./Signup";
 import Login from "./Login";
 import PortfolioForm from "./PortfolioForm";
 import Portfolio from "./Portfolio";
+import Welcome from "./Welcome";
 
 class CoinContainer extends Component {
 	constructor(props) {
@@ -83,7 +84,7 @@ class CoinContainer extends Component {
 				this.state.chartTiming,
 				this.state.selectedSym
 			);
-		}, 60000);
+		}, 30000);
 
 		this.setState({ interval });
 	};
@@ -269,6 +270,12 @@ class CoinContainer extends Component {
 											coinContainerInterval={this.state.interval}
 										/>
 									);
+								}}
+							/>
+							<Route
+								path="/welcome"
+								render={() => {
+									return <Welcome />;
 								}}
 							/>
 						</Switch>

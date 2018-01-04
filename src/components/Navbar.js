@@ -8,7 +8,7 @@ class Navbar extends Component {
 		console.log("props: ", this.props);
 		console.log("--------------------------------------");
 
-		return (
+		return this.props.history.location.pathname === "/welcome" ? null : (
 			<Menu
 				attached="top"
 				size="large"
@@ -18,31 +18,30 @@ class Navbar extends Component {
 				inverted
 			>
 				<Container>
-					<Menu.Item header>
+					<Menu.Item header style={{ border: "none" }}>
 						<Icon name="creative commons" size="big" />
 						LOOT
 					</Menu.Item>
-					<Menu.Item>
-						<Button
-							as="a"
-							inverted
-							onClick={() => this.props.history.push("/markets")}
-						>
-							Latest Market Prices
-						</Button>
-					</Menu.Item>
 
-					<Menu.Item>
+					<Menu.Item style={{ border: "none" }}>
 						<Dropdown
 							button
-							text="Manage Portfolio"
+							text="Main Menu"
 							style={{
 								color: "white",
 								backgroundColor: "rgba(153,204,255,1)",
-								border: "2px solid white"
+								border: "2px solid rgba(153,204,255,1)"
 							}}
 						>
 							<Dropdown.Menu>
+								<Dropdown.Item className="Item">
+									<Link
+										to="/markets"
+										style={{ color: "black", fontSize: "0.9em" }}
+									>
+										<Icon name="folder" size="small" /> Latest Market Prices
+									</Link>
+								</Dropdown.Item>
 								<Dropdown.Item className="Item">
 									<Link
 										to="/myportfolio"
@@ -73,7 +72,11 @@ class Navbar extends Component {
 								Login
 							</Button>
 						) : (
-							<Button as="a" inverted onClick={() => this.props.logoutUser()}>
+							<Button
+								as="a"
+								inverted
+								onClick={() => this.props.logoutUser(this.props.history)}
+							>
 								Logout
 							</Button>
 						)}
