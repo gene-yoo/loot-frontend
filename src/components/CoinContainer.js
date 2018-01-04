@@ -41,7 +41,10 @@ class CoinContainer extends Component {
 
 		this.setCoinContainerInterval();
 
-		if (localStorage.getItem("token")) {
+		if (
+			localStorage.getItem("token") &&
+			this.props.history.location.pathname !== "/welcome"
+		) {
 			let token = localStorage.getItem("token");
 			this.props.getCurrentUser(token, this.props.history);
 			this.props.fetchExistingPortfolio(token);

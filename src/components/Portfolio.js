@@ -17,7 +17,7 @@ class Portfolio extends Component {
 		console.log("props: ", this.props);
 		console.log("--------------------------------------");
 
-		if (this.props.portfolio.id !== "") {
+		if (localStorage.getItem("token") && this.props.portfolio.id !== "") {
 			// console.log("--------------------------------------");
 			// console.log("        CLEARING CC INTERVAL           ");
 			// console.log("--------------------------------------");
@@ -28,9 +28,10 @@ class Portfolio extends Component {
 		}
 	}
 
-	componentWillReceiveProps() {
+	componentWillReceiveProps(nextProps) {
 		console.log("inside portfolio, comp will receive props");
 		console.log("props: ", this.props);
+		console.log("props: ", nextProps);
 		console.log("--------------------------------------");
 	}
 
@@ -241,7 +242,7 @@ class Portfolio extends Component {
 		let totalPerf = totalEarnings / totalTransactions * 100;
 
 		stats = (
-			<div style={{ width: "100%" }}>
+			<div style={{ width: "100%", textAlign: "center" }}>
 				<div
 					style={{
 						display: "inline-block",
@@ -332,27 +333,6 @@ class Portfolio extends Component {
 						</span>
 					)}
 					<Header as="h5">YTD Performance %</Header>
-				</div>
-				<div
-					style={{
-						display: "inline-block",
-						border: "1px solid white",
-						minWidth: "175px",
-						minHeight: "30px",
-						margin: "25px",
-						textAlign: "center"
-					}}
-				>
-					<span
-						style={{
-							fontSize: "3.5em",
-							position: "relative",
-							top: "15px"
-						}}
-					>
-						$ {parseFloat(this.props.portfolio.balance).toFixed(2)}
-					</span>
-					<Header as="h5">Remaining Free Cash</Header>
 				</div>
 			</div>
 		);

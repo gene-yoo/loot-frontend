@@ -63,7 +63,7 @@ class Navbar extends Component {
 					</Menu.Item>
 
 					<Menu.Item position="right">
-						{this.props.username === "" ? (
+						{!localStorage.getItem("token") ? (
 							<Button
 								as="a"
 								inverted
