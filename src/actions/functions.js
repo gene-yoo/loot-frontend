@@ -156,7 +156,10 @@ export function getCurrentUser(token, history) {
 				type: SET_CURRENT_USER,
 				payload: { id, username }
 			});
-			history.push("/markets");
+
+			if (history.location.pathname !== "/welcome") {
+				history.push("/markets");
+			}
 		});
 	};
 }

@@ -31,7 +31,7 @@ class Portfolio extends Component {
 	componentWillReceiveProps(nextProps) {
 		console.log("inside portfolio, comp will receive props");
 		console.log("props: ", this.props);
-		console.log("props: ", nextProps);
+		console.log("nextProps: ", nextProps);
 		console.log("--------------------------------------");
 	}
 
@@ -45,6 +45,7 @@ class Portfolio extends Component {
 		// console.log("--------------------------------------");
 
 		clearInterval(this.state.interval);
+		this.props.fetchMarketData(this.props.filteredCoins);
 		this.props.setCoinContainerInterval();
 	}
 
@@ -112,7 +113,7 @@ class Portfolio extends Component {
 			}
 		}
 
-		console.log("netTransactions from mapTransactions: ", netTransactions);
+		// console.log("netTransactions from mapTransactions: ", netTransactions);
 
 		return netTransactions;
 	}

@@ -38,13 +38,11 @@ class CoinContainer extends Component {
 			this.state.chartTiming,
 			this.state.selectedSym
 		);
+		this.props.fetchMarketData(this.state.filteredCoins);
 
 		this.setCoinContainerInterval();
 
-		if (
-			localStorage.getItem("token") &&
-			this.props.history.location.pathname !== "/welcome"
-		) {
+		if (localStorage.getItem("token")) {
 			let token = localStorage.getItem("token");
 			this.props.getCurrentUser(token, this.props.history);
 			this.props.fetchExistingPortfolio(token);
@@ -78,8 +76,6 @@ class CoinContainer extends Component {
 		// console.log("--------------------------------------");
 		// console.log("         SETTING CC INTERVAL           ");
 		// console.log("--------------------------------------");
-
-		this.props.fetchMarketData(this.state.filteredCoins);
 
 		let interval = setInterval(() => {
 			this.props.fetchMarketData(this.state.filteredCoins);
@@ -271,6 +267,7 @@ class CoinContainer extends Component {
 											fetchMarketData={this.props.fetchMarketData}
 											setCoinContainerInterval={this.setCoinContainerInterval}
 											coinContainerInterval={this.state.interval}
+											filteredCoins={this.state.filteredCoins}
 										/>
 									);
 								}}

@@ -502,7 +502,7 @@ class CoinList extends Component {
 
 		if (this.props.marketData.DISPLAY && updateStatus) {
 			coins = this.filterCoins().map(coin => {
-				let coinData = this.props.marketData.DISPLAY[coin.Symbol]["USD"];
+				let coinDataDisplay = this.props.marketData.DISPLAY[coin.Symbol]["USD"];
 				let priceChangeStatus =
 					this.props.marketData.RAW[coin.Symbol]["USD"]["CHANGE24HOUR"] > 0
 						? "green"
@@ -532,13 +532,13 @@ class CoinList extends Component {
 							{coin.CoinName}
 						</Table.Cell>
 						<Table.Cell>{coin.Symbol}</Table.Cell>
-						<Table.Cell>{coinData.MKTCAP}</Table.Cell>
-						<Table.Cell>{coinData.PRICE}</Table.Cell>
+						<Table.Cell>{coinDataDisplay.MKTCAP}</Table.Cell>
+						<Table.Cell>{coinDataDisplay.PRICE}</Table.Cell>
 						<Table.Cell style={{ color: priceChangeStatus }}>
-							{coinData.CHANGE24HOUR}
+							{coinDataDisplay.CHANGE24HOUR}
 						</Table.Cell>
-						<Table.Cell>{coinData.HIGH24HOUR}</Table.Cell>
-						<Table.Cell>{coinData.LOW24HOUR}</Table.Cell>
+						<Table.Cell>{coinDataDisplay.HIGH24HOUR}</Table.Cell>
+						<Table.Cell>{coinDataDisplay.LOW24HOUR}</Table.Cell>
 						<Table.Cell>{this.renderExchangeModals(coin.Symbol)}</Table.Cell>
 					</Table.Row>
 				);

@@ -15,10 +15,10 @@ const PortfolioChart = props => {
 		datasets: [
 			{
 				data: sortedHoldings.map(coin => coin.totalValue.toFixed(2)),
-				backgroundColor: "rgba(153,204,255,0.4)",
-				borderColor: "rgba(153,204,255,1)",
+				backgroundColor: "rgba(153,204,255,1)",
+				borderColor: "rgba(220,220,220,1)",
 				borderWidth: 1,
-				hoverBackgroundColor: "rgba(153,204,255,1)",
+				hoverBackgroundColor: "rgba(153,204,255,0.4)",
 				hoverBorderColor: "rgba(220,220,220,1)"
 			}
 		]
