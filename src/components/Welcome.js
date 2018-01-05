@@ -44,7 +44,7 @@ const Welcome = props => {
 						left: "20px"
 					}}
 				>
-					{"Learn to trade cryptocurrencies at no risk."}
+					{"Learn to trade cryptocurrencies without the risk."}
 					<br />
 					<br />
 

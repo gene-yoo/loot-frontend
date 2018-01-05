@@ -38,6 +38,11 @@ const API = {
 
 			case "1M":
 				coinHistoURL =
+					"https://min-api.cryptocompare.com/data/histoday?tsym=USD&limit=10&aggregate=3&e=CCCAGG&fsym=";
+				return fetch(coinHistoURL + coinSym).then(res => res.json());
+
+			case "3M":
+				coinHistoURL =
 					"https://min-api.cryptocompare.com/data/histoday?tsym=USD&limit=30&aggregate=3&e=CCCAGG&fsym=";
 				return fetch(coinHistoURL + coinSym).then(res => res.json());
 

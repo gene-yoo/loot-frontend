@@ -215,6 +215,9 @@ class CoinContainer extends Component {
 												<Button size="tiny" onClick={this.handleChartTimeline}>
 													1M
 												</Button>
+												<Button size="tiny" onClick={this.handleChartTimeline}>
+													3M
+												</Button>
 											</div>
 
 											<CoinChart
