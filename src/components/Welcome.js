@@ -4,8 +4,11 @@ import { Link, withRouter } from "react-router-dom";
 
 import CoinContainer from "./CoinContainer";
 
+// const imageURL =
+// 	"https://images.unsplash.com/photo-1484344825633-f1a3d9927251?auto=format&fit=crop&w=3300&q=80";
+
 const imageURL =
-	"https://images.unsplash.com/photo-1484344825633-f1a3d9927251?auto=format&fit=crop&w=3300&q=80";
+	"https://images.unsplash.com/photo-1484344825633-f1a3d9927251?auto=format&fit=crop&w=2750&q=80";
 
 const Welcome = props => {
 	return (
