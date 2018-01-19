@@ -2,8 +2,6 @@ import React from "react";
 import { Segment, Button } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
 
-import CoinContainer from "./CoinContainer";
-
 // const imageURL =
 // 	"https://images.unsplash.com/photo-1484344825633-f1a3d9927251?auto=format&fit=crop&w=3300&q=80";
 
@@ -28,7 +26,6 @@ const Welcome = props => {
 						position: "relative",
 						width: "100%",
 						textAlign: "center",
-						position: "relative",
 						top: (parseInt(window.innerHeight, 10) + 14) / 3 + "px",
 						margin: "25px"
 					}}
@@ -42,7 +39,6 @@ const Welcome = props => {
 						position: "relative",
 						width: "100%",
 						textAlign: "center",
-						position: "relative",
 						top: (parseInt(window.innerHeight, 10) + 14) / 3 + 25 + "px",
 						left: "20px"
 					}}
