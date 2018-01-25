@@ -33,7 +33,7 @@ const API = {
 		switch (chartTiming) {
 			case "7D":
 				coinHistoURL =
-					"https://min-api.cryptocompare.com/data/histohour?tsym=USD&limit=72&aggregate=3&e=CCCAGG&fsym=";
+					"https://min-api.cryptocompare.com/data/histohour?tsym=USD&limit=56&aggregate=3&e=CCCAGG&fsym=";
 				return fetch(coinHistoURL + coinSym).then(res => res.json());
 
 			case "1M":
