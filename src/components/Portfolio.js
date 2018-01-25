@@ -109,7 +109,7 @@ class Portfolio extends Component {
 					? (netTransactions[trans.coin_symbol] -=
 							parseFloat(trans.trans_price) * parseFloat(trans.quantity))
 					: (netTransactions[trans.coin_symbol] =
-							parseFloat(trans.trans_price) * parseFloat(trans.quantity));
+							-1 * parseFloat(trans.trans_price) * parseFloat(trans.quantity));
 			}
 		}
 
