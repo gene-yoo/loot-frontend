@@ -32,6 +32,9 @@ const PortfolioChart = props => {
 					scaleLabel: {
 						display: true,
 						labelString: "Price (USD)"
+					},
+					ticks: {
+						beginAtZero: true
 					}
 				}
 			],
