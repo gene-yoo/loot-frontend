@@ -39,7 +39,7 @@ class Navbar extends Component {
 										to="/markets"
 										style={{ color: "black", fontSize: "0.9em" }}
 									>
-										<Icon name="folder" size="small" /> Latest Market Prices
+										<Icon name="industry" size="small" /> Latest Market Prices
 									</Link>
 								</Dropdown.Item>
 								<Dropdown.Item className="Item">
@@ -55,7 +55,7 @@ class Navbar extends Component {
 										to="/createportfolio"
 										style={{ color: "black", fontSize: "0.9em" }}
 									>
-										<Icon name="folder" size="small" /> Create New Portfolio
+										<Icon name="add" size="small" /> Create New Portfolio
 									</Link>
 								</Dropdown.Item>
 							</Dropdown.Menu>
